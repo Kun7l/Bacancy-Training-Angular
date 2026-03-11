@@ -9,6 +9,8 @@ Ps : To locate on branch click on the branch name
 
 --> Hoisting, Closures Spread operators, Object/Array destructuring, Call/Apply/Bind, Prototypes
 
+***
+
 [introduction to typescript](https://github.com/krunal-khairanar-bacancy/Angular-Training-2026/tree/introduction_of_typescript_assignment)
 
 --> Typescript basics, Types, Interface, Generics, Decorators, Enums, Optional Readonly, Utility types, 
