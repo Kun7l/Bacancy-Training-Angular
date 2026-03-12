@@ -1,0 +1,18 @@
+<p>Product List</p>
+<ul>
+    <li>Product A ${{productAPrice()}}  quantity {{productAQuantity()}} <button (click)="increment(productAQuantity)">Add</button></li>
+    <li>Product B ${{productBPrice()}} quantity {{productBQuantity()}}  <button (click)="increment(productBQuantity)">Add</button></li>
+    <li>Product C ${{productCPrice()}} quantity {{productCQuantity()}}  <button (click)="increment(productCQuantity)">Add</button></li>
+</ul>
+<button (click)="isGenerated.set(true)">Generate bill</button>
+@if (isGenerated()) {
+    <div>
+    <h2>bill summary</h2>
+    <ul>
+        <li>Product A  qty: {{productAQuantity()}}  total: {{ productAPrice() * productAQuantity()}}</li>
+        <li>Product B  qty: {{productBQuantity()}}  total: {{ productBPrice() * productBQuantity()}}</li>
+        <li>Product C  qty: {{productCQuantity()}}  total: {{ productCPrice() * productCQuantity()}}</li>
+    </ul>
+    <h3>Total Amount: {{totalPrice()}}</h3>
+    </div>  
+}
