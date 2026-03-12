@@ -17,6 +17,7 @@ export class ProductList {
 
   increment(quantitySignal : WritableSignal<number>){
     quantitySignal.update(quantity => quantity + 1);
+    this.isGenerated.set(false);
   }
   
   isGenerated = signal(false);

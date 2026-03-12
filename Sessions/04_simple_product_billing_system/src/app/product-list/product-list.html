@@ -1,18 +1,23 @@
-<p>Product List</p>
-<ul>
-    <li>Product A ${{productAPrice()}}  quantity {{productAQuantity()}} <button (click)="increment(productAQuantity)">Add</button></li>
-    <li>Product B ${{productBPrice()}} quantity {{productBQuantity()}}  <button (click)="increment(productBQuantity)">Add</button></li>
-    <li>Product C ${{productCPrice()}} quantity {{productCQuantity()}}  <button (click)="increment(productCQuantity)">Add</button></li>
-</ul>
-<button (click)="isGenerated.set(true)">Generate bill</button>
-@if (isGenerated()) {
-    <div>
-    <h2>bill summary</h2>
-    <ul>
-        <li>Product A  qty: {{productAQuantity()}}  total: {{ productAPrice() * productAQuantity()}}</li>
-        <li>Product B  qty: {{productBQuantity()}}  total: {{ productBPrice() * productBQuantity()}}</li>
-        <li>Product C  qty: {{productCQuantity()}}  total: {{ productCPrice() * productCQuantity()}}</li>
+<div class="product-list">
+    <p>Product List</p>
+    <ul  class="products">
+        <li><span>Product A ${{productAPrice()}} </span> <span>Quantity : {{productAQuantity()}}</span> <span><button
+                (click)="increment(productAQuantity)">Add</button></span></li>
+        <li><span>Product B ${{productBPrice()}} </span> <span>Quantity : {{productBQuantity()}}</span> <span><button
+                (click)="increment(productBQuantity)">Add</button></span></li>  
+        <li><span>Product C ${{productCPrice()}} </span> <span>Quantity : {{productCQuantity()}}</span> <span><button
+                (click)="increment(productCQuantity)">Add</button></span></li>
     </ul>
-    <h3>Total Amount: {{totalPrice()}}</h3>
-    </div>  
-}
+    <button (click)="isGenerated.set(true)">Generate bill</button>
+    @if (isGenerated()) {
+    <div class="bill-summary">
+        <h2>bill summary</h2>
+        <ul>
+            <li><span>Product A</span> <span>qty: {{productAQuantity()}}</span> <span>total: {{ productAPrice() * productAQuantity()}}</span></li>
+            <li><span>Product B</span> <span>qty: {{productBQuantity()}}</span> <span>total: {{ productBPrice() * productBQuantity()}}</span></li>
+            <li><span>Product C</span> <span>qty: {{productCQuantity()}}</span> <span>total: {{ productCPrice() * productCQuantity()}}</span></li>
+            </ul>
+        <h3>Total Amount: {{totalPrice()}} $</h3>
+    </div>
+    }
+</div>
