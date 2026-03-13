@@ -1,0 +1,38 @@
+<div>
+    <div>
+        <h1>Task 1</h1>
+        <h2>{{ task1Text }}</h2>
+    </div>
+
+    <h1>Task 2</h1>
+    @if (!isHidden()) {
+    <div>
+        <h2>Person Details:</h2>
+        <p>Name : {{person().firstName}}</p>
+        <p>Email : {{person().email}}</p>
+        <p>Age : {{person().age}}</p>
+    </div>
+    }
+
+    <div>
+        <h1>Task 3</h1>
+        <button (click)="toggleHideShow()">@if(isHidden()){Show}@else {Hide}</button>
+    </div>
+
+    <div>
+        <h1>Task 4</h1>
+        <input [(ngModel)]="person().firstName" name="user">
+        <p>Hello, {{ person().firstName }}!</p>
+        
+        <input [(ngModel)]="person().email" name="user">
+        <p>Email : {{ person().email }}!</p>
+
+        <input [(ngModel)]="person().age" name="user">
+        <p>Age :  {{ person().age }}!</p>
+
+
+    </div>
+
+
+
+</div>
