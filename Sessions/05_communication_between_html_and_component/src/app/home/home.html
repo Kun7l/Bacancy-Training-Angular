@@ -15,24 +15,21 @@
     }
 
     <div>
-        <h1>Task 3</h1>
+        <h1>Task 3 : Hide and show button</h1>
         <button (click)="toggleHideShow()">@if(isHidden()){Show}@else {Hide}</button>
     </div>
 
     <div>
-        <h1>Task 4</h1>
-        <input [(ngModel)]="person().firstName" name="user">
-        <p>Hello, {{ person().firstName }}!</p>
-        
-        <input [(ngModel)]="person().email" name="user">
-        <p>Email : {{ person().email }}!</p>
+        <form action="">
+            <h1>Task 4 : Two way binding using ngModel</h1>
+            <input [(ngModel)]="person().firstName" name="firstName">
+            <p>Hello, {{ person().firstName }}!</p>
 
-        <input [(ngModel)]="person().age" name="user">
-        <p>Age :  {{ person().age }}!</p>
+            <input [(ngModel)]="person().email" name="email">
+            <p>Email : {{ person().email }}</p>
 
-
+            <input [(ngModel)]="person().age" name="age">
+            <p>Age : {{ person().age }}</p>
+        </form>
     </div>
-
-
-
 </div>

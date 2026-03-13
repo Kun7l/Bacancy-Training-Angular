@@ -12,12 +12,12 @@ export class Home {
 
   public person = signal({
     id: 1,
-    firstName: 'Terry',
-    lastName: 'Medhurst',
-    maidenName: 'Smitham',
-    age: 50,
+    firstName: 'Krunal',
+    lastName: 'Khairanar',
+    maidenName: 'Pravinbhai',
+    age: 21,
     gender: 'male',
-    email: 'atuny0@sohu.com',
+    email: 'krunalkhairanar007@gmail.com',
     phone: '+63 791 675 8914',
     username: 'atuny0',
     password: '9uQFF1Lh',
