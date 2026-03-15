@@ -1,0 +1,18 @@
+.hidden{
+    display: none;
+}
+
+.star-rating {
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+.filled-star {
+    color: gold;
+    margin-right: 5px;
+}
+
+.empty-star {
+    color: lightgray;
+    margin-right: 5px;
+}

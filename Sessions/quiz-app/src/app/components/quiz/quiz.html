@@ -1,0 +1,41 @@
+<div class="quiz">
+    @if (isStarted()) {
+    <form id="quiz-form" action="">
+        <ul>
+            <h1>Number : {{queNumber() + 1}}</h1>
+            @for (que of quiestions(); track $index) {
+            <div class="question" [ngClass]="queNumber() != $index ? 'hidden' : ''">
+                <li id>
+                    <h2>{{que.question}}</h2>
+
+                    @for (option of que.options; track $index) {
+                    <p>{{option.option}}</p>
+                    <input type="radio" name="q{{que.id}}" id="q{{que.id}}o{{option.id}}" value={{option.id}} />
+                    }
+                </li>
+
+            </div>
+            }
+            <button type="button" (click)="prevQuestion()">Previous</button>
+            <button type="button" (click)="nextQuestion()">Next</button>
+        </ul>
+        <button type="button" (click)="calculateScore()">Submit</button>
+        @if (isSubmitted()) {
+        <p>Your score is: {{score()}}/{{quiestions().length}}</p>
+        <div class="star-rating">
+            <p>Star Rating:
+                @for (star of getStarArray(); track $index) {
+                <span [ngClass]="star === 'filled' ? 'filled-star' : 'empty-star'">{{star === 'filled' ? '★' :
+                    '☆'}}</span>
+                }
+            </p>
+        </div>
+
+        }
+    </form>
+    <button (click)="resetQuiz()">Reset</button>
+    }
+    @else{
+    <button (click)="isStarted.set(true)">Start Quiz</button>
+    }
+</div>
