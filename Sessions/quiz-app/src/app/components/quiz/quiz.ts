@@ -1,5 +1,5 @@
 import { CommonModule, NgClass } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 
 @Component({
   selector: 'app-quiz',
@@ -14,6 +14,7 @@ export class Quiz {
   score = signal(0);
   queNumber = signal(0);
   stars = signal(0);
+  
 
   quiestions = signal([
     {
@@ -49,6 +50,28 @@ export class Quiz {
       ],
       answer: 1,
     },
+    {
+      id: 4,
+      question: 'What is the capital of France?',
+      options: [
+        { id: 1, option: 'Paris' },
+        { id: 2, option: 'Lyon' },
+        { id: 3, option: 'Marseille' },
+        { id: 4, option: 'Nice' },
+      ],
+      answer: 1,
+    },
+    {
+      id: 5,
+      question: 'What is the capital of Germany?',
+      options: [
+        { id: 1, option: 'Berlin' },
+        { id: 2, option: 'Munich' },
+        { id: 3, option: 'Frankfurt' },
+        { id: 4, option: 'Hamburg' },
+      ],
+      answer: 1,
+    },
   ]);
 
   nextQuestion() {
@@ -77,11 +100,13 @@ export class Quiz {
 
     this.isSubmitted.set(true);
     console.log('Final Score:', this.score());
-    this.stars.set(Math.round(this.score() * 5/this.quiestions().length)); 
+    this.stars.set(Math.round((this.score() * 5) / this.quiestions().length));
   }
 
   getStarArray() {
-    return Array.from({ length: 5 }, (_, i) => i < this.stars() ? 'filled' : 'empty');
+    return Array.from({ length: 5 }, (_, i) =>
+      i < this.stars() ? 'filled' : 'empty',
+    );
   }
 
   resetQuiz() {
@@ -92,4 +117,11 @@ export class Quiz {
     this.queNumber.set(0);
     form.reset();
   }
+
+  starColor = computed(() => {
+    const val = this.stars();
+    if (val < 2) return 'red';
+    if (val >= 2 && val <=4) return 'blue';
+    return 'green';
+  });
 }

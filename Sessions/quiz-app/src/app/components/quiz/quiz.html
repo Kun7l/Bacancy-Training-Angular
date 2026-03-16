@@ -24,9 +24,12 @@
         <p>Your score is: {{score()}}/{{quiestions().length}}</p>
         <div class="star-rating">
             <p>Star Rating:
-                @for (star of getStarArray(); track $index) {
-                <span [ngClass]="star === 'filled' ? 'filled-star' : 'empty-star'">{{star === 'filled' ? '★' :
+                @for (star of getStarArray(); track $index) { <span
+                    [ngClass]="star === 'filled' ? 'filled-star ' + starColor() : 'empty-star'">{{star === 'filled' ?
+                    '★'
+                    :
                     '☆'}}</span>
+
                 }
             </p>
         </div>

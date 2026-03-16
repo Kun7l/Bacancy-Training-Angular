@@ -8,11 +8,19 @@
 }
 
 .filled-star {
-    color: gold;
     margin-right: 5px;
 }
 
 .empty-star {
     color: lightgray;
     margin-right: 5px;
+}
+.red {
+    color : red !important;
+}
+.blue {
+    color : blue !important;
+}
+.green {
+    color : green !important;
 }
