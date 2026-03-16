@@ -16,8 +16,8 @@
 
             </div>
             }
-            <button type="button" (click)="prevQuestion()">Previous</button>
-            <button type="button" (click)="nextQuestion()">Next</button>
+            <button type="button" (click)="prevQuestion()" [disabled]="queNumber() === 0">Previous</button>
+            <button type="button" (click)="nextQuestion()" [disabled]="queNumber() === quiestions.length -1">Next</button>
         </ul>
         <button type="button" (click)="calculateScore()">Submit</button>
         @if (isSubmitted()) {
