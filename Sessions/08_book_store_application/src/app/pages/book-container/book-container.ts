@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { IBookDetails } from '../../types/book-type';
 import { BookDTO } from '../../types/bookDTO';
-import { BookList } from "../../book/components/book-list/book-list";
+import { BookList } from '../../book/components/book-list/book-list';
 
 @Component({
   selector: 'app-book-container',
@@ -10,7 +10,7 @@ import { BookList } from "../../book/components/book-list/book-list";
   styleUrl: './book-container.css',
 })
 export class BookContainer {
-  imgSource = '';
+  imgSource = 'https://book2action-5d2aff0.divio-media.net/filer_public/ae/59/ae59dfcc-a2a1-4b30-bd5f-c2948a832892/do-epic-shit.png';
   bookList = signal<IBookDetails[]>([
     {
       id: 1,
@@ -18,7 +18,7 @@ export class BookContainer {
       author: 'Ankur Warikoo',
       description:
         'A tactical follow-up on productivity and building better habits.',
-      imgSource: '',
+      imgSource: this.imgSource,
       price: 450,
     },
     {
@@ -27,7 +27,7 @@ export class BookContainer {
       author: 'Ankur Warikoo',
       description: 'A deep dive into personal finance and wealth management.',
       price: 499,
-      imgSource: '',
+      imgSource: this.imgSource,
     },
     {
       id: 3,
@@ -35,7 +35,7 @@ export class BookContainer {
       author: 'James Clear',
       description: 'Tiny changes that lead to remarkable long-term results.',
       price: 550,
-      imgSource: '',
+      imgSource: this.imgSource,
     },
     {
       id: 4,
@@ -43,7 +43,7 @@ export class BookContainer {
       author: 'Morgan Housel',
       description: 'Timeless lessons on wealth, greed, and happiness.',
       price: 350,
-      imgSource: '',
+      imgSource: this.imgSource,
     },
   ]);
 
