@@ -1,0 +1,8 @@
+<div>
+    <app-book-form (bookAddedEvent)="addBook($event)" />
+    <div class="book-list-container">
+        @for (item of bookList(); track $index) {
+        <app-book-item [bookDetails]="item" (notifyParentEvent)="notifyBook($event)"/>
+        }
+    </div>
+</div>

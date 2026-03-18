@@ -1,0 +1,15 @@
+div{
+    background-color: beige;
+    border: 1px solid black;
+    margin: 10px 16px;
+    padding: 16px;
+    width: 300px;
+}
+
+button{
+    background-color: burlywood;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 6px 12px;
+}
