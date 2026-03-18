@@ -6,6 +6,7 @@ import { IBookDetails } from '../../types/book-type';
   imports: [],
   templateUrl: './book-item.html',
   styleUrl: './book-item.css',
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class BookItem {
   @Input() bookDetails: IBookDetails = {

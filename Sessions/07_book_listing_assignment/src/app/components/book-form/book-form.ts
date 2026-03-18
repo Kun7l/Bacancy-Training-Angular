@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
 import { IBookDetails } from '../../types/book-type';
 import {
   FormControl,
@@ -13,6 +13,7 @@ import {
   imports: [ReactiveFormsModule],
   templateUrl: './book-form.html',
   styleUrl: './book-form.css',
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class BookForm {
   @Output() bookAddedEvent = new EventEmitter<IBookDetails>();
