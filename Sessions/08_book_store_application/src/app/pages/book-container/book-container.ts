@@ -1,10 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { IBookDetails } from '../../types/book-type';
 import { BookDTO } from '../../types/bookDTO';
+import { BookList } from "../../book/components/book-list/book-list";
 
 @Component({
   selector: 'app-book-container',
-  imports: [],
+  imports: [BookList],
   templateUrl: './book-container.html',
   styleUrl: './book-container.css',
 })
