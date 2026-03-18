@@ -58,5 +58,7 @@ export class BookContainer {
     this.bookList.update((bookList) => [...bookList, newBook]);
   }
 
-  
+  deleteBook(id: number) {
+    this.bookList.update((books) => books.filter((book) => book.id !== id));
+  }
 }
