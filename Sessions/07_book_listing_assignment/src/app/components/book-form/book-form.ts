@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { IBookDetails } from '../../types/book-type';
 import {
   FormControl,
@@ -7,13 +12,12 @@ import {
   Validators,
 } from '@angular/forms';
 
-
 @Component({
   selector: 'app-book-form',
   imports: [ReactiveFormsModule],
   templateUrl: './book-form.html',
   styleUrl: './book-form.css',
-  encapsulation: ViewEncapsulation.ShadowDom
+  encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class BookForm {
   @Output() bookAddedEvent = new EventEmitter<IBookDetails>();
@@ -43,5 +47,29 @@ export class BookForm {
     } else {
       alert('form not valid');
     }
+  }
+
+  getNewBookDetails(
+    bookTitle: string,
+    bookAuthor: string,
+    bookDescription: string,
+    bookPrice: string,
+  ) {
+    if (
+      bookTitle.length == 0 ||
+      bookAuthor.length == 0 ||
+      bookDescription.length == 0 ||
+      Number(bookPrice) <= 0
+    ) {
+      alert('enter valid details');
+      return;
+    }
+    const newBook: IBookDetails = {
+      title: bookTitle,
+      author: bookAuthor,
+      description: bookDescription,
+      price: Number(bookPrice),
+    };
+    this.bookAddedEvent.emit(newBook);
   }
 }

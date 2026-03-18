@@ -1,21 +1,23 @@
 <p>book-form works!</p>
-<form [formGroup]="bookForm" (ngSubmit)="onSubmit()" class="add-book-form" action="">
+<form [formGroup]="bookForm"  class="add-book-form" action="">
     <div class="form-field">
         <label for="book-title">Title</label>
-        <input type="text" id="book-title" formControlName="title" >
+        <input type="text" id="book-title" formControlName="title" #bookTitle>
     </div>
     <div class="form-field">
         <label for="book-author">Author</label>
-        <input type="text" id="book-author" formControlName="author">
+        <input type="text" id="book-author" formControlName="author" #bookAuthor>
     </div>
     <div class="form-field">
         <label for="book-description">Description</label>
-        <input type="text" id="book-description" formControlName="description">
+        <input type="text" id="book-description" formControlName="description" #bookDescription>
     </div>
     <div class="form-field">
         <label for="book-price">Price</label>
-        <input type="number" name="bookPrice" id="book-price" formControlName="price">
+        <input type="number" name="bookPrice" id="book-price" formControlName="price" #bookPrice>
     </div>
 
-    <button type="submit">Add book</button>
+    <button type="submit"
+        (click)="getNewBookDetails(bookTitle.value,bookAuthor.value,bookDescription.value,bookPrice.value)">Add
+        book</button>
 </form>
