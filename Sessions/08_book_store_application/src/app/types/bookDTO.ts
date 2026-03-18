@@ -1,4 +1,4 @@
-export interface IBookDetails {
+export interface BookDTO {
   title: string;
   author: string;
   description: string;
