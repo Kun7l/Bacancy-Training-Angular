@@ -1,6 +1,22 @@
 .book-item-container{
     background-color: rgb(240, 234, 225);
+    padding: 16px ;
+    border-radius: 12px;
+    width: 20vw;
+    transition:  all 0.6s ease-out;
 }
-.book-item-container img{
-    width: 200px;
+.book-item-container .img-div{
+    text-align: center;
+}
+.book-item-container .img-div img{
+    width: 100px;
+}
+
+.book-item-container .btn-div{
+    display: flex;
+    justify-content: space-between;
+}
+.book-item-container .btn-div button{
+    background-color: rebeccapurple;
+    color: white;
 }

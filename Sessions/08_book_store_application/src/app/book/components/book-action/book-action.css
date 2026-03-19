@@ -1,0 +1,30 @@
+.book-action-container{
+    background-color: rgb(244, 244, 244);
+    padding: 12px 24px;
+    border-radius: 12px;
+}
+.book-action-container form .form-field{
+    padding: 8px;
+}
+.book-action-container form .form-field label{
+    margin-right: 12px;
+}
+.book-action-container form .form-field input{
+    border: 1px solid gray;
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+.book-action-container form button{
+ background-color: black;
+}
+.book-action-container form button:hover{
+    background-color: rgb(11, 206, 76);
+}
+.book-action-container button {
+    color: white;
+    background-color: black;
+    transition: 0.3s all ease-in;
+}
+.book-action-container button:hover{
+    background-color: rgb(228, 51, 51);
+}

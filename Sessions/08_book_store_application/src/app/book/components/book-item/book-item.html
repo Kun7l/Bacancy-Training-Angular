@@ -1,18 +1,23 @@
 <div class="book-item-container">
-    <h3>{{book.title}}</h3>
-    <p>{{book.author}}</p>
-    <p>{{book.price}}</p>
-    <img src="{{book.imgSource}}" alt="{{book.title}} Image">
+    <h3>Title : {{book.title}}</h3>
+    <p>Author : {{book.author}}</p>
+    <p>Price : {{book.price}}₹</p>
+    <div class="img-div">
+        <img src="{{book.imgSource}}" alt="{{book.title}} Image">
+    </div>
     <br>
     @if (isViewMoreClicked()) {
     <p>{{book.description}}</p>
     }
-    <button (click)="deleteBook(book.id)">Delete</button>
-    <button (click)="editBook(book)">Edit</button>
-    <Button (click)="viewMoreToggle()">@if (isViewMoreClicked()) {
-        View Less
-        }
-        @else {
-        View More
-        }</Button>
+    <div class="btn-div">
+
+        <button (click)="viewMoreToggle()">@if (isViewMoreClicked()) {
+            View Less
+            }
+            @else {
+            View More
+            }</button>
+        <button (click)="editBook(book)">Edit</button>
+        <button (click)="deleteBook(book.id)">Delete</button>
+    </div>
 </div>
