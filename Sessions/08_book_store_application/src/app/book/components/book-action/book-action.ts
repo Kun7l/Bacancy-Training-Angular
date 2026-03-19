@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  signal,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -15,7 +23,20 @@ import { BookItem } from '../book-item/book-item';
   templateUrl: './book-action.html',
   styleUrl: './book-action.css',
 })
-export class BookAction {
+export class BookAction implements OnChanges {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['book'] && this.book()) {
+      const book = this.book();
+
+      this.bookForm.patchValue({
+        title: book.title,
+        author: book.author,
+        description: book.description,
+        price: book.price,
+      });
+    }
+  }
+  
   @Input() isAddActive = signal(false);
   @Output() closeButtonEvent = new EventEmitter<void>();
 
@@ -29,19 +50,19 @@ export class BookAction {
   });
 
   bookForm = new FormGroup({
-    title: new FormControl<string>('', {
+    title: new FormControl<string>(this.book().title, {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    author: new FormControl<string>('', {
+    author: new FormControl<string>(this.book().author, {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    description: new FormControl<string>('', {
+    description: new FormControl<string>(this.book().description, {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    price: new FormControl<number>(0, {
+    price: new FormControl<number>(this.book().price, {
       nonNullable: true,
       validators: [Validators.required, Validators.min(1)],
     }),
@@ -69,7 +90,7 @@ export class BookAction {
           price: newBookDTO.price,
           imgSource: this.book().imgSource,
         };
-        this.addBookEvent.emit(newBook);
+        this.editBookEvent.emit(newBook);
       } else {
         alert('form not valid');
       }

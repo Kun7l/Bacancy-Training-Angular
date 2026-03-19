@@ -1,5 +1,6 @@
 <div class="book-container">
     <button (click)="isAddActive.set(true)">Add Book</button>
+
     @if (isAddActive() == true && isEditActive() == false ) {
     <app-book-action (addBookEvent)="addBook($event)" [isAddActive]="isAddActive"
         (closeButtonEvent)="isAddActive.set(false)" />
@@ -9,4 +10,5 @@
         (closeButtonEvent)="isEditActive.set(false)" />
     }
     <app-book-list [bookList]="bookList()" (deleteBookEvent)="deleteBook($event)" (editBookEvent)="editBook($event)" />
+    @if (isToastVisible()) {<app-toast (toastExpired)="isToastVisible.set(false)" [message]="toastMessage()" />}
 </div>

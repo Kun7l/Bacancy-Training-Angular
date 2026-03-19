@@ -3,10 +3,11 @@ import { IBookDetails } from '../../types/book-type';
 import { BookDTO } from '../../types/bookDTO';
 import { BookList } from '../../book/components/book-list/book-list';
 import { BookAction } from '../../book/components/book-action/book-action';
+import { Toast } from '../../book/components/toast/toast';
 
 @Component({
   selector: 'app-book-container',
-  imports: [BookList, BookAction],
+  imports: [BookList, BookAction, Toast],
   templateUrl: './book-container.html',
   styleUrl: './book-container.css',
 })
@@ -25,6 +26,8 @@ export class BookContainer {
 
   isAddActive = signal(false);
   isEditActive = signal(false);
+  isToastVisible = signal(false);
+  toastMessage = signal("");
 
   bookList = signal<IBookDetails[]>([
     {
@@ -73,6 +76,9 @@ export class BookContainer {
     };
     this.bookList.update((bookList) => [...bookList, newBook]);
     this.isAddActive.set(false);
+
+    this.isToastVisible.set(true);
+    this.toastMessage.set("book added");
   }
 
   deleteBook(id: number) {
