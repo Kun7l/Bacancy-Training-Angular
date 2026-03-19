@@ -3,10 +3,12 @@
     <p>{{book.author}}</p>
     <p>{{book.price}}</p>
     <img src="{{book.imgSource}}" alt="{{book.title}} Image">
+    <br>
     @if (isViewMoreClicked()) {
     <p>{{book.description}}</p>
     }
     <button (click)="deleteBook(book.id)">Delete</button>
+    <button (click)="editBook(book)">Edit</button>
     <Button (click)="viewMoreToggle()">@if (isViewMoreClicked()) {
         View Less
         }

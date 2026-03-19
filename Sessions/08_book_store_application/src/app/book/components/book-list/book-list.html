@@ -1,5 +1,5 @@
 <div class="book-list-container">
     @for (bookItem of bookList; track $index) {
-    <app-book-item [book]="bookItem" (deleteBookEvent)="deleteBook($event)"/>
+    <app-book-item [book]="bookItem" (deleteBookEvent)="deleteBook($event)" (editBookEvent)="editBook($event)" />
     }
 </div>

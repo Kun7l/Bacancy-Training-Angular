@@ -2,15 +2,30 @@ import { Component, signal } from '@angular/core';
 import { IBookDetails } from '../../types/book-type';
 import { BookDTO } from '../../types/bookDTO';
 import { BookList } from '../../book/components/book-list/book-list';
+import { BookAction } from '../../book/components/book-action/book-action';
 
 @Component({
   selector: 'app-book-container',
-  imports: [BookList],
+  imports: [BookList, BookAction],
   templateUrl: './book-container.html',
   styleUrl: './book-container.css',
 })
 export class BookContainer {
-  imgSource = 'https://book2action-5d2aff0.divio-media.net/filer_public/ae/59/ae59dfcc-a2a1-4b30-bd5f-c2948a832892/do-epic-shit.png';
+  imgSource =
+    'https://book2action-5d2aff0.divio-media.net/filer_public/ae/59/ae59dfcc-a2a1-4b30-bd5f-c2948a832892/do-epic-shit.png';
+
+  tempBook = signal<IBookDetails>({
+    id: 0,
+    title: '',
+    author: '',
+    description: '',
+    price: 0,
+    imgSource: '',
+  });
+
+  isAddActive = signal(false);
+  isEditActive = signal(false);
+
   bookList = signal<IBookDetails[]>([
     {
       id: 1,
@@ -57,9 +72,25 @@ export class BookContainer {
       imgSource: this.imgSource,
     };
     this.bookList.update((bookList) => [...bookList, newBook]);
+    this.isAddActive.set(false);
   }
 
   deleteBook(id: number) {
     this.bookList.update((books) => books.filter((book) => book.id !== id));
+  }
+
+  editBook(book: IBookDetails) {
+    this.tempBook.set(book);
+    this.isAddActive.set(false);
+    this.isEditActive.set(true);
+  }
+
+  editBookFunction(editedBook: IBookDetails) {
+    this.bookList.update((books) =>
+      books.map((book) =>
+        book.id === editedBook.id ? { ...book, ...editedBook } : book,
+      ),
+    );
+    this.isEditActive.set(false);
   }
 }

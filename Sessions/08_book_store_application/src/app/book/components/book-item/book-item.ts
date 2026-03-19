@@ -17,6 +17,7 @@ export class BookItem {
     imgSource: '',
   };
   @Output() deleteBookEvent = new EventEmitter<number>();
+  @Output() editBookEvent = new EventEmitter<IBookDetails>();
 
   isViewMoreClicked = signal<boolean>(false);
 
@@ -25,5 +26,8 @@ export class BookItem {
   }
   deleteBook(id: number) {
     this.deleteBookEvent.emit(id);
+  }
+  editBook(book: IBookDetails){
+    this.editBookEvent.emit(book);
   }
 }
