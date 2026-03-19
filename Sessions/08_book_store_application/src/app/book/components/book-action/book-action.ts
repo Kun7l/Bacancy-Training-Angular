@@ -17,6 +17,8 @@ import { BookItem } from '../book-item/book-item';
 })
 export class BookAction {
   @Input() isAddActive = signal(false);
+  @Output() closeButtonEvent = new EventEmitter<void>();
+
   @Input() book = signal<IBookDetails>({
     id: 0,
     title: '',
@@ -72,5 +74,8 @@ export class BookAction {
         alert('form not valid');
       }
     }
+  }
+  closeButton() {
+    this.closeButtonEvent.emit();
   }
 }

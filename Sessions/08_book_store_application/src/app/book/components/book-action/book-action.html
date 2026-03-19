@@ -17,7 +17,8 @@
             <input type="number" name="bookPrice" id="book-price" formControlName="price" [(ngModel)]="book().price">
         </div>
 
-        <button type="submit">Add
-            book</button>
+        <button type="submit">@if (isAddActive()) {Add Book} @else{Update Book}</button>
+
     </form>
+    <button (click)="closeButton()">Close</button>
 </div>
