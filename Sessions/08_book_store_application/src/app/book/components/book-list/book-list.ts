@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IBookDetails } from '../../../types/book-type';
 import { BookItem } from "../book-item/book-item";
 
@@ -17,5 +17,11 @@ export class BookList {
     price: 0,
     imgSource: ''
   }];
+
+  @Output() deleteBookEvent = new EventEmitter<number>();
+  
+  deleteBook(id: number) {
+    this.deleteBookEvent.emit(id);
+  }
 
 }
