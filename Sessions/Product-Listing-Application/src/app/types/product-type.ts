@@ -1,5 +1,6 @@
 export interface IProductDetails  {
     name:string,
     price:number,
-    isInStock:boolean
+    isInStock:boolean,
+    hasDiscount:boolean
 }

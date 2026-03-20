@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { IProductDetails } from '../../types/product-type';
 import { ProductItem } from "../product-item/product-item";
+import { AppHighlightDiscount } from '../../directives/app-highlight-discount';
 
 @Component({
   selector: 'app-product-list',
@@ -13,17 +14,20 @@ export class ProductList {
     {
       name: 'Pencil',
       price: 8,
-      isInStock: true
+      isInStock: true,
+      hasDiscount: false
     },
     {
       name: 'Pen',
       price: 10,
-      isInStock: true
+      isInStock: true,
+      hasDiscount: true
     },
     {
       name: 'Eraser',
       price: 15,
-      isInStock: false
+      isInStock: false,
+      hasDiscount: false
     }
   ]);
 }

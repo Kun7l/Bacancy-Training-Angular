@@ -1,4 +1,4 @@
-<div class="product-item-container">
+<div class="product-item-container" [appAppHighlightDiscount]="product()?.hasDiscount ? 'green' : 'transperent'">
     <div class="product-heading">
         <h3>{{product()?.name}}</h3>
     </div>
