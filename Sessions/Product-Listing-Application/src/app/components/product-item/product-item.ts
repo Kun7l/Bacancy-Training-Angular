@@ -5,7 +5,7 @@ import { AppHoverScale } from '../../directives/app-hover-scale';
 import { AppStatusBorder } from '../../directives/app-status-border';
 import { AppLoading } from "../../directives/app-loading";
 import { AppIf } from '../../directives/app-if';
-import { RepeatDirective } from "../app-repeat";
+import { RepeatDirective } from "../../directives/app-repeat";
 
 
 @Component({
