@@ -3,7 +3,7 @@
         <h3>{{product()?.name}}</h3>
     </div>
     <div class="product-details">
-        <p>Price : {{product()?.price}}</p>
+        <ng-template [appIf]="product()!.isInStock"><p >Price : {{product()?.price}}</p></ng-template>
         <p>Is in stock :{{product()?.isInStock}}</p>
         <button appAppLoading (click)="addProduct(product()!)">Add to cart</button>
     </div>
