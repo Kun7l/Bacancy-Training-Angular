@@ -1,1 +1,9 @@
-<p>product-item works!</p>
+<div class="product-item-container">
+    <div class="product-heading">
+        <h3>{{product()?.name}}</h3>
+    </div>
+    <div class="product-details">
+        <p>Price : {{product()?.price}}</p>
+        <p>Is in stock :{{product()?.isInStock}}</p>
+    </div>
+</div>
