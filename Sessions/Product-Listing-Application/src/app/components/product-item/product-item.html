@@ -1,4 +1,4 @@
-<div class="product-item-container" appAppHoverScale [appAppHighlightDiscount]="product()?.hasDiscount ? 'green' : 'transperent'">
+<div class="product-item-container" [appAppStatusBorder]="product()?.isInStock ? 'green':'red'"  appAppHoverScale [appAppHighlightDiscount]="product()?.hasDiscount ? 'green' : 'transperent'" >
     <div class="product-heading">
         <h3>{{product()?.name}}</h3>
     </div>
