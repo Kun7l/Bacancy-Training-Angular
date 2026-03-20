@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { IProductDetails } from '../../types/product-type';
-import { ProductItem } from "../product-item/product-item";
+import { ProductItem } from '../product-item/product-item';
 import { AppHighlightDiscount } from '../../directives/app-highlight-discount';
 
 @Component({
@@ -15,19 +15,27 @@ export class ProductList {
       name: 'Pencil',
       price: 8,
       isInStock: true,
-      hasDiscount: false
+      hasDiscount: false,
     },
     {
       name: 'Pen',
       price: 10,
       isInStock: true,
-      hasDiscount: true
+      hasDiscount: true,
     },
     {
       name: 'Eraser',
       price: 15,
       isInStock: false,
-      hasDiscount: false
-    }
+      hasDiscount: false,
+    },
   ]);
+
+  cart = signal<IProductDetails[]>([]);
+
+  addProduct(product: IProductDetails) {
+    console.log(product);
+    
+    this.cart.update((cart) => [...cart, product]);
+  }
 }

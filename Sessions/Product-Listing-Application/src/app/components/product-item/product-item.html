@@ -5,5 +5,6 @@
     <div class="product-details">
         <p>Price : {{product()?.price}}</p>
         <p>Is in stock :{{product()?.isInStock}}</p>
+        <button appAppLoading (click)="addProduct(product()!)">Add to cart</button>
     </div>
 </div>

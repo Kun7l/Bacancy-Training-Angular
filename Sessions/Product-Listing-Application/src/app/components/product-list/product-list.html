@@ -1,7 +1,15 @@
 <div class="product-list-container">
     <div class="product-list">
         @for (product of productList(); track $index) {
-            <app-product-item [product]="product"  />
+            <app-product-item [product]="product"  (addProductEvent)="addProduct($event)"/>
         }
     </div>
+
+    @if (cart().length != 0) {
+        <h3>Cart : </h3>
+      @for (item of cart(); track $index) {
+
+        <p>{{item.name}}</p>
+      }  
+    }
 </div>
