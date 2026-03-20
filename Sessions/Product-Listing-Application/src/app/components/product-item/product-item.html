@@ -1,10 +1,19 @@
-<div class="product-item-container" [appAppStatusBorder]="product()?.isInStock ? 'green':'red'"  appAppHoverScale [appAppHighlightDiscount]="product()?.hasDiscount ? 'green' : 'transperent'" >
+<div class="product-item-container" [appAppStatusBorder]="product()?.isInStock ? 'green':'red'" appAppHoverScale
+    [appAppHighlightDiscount]="product()?.hasDiscount ? 'green' : 'transperent'">
     <div class="product-heading">
         <h3>{{product()?.name}}</h3>
     </div>
     <div class="product-details">
-        <ng-template [appIf]="product()!.isInStock"><p >Price : {{product()?.price}}</p></ng-template>
+        <ng-template [appIf]="product()!.isInStock">
+            <p>Price : {{product()?.price}}</p>
+        </ng-template>
         <p>Is in stock :{{product()?.isInStock}}</p>
+        <span *appRepeat="let p of getStarArray(product()!.stars); let i = index">{{p === 'filled' ?
+            '★'   
+            :
+            '☆'}}</span>
+        <br />
         <button appAppLoading (click)="addProduct(product()!)">Add to cart</button>
+
     </div>
 </div>

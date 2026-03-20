@@ -16,18 +16,21 @@ export class ProductList {
       price: 8,
       isInStock: true,
       hasDiscount: false,
+      stars: 2
     },
     {
       name: 'Pen',
       price: 10,
       isInStock: true,
       hasDiscount: true,
+      stars: 3
     },
     {
       name: 'Eraser',
       price: 15,
       isInStock: false,
       hasDiscount: false,
+      stars: 5
     },
   ]);
 
