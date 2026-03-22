@@ -1,4 +1,5 @@
 <div class="feed-container">
+    <button (click)="stopFeed()">Stop new posts</button>
     @for (post of initalPosts(); track $index) {
     <app-social-media-post [post]="post" (likeButtonEvent)="updateLike($event)" />
     }
