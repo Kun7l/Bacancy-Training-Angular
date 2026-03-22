@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { PostDetails } from '../../post-type';
-import { SocialMediaPost } from "../social-media-post/social-media-post";
+import { SocialMediaPost } from '../social-media-post/social-media-post';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-social-media-feed',
@@ -26,4 +27,12 @@ export class SocialMediaFeed {
       likes: 0,
     },
   ]);
+
+  updateLike(newId: number) {
+    this.initalPosts.update((posts) =>
+      posts.map((post, index) =>
+        index == newId ? { ...post, likes: post.likes + 1 } : post,
+      ),
+    );
+  }
 }

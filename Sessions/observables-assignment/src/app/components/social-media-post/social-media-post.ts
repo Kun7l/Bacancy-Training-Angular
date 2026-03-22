@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, linkedSignal, output } from '@angular/core';
 import { PostDetails } from '../../post-type';
 
 @Component({
@@ -9,4 +9,9 @@ import { PostDetails } from '../../post-type';
 })
 export class SocialMediaPost {
   post = input<PostDetails>();
+  likeButtonEvent = output<number>();
+
+  likeButton(id: number) {
+    this.likeButtonEvent.emit(id);
+  }
 }

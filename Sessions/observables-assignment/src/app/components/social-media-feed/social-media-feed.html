@@ -1,5 +1,5 @@
 <div class="feed-container">
     @for (post of initalPosts(); track $index) {
-        <app-social-media-post [post]="post" />
+    <app-social-media-post [post]="post" (likeButtonEvent)="updateLike($event)" />
     }
 </div>
