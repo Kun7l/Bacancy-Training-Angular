@@ -1,1 +1,5 @@
-<p>social-media-feed works!</p>
+<div class="feed-container">
+    @for (post of initalPosts(); track $index) {
+        <app-social-media-post [post]="post" />
+    }
+</div>

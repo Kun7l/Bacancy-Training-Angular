@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { PostDetails } from '../../post-type';
 
 @Component({
   selector: 'app-social-media-post',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './social-media-post.css',
 })
 export class SocialMediaPost {
-
+  post = input<PostDetails>();
 }
