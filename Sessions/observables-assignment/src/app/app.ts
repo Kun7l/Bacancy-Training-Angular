@@ -4,7 +4,7 @@ import { SocialMediaFeed } from "./components/social-media-feed/social-media-fee
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SocialMediaFeed],
+  imports: [SocialMediaFeed],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,7 +1,11 @@
 <div class="feed-container">
-    <button (click)="stopFeed()">Stop new posts</button>
-    <h2>Total likes : {{totalLikes()}}</h2>
-    @for (post of initalPosts(); track $index) {
-    <app-social-media-post [post]="post" (likeButtonEvent)="updateLike($event)" />
-    }
+    <div class="feed-header">
+        <button (click)="stopFeed()">Stop new posts</button>
+        <h2>Total likes : {{totalLikes()}}</h2>
+    </div>
+    <div class="post-container">
+        @for (post of initalPosts(); track $index) {
+        <app-social-media-post [post]="post" (likeButtonEvent)="updateLike($event)" />
+        }
+    </div>
 </div>
