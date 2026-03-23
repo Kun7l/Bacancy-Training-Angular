@@ -33,8 +33,7 @@ export class SocialMediaFeed {
       };
 
       observer.next(newPost);
-    }, 2000); 
-
+    }, 2000);
 
     return () => clearInterval(intervalId);
   });
@@ -56,5 +55,12 @@ export class SocialMediaFeed {
 
   stopFeed() {
     this.isStopped = true;
+  }
+
+  totalLikes(): number {
+    let likes = 0;
+    this.initalPosts().map((post) => (likes += post.likes));
+    console.log(likes);
+    return likes;
   }
 }
