@@ -16,16 +16,9 @@ export class SocialMediaFeed {
     { id: 2, content: 'This is post 3', likes: 0 },
   ]);
 
-  isStopped = false;
-
   myObservable$ = new Observable<PostDetails>((observer) => {
     const intervalId = setInterval(() => {
-      if (this.isStopped) {
-        observer.complete();
-        clearInterval(intervalId);
-        return;
-      }
-
+      
       const newPost: PostDetails = {
         id: this.initalPosts().length,
         content: 'new content ' + (this.initalPosts().length + 1),
@@ -54,7 +47,7 @@ export class SocialMediaFeed {
   }
 
   stopFeed() {
-    this.isStopped = true;
+    this.subscription.unsubscribe();
   }
 
   totalLikes(): number {
