@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { PostDetails } from '../../post-type';
 import { SocialMediaPost } from '../social-media-post/social-media-post';
-import { map, Observable } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-social-media-feed',
@@ -16,9 +16,25 @@ export class SocialMediaFeed {
     { id: 2, content: 'This is post 3', likes: 0 },
   ]);
 
+  isFeedStopped = true;
+
+  updateLike(newId: number) {
+    this.initalPosts.update((posts) =>
+      posts.map((post, index) =>
+        index === newId ? { ...post, likes: post.likes + 1 } : post,
+      ),
+    );
+  }
+
+  totalLikes(): number {
+    let likes = 0;
+    this.initalPosts().map((post) => (likes += post.likes));
+    console.log(likes);
+    return likes;
+  }
+
   myObservable$ = new Observable<PostDetails>((observer) => {
     const intervalId = setInterval(() => {
-      
       const newPost: PostDetails = {
         id: this.initalPosts().length,
         content: 'new content ' + (this.initalPosts().length + 1),
@@ -31,29 +47,29 @@ export class SocialMediaFeed {
     return () => clearInterval(intervalId);
   });
 
-  subscription = this.myObservable$.subscribe({
-    next: (val) => {
-      this.initalPosts.update((posts) => [...posts, val]);
-    },
-    complete: () => console.log('Done!'),
-  });
+  subscription: Subscription | undefined;
 
-  updateLike(newId: number) {
-    this.initalPosts.update((posts) =>
-      posts.map((post, index) =>
-        index === newId ? { ...post, likes: post.likes + 1 } : post,
-      ),
-    );
+  subscribeFeed() {
+    this.subscription = this.myObservable$.subscribe({
+      next: (val) => {
+        this.initalPosts.update((posts) => [...posts, val]);
+      },
+      complete: () => console.log('Done!'),
+    });
+  }
+  unsubscribeFeed() {
+    if (this.subscription != undefined) {
+      this.subscription.unsubscribe();
+    }
   }
 
-  stopFeed() {
-    this.subscription.unsubscribe();
-  }
-
-  totalLikes(): number {
-    let likes = 0;
-    this.initalPosts().map((post) => (likes += post.likes));
-    console.log(likes);
-    return likes;
+  toggleFeed() {
+    if (this.isFeedStopped) {
+      this.subscribeFeed();
+      this.isFeedStopped = false;
+    } else {
+      this.unsubscribeFeed();
+      this.isFeedStopped = true;
+    }
   }
 }

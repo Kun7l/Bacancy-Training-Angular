@@ -1,6 +1,6 @@
 <div class="feed-container">
     <div class="feed-header">
-        <button (click)="stopFeed()">Stop new posts</button>
+        <button (click)="toggleFeed()">{{isFeedStopped? 'Start':'Stop'}} Feed</button>
         <h2>Total likes : {{totalLikes()}}</h2>
     </div>
     <div class="post-container">
