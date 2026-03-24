@@ -1,0 +1,10 @@
+
+.home-container div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#addDeptInput{
+    margin-left: 10px;
+    margin-right: 5px;
+}

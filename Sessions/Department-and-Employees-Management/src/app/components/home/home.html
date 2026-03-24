@@ -1,0 +1,15 @@
+<div class="home-container">
+    <div>
+        <div>
+            <label for="addDeptInput">Add Department</label>
+            <input id="addDeptInput" type="text" #deptName>
+        </div>
+        <button (click)="addButtonClick(deptName.value); deptName.value=''">Add</button>
+    </div>
+    <div>
+
+        @for (item of localDepartments; track $index) {
+        <app-department [deptName]="item" />
+        }
+    </div>
+</div>

@@ -1,0 +1,12 @@
+.dept-container{
+    padding: 16px 24px;
+    border: 2px solid black;
+    margin: 5px;
+}
+li{
+    list-style: none;
+    border: 1px solid black;
+    padding: 2px 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
