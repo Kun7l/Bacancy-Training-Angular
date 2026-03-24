@@ -8,14 +8,17 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class EmployeeService {
   isActive = signal<boolean>(false);
 
-   employees$ = new BehaviorSubject<Employee[]>([]);
+  employees$ = new Subject<Employee>();
 
   addEmployee(name: string) {
-    const currentEmployees = this.employees$.value;
     const newEmployee: Employee = {
-      id: currentEmployees.length,
+      id: 2,
       name: name,
     };
-    this.employees$.next([...currentEmployees,newEmployee])
+    this.employees$.next(newEmployee);
+  }
+
+  getAll() {
+    return this.employees$;
   }
 }

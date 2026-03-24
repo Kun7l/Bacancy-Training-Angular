@@ -5,13 +5,17 @@
     <input type="text" #empName>
     <button (click)="addEmployee(empName.value); empName.value = ''">Add</button>
     <div>
-        @if (localEmployees.length != 0) { <h4>Employee List </h4>
-        @for (item of localEmployees; track $index) {
+        @if (localEmployees().length != 0) { <h4>Employee List </h4>
+        @for (item of localEmployees(); track $index) {
         <li>{{item.name}}</li>
         }}
         @else {
             <p>No employees </p>
         }
-
+        <div>
+            <app-list/>
+        </div>
+       
     </div>
+
 </div>
