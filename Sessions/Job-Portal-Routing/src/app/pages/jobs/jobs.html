@@ -1,0 +1,5 @@
+<div>
+    @for (job of jobList(); track $index) {
+    <li><a [routerLink]="['/jobs', job.id]">{{job.role}}</a></li>
+    }
+</div>

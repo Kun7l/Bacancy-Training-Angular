@@ -1,0 +1,10 @@
+@if (selectedJob(); as job) {
+<h2>Job Details</h2>
+<p><strong>ID:</strong> {{ job.id }}</p>
+<p><strong>Role:</strong> {{ job.role }}</p>
+<p><strong>Salary:</strong> {{ job.salary }}</p>
+} @else {
+<p>Job not found.</p>
+}
+
+<a href="/jobs">Back to Jobs</a>
