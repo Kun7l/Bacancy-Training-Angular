@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, OnDestroy } from '@angular/core';
 
 import { EmployeeService } from '../../services/employee-service';
 import { Employee } from '../../employee.type';
@@ -10,13 +10,17 @@ import { Employee } from '../../employee.type';
   styleUrl: './department.css',
   providers: [EmployeeService],
 })
-export class Department {
+export class Department implements OnDestroy {
   constructor(public empService: EmployeeService) {}
 
   deptName = input<string>();
   localEmployees: Employee[] = [];
 
   addEmployee(name: string) {
+    if (!name) {
+      alert('Please enter employee name');
+      return;
+    }
     this.empService.addEmployee(name);
   }
 
@@ -25,5 +29,8 @@ export class Department {
       this.localEmployees = emps;
       console.log('Emps' + emps);
     });
+  }
+  ngOnDestroy(): void {
+    this.empService.employees$.unsubscribe();
   }
 }
