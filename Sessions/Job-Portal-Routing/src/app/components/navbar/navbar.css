@@ -1,3 +1,23 @@
-.active{
-    background-color: red;
+nav {
+  background-color: antiquewhite;
+  padding: 16px;
+}
+nav ul {
+  display: flex;
+  margin: 0;
+  justify-content: center;
+}
+nav ul li {
+  list-style: none;
+}
+nav ul li a {
+  text-decoration: none;
+  margin: 2px 5px;
+  padding: 5px 15px;
+  background-color: burlywood;
+  border-radius: 8px;
+  color: white;
+}
+.active {
+  background-color: black !important;
 }

@@ -1,0 +1,54 @@
+/* ── LEGO Card ───────────────────────────────────────── */
+.lego-card {
+  position: relative;
+  background: var(--surface-top);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition:
+    transform 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 200ms ease;
+  box-shadow: var(--shadow-md);
+}
+
+.lego-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Glossy top-left highlight ───────────────────────── */
+.lego-card__gloss {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  background: linear-gradient(
+    145deg,
+    hsla(0, 0%, 100%, 0.1) 0%,
+    hsla(0, 0%, 100%, 0.03) 50%,
+    transparent 100%
+  );
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  pointer-events: none;
+}
+
+.lego-card__content {
+  position: relative;
+  z-index: 1;
+  padding: 28px;
+}
+
+/* ── Elevated variant ─────────────────────────────────── */
+.lego-card--elevated {
+  background: var(--surface-popup);
+  box-shadow:
+    0 12px 40px hsla(220, 30%, 5%, 0.6),
+    0 4px 12px  hsla(220, 30%, 5%, 0.4),
+    inset 0 1px 0 hsla(255, 100%, 100%, 0.06);
+}
+
+/* ── Accent left-bar variants ─────────────────────────── */
+.lego-card--accent-red   { box-shadow: var(--shadow-md), inset 4px 0 0 hsl(4, 88%, 48%); }
+.lego-card--accent-yellow{ box-shadow: var(--shadow-md), inset 4px 0 0 hsl(46, 98%, 50%); }
+.lego-card--accent-blue  { box-shadow: var(--shadow-md), inset 4px 0 0 hsl(214, 90%, 42%); }
+.lego-card--accent-green { box-shadow: var(--shadow-md), inset 4px 0 0 hsl(142, 78%, 34%); }

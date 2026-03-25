@@ -1,0 +1,17 @@
+<div class="lego-input-wrapper" [class.lego-input-wrapper--focused]="isFocused">
+  @if (label) {
+    <label [for]="id" class="lego-input__label">{{ label }}</label>
+  }
+  <div class="lego-input__field-wrap">
+    <input
+      [id]="id"
+      [type]="type"
+      [placeholder]="placeholder"
+      [value]="value"
+      class="lego-input__field"
+      (input)="onInput($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+    />
+  </div>
+</div>

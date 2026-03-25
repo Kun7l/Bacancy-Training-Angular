@@ -1,0 +1,72 @@
+/* ── LEGO Container (The "Plate") ──────────────────────── */
+.lego-container {
+  position: relative;
+  background: var(--surface-mid);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow:
+    var(--shadow-md),
+    inset 0 1px 0 hsla(255, 100%, 100%, 0.07),
+    inset 0 -2px 0 hsla(220, 30%, 5%, 0.3);
+}
+
+/* ── Ridge bar — visual "snap" indicator at top ─────── */
+.lego-container__ridge {
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsla(0, 0%, 100%, 0.06) 20%,
+    hsla(0, 0%, 100%, 0.1)  50%,
+    hsla(0, 0%, 100%, 0.06) 80%,
+    transparent 100%
+  );
+}
+
+/* ── Inner content area ─────────────────────────────── */
+.lego-container__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.lego-container--padded .lego-container__inner {
+  padding: 32px;
+}
+
+.lego-container--full {
+  width: 100%;
+}
+
+/* ── Color accent tints ─────────────────────────────── */
+.lego-container--blue {
+  background: linear-gradient(
+    135deg,
+    hsl(214, 60%, 16%) 0%,
+    hsl(214, 40%, 20%) 100%
+  );
+}
+.lego-container--red {
+  background: linear-gradient(
+    135deg,
+    hsl(4, 55%, 16%) 0%,
+    hsl(4, 35%, 22%) 100%
+  );
+}
+.lego-container--yellow {
+  background: linear-gradient(
+    135deg,
+    hsl(46, 55%, 14%) 0%,
+    hsl(46, 35%, 20%) 100%
+  );
+}
+.lego-container--green {
+  background: linear-gradient(
+    135deg,
+    hsl(142, 50%, 12%) 0%,
+    hsl(142, 30%, 18%) 100%
+  );
+}
+.lego-container--neutral {
+  background: var(--surface-mid);
+}

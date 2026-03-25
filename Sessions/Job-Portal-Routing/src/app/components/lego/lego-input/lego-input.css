@@ -1,0 +1,57 @@
+/* ── LEGO Input ─────────────────────────────────────── */
+.lego-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lego-input__label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: color 140ms ease;
+}
+
+.lego-input-wrapper--focused .lego-input__label {
+  color: var(--lego-blue-light);
+}
+
+.lego-input__field-wrap {
+  position: relative;
+  border-radius: var(--radius-md);
+  background: hsl(220, 20%, 10%);
+  /* Inset shadow — makes it look embedded into the surface */
+  box-shadow:
+    var(--shadow-inset),
+    0 1px 0 hsla(255, 100%, 100%, 0.04);
+  transition: box-shadow 160ms ease;
+}
+
+.lego-input-wrapper--focused .lego-input__field-wrap {
+  box-shadow:
+    var(--shadow-inset),
+    0 0 0 2px hsl(214, 90%, 42%),
+    0 0 12px hsla(214, 90%, 42%, 0.3);
+}
+
+.lego-input__field {
+  width: 100%;
+  padding: 14px 18px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+  border-radius: var(--radius-md);
+  caret-color: hsl(214, 90%, 62%);
+}
+
+.lego-input__field::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}

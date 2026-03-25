@@ -1,0 +1,10 @@
+<button
+  [type]="type"
+  [class]="'lego-btn ' + variantClass + ' ' + sizeClass"
+  [class.lego-btn--disabled]="disabled"
+  [disabled]="disabled"
+  (click)="onClick()"
+>
+  <span class="lego-btn__gloss"></span>
+  <span class="lego-btn__label">{{ label }}</span>
+</button>
