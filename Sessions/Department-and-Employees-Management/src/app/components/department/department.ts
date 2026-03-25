@@ -2,6 +2,7 @@ import { Component, input, OnDestroy } from '@angular/core';
 
 import { EmployeeService } from '../../services/employee-service';
 import { Employee } from '../../employee.type';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-department',
@@ -12,6 +13,8 @@ import { Employee } from '../../employee.type';
 })
 export class Department implements OnDestroy {
   constructor(public empService: EmployeeService) {}
+
+  subcription!: Subscription;
 
   deptName = input<string>();
   localEmployees: Employee[] = [];
@@ -25,12 +28,12 @@ export class Department implements OnDestroy {
   }
 
   ngOnInit() {
-    this.empService.employees$.subscribe((emps) => {
+    this.subcription = this.empService.employees$.subscribe((emps) => {
       this.localEmployees = emps;
       console.log('Emps' + emps);
     });
   }
   ngOnDestroy(): void {
-    this.empService.employees$.unsubscribe();
+    this.subcription.unsubscribe();
   }
 }
