@@ -1,31 +1,45 @@
-import { Component, computed, signal, WritableSignal } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { Product } from '../product.type';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-list',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
 })
 export class ProductList {
-  productAPrice = signal(100);
-  productBPrice = signal(200);
-  productCPrice = signal(50);
+  productList = signal<Product[]>([
+    {
+      id: 0,
+      name: 'Product A',
+      price: 100,
+      quantity: 0,
+    },
+    {
+      id: 1,
+      name: 'Product B',
+      price: 200,
+      quantity: 0,
+    },
+  ]);
 
-  productAQuantity = signal(1);
-  productBQuantity = signal(1);
-  productCQuantity = signal(1);
-
-  increment(quantitySignal : WritableSignal<number>){
-    quantitySignal.update(quantity => quantity + 1);
-    this.isGenerated.set(false);
-  }
-  
   isGenerated = signal(false);
+  totalPrice = signal(0);
+  generateBill() {
+    this.isGenerated.set(true);
+    this.totalPrice.set(this.calculateTotal());
+  }
+  calculateTotal() {
+    const products = this.productList();
+    let totalValue = 0;
 
-   totalPrice = computed(() => {
-    return (this.productAPrice() * this.productAQuantity()) + 
-           (this.productBPrice() * this.productBQuantity()) + 
-           (this.productCPrice() * this.productCQuantity());
-  });
+    for (let index = 0; index < products.length; index++) {
+      const product = products[index];
+      // Total for each product is price * quantity
+      totalValue += product.price * product.quantity;
+    }
+
+    return totalValue;
+  }
 }
-

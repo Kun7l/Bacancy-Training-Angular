@@ -1,22 +1,23 @@
 <div class="product-list">
     <p>Product List</p>
-    <ul  class="products">
-        <li><span>Product A ${{productAPrice()}} </span> <span>Quantity : {{productAQuantity()}}</span> <span><button
-                (click)="increment(productAQuantity)">Add</button></span></li>
-        <li><span>Product B ${{productBPrice()}} </span> <span>Quantity : {{productBQuantity()}}</span> <span><button
-                (click)="increment(productBQuantity)">Add</button></span></li>  
-        <li><span>Product C ${{productCPrice()}} </span> <span>Quantity : {{productCQuantity()}}</span> <span><button
-                (click)="increment(productCQuantity)">Add</button></span></li>
+    <ul class="products">
+        @for (product of productList(); track $index) {
+        <li><span>{{product.name}} </span> <span>Quantity : {{product.quantity}}</span> <span>Price : {{product.price}} $</span>
+            <span><input type="number" min="1" [(ngModel)]="product.quantity" name="quantity-{{$index}}"/></span>
+        </li>
+        }
     </ul>
-    <button (click)="isGenerated.set(true)">Generate bill</button>
+    <button (click)="generateBill()">Generate bill</button>
     @if (isGenerated()) {
     <div class="bill-summary">
         <h2>bill summary</h2>
         <ul>
-            <li><span>Product A</span> <span>qty: {{productAQuantity()}}</span> <span>total: {{ productAPrice() * productAQuantity()}}</span></li>
-            <li><span>Product B</span> <span>qty: {{productBQuantity()}}</span> <span>total: {{ productBPrice() * productBQuantity()}}</span></li>
-            <li><span>Product C</span> <span>qty: {{productCQuantity()}}</span> <span>total: {{ productCPrice() * productCQuantity()}}</span></li>
-            </ul>
+            @for (product of productList(); track $index) {
+            <li><span>{{product.name}} </span> <span>Quantity : {{product.quantity}}</span><span>Price : {{product.price}}</span>
+                
+            </li>
+            }
+        </ul>
         <h3>Total Amount: {{totalPrice()}} $</h3>
     </div>
     }
