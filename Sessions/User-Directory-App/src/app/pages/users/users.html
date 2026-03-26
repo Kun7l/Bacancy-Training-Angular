@@ -1,0 +1,7 @@
+<div class="user-container">
+    <div>
+        @for (item of userListArray; track $index) {
+        <li><a [routerLink]="[item.id]" [queryParams]="{dark:0}" [fragment]="'frag-value'">{{item.name}}</a></li>
+        }
+    </div>
+</div>

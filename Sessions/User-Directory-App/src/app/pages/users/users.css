@@ -1,0 +1,18 @@
+.user-container{
+    padding: 16px;
+    text-align: center;
+    list-style: none;
+}
+.user-container div{
+    border: 2px solid black;
+    padding: 16px;
+    width: 25vw;
+}
+.user-container div li{
+    border: 1px solid black;
+    padding: 5px;
+}
+.user-container div li a {
+    text-decoration: none;
+    color: black;
+}

@@ -1,0 +1,8 @@
+.user-detail-div{
+    border: 1px solid black;
+    padding: 16px;
+}
+.dark{
+    background-color: black;
+    color: white;
+}

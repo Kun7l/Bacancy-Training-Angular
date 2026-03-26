@@ -1,0 +1,10 @@
+<div class="post-component">
+    <button (click)="onBackClick()">Back</button>
+    @for (post of posts; track $index) {
+    <div class="post">
+        <p>Content: {{post.content}}</p>
+        <p>Likes: {{post.likes}}</p>
+    </div>
+    }
+
+</div>

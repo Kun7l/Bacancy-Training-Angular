@@ -1,0 +1,9 @@
+<div class="user-detail-div" [ngClass]="{'dark':isDark}">
+    <button (click)="backButton()">Back</button>
+    <p>Name: {{user.name}}</p>
+    <p>Followers: {{user.followers}}</p>
+    <p>Followings: {{user.followings}}</p>
+    <p>fragment : {{fragment}}</p>
+    <a [routerLink]="['posts']" [queryParams]="{sort:'asc'}">Posts</a>
+    <router-outlet />
+</div>
