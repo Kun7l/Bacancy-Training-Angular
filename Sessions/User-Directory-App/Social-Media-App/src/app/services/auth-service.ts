@@ -7,6 +7,8 @@ export class AuthService {
   private isLoggedIn = false;
   login() {
     this.isLoggedIn = true;
+    console.log(this.isLoggedIn);
+    
   }
   logout() {
     this.isLoggedIn = false;

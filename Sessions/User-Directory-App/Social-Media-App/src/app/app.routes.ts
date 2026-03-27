@@ -5,6 +5,10 @@ import { MainLayout } from './layout/main-layout/main-layout';
 import { User } from './pages/user/user';
 import { Posts } from './pages/posts/posts';
 import { Login } from './pages/login/login';
+import { AuthGuard } from './guards/auth-guard';
+import { PostForm } from './components/post-form/post-form';
+import { canDeactivateGuard } from './guards/can-deactivate-guard';
+import { postsResolver } from './guards/resolver-guard';
 
 export const routes: Routes = [
   {
@@ -15,7 +19,20 @@ export const routes: Routes = [
       {
         path: 'user',
         component: User,
-        children: [{ path: 'posts', component: Posts }],
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        children: [
+          {
+            path: 'posts',
+            component: Posts,
+            resolve: { postData: postsResolver },
+          },
+          {
+            path: 'posts/create',
+            component: PostForm,
+            canDeactivate: [canDeactivateGuard],
+          },
+        ],
       },
     ],
   },
