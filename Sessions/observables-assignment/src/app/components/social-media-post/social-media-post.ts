@@ -8,7 +8,7 @@ import { PostDetails } from '../../post-type';
   styleUrl: './social-media-post.css',
 })
 export class SocialMediaPost {
-  post = input<PostDetails>();
+  post = input<PostDetails | undefined>(undefined);
   likeButtonEvent = output<number>();
 
   likeButton(id: number) {

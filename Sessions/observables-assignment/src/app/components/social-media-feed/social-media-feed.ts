@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { PostDetails } from '../../post-type';
 import { SocialMediaPost } from '../social-media-post/social-media-post';
 import { map, Observable, Subscription } from 'rxjs';
@@ -10,13 +10,14 @@ import { map, Observable, Subscription } from 'rxjs';
   styleUrl: './social-media-feed.css',
 })
 export class SocialMediaFeed {
+  subscription: Subscription | undefined;
+  isFeedStopped = true;
+
   initalPosts = signal<PostDetails[]>([
     { id: 0, content: 'This is post 1', likes: 0 },
     { id: 1, content: 'This is post 2', likes: 0 },
     { id: 2, content: 'This is post 3', likes: 0 },
   ]);
-
-  isFeedStopped = true;
 
   updateLike(newId: number) {
     this.initalPosts.update((posts) =>
@@ -26,12 +27,9 @@ export class SocialMediaFeed {
     );
   }
 
-  totalLikes(): number {
-    let likes = 0;
-    this.initalPosts().map((post) => (likes += post.likes));
-    console.log(likes);
-    return likes;
-  }
+  totalLikes = computed(() => {
+    return this.initalPosts().reduce((sum, post) => sum + post.likes, 0);
+  });
 
   myObservable$ = new Observable<PostDetails>((observer) => {
     const intervalId = setInterval(() => {
@@ -46,8 +44,6 @@ export class SocialMediaFeed {
 
     return () => clearInterval(intervalId);
   });
-
-  subscription: Subscription | undefined;
 
   subscribeFeed() {
     this.subscription = this.myObservable$.subscribe({
@@ -72,4 +68,9 @@ export class SocialMediaFeed {
       this.isFeedStopped = true;
     }
   }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 }
+
