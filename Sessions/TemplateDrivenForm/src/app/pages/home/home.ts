@@ -1,6 +1,5 @@
-import { Component, ViewChild, viewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Form } from '../../components/form/form';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -9,5 +8,12 @@ import { NgForm } from '@angular/forms';
   styleUrl: './home.css',
 })
 export class Home {
-  
+  @ViewChild(Form) childFromComponent!: Form;
+
+  setValue() {
+    this.childFromComponent.setFormValue();
+  }
+  patchValue() {
+    this.childFromComponent.patchFormValue();
+  }
 }

@@ -1,60 +1,97 @@
 <div class="form-container">
+    <!-- First name is two way binding so it changes as we change it in input -->
+    <!-- whereas in Last name it is one way binding so it doesnt change -->
+    <p>Hellow, {{defaultFirstName()}} {{defaultLastName()}}</p>
     <form #tdForm="ngForm" (ngSubmit)="onSubmit(tdForm)">
         <div class="form-group" ngModelGroup="nameGroup">
             <div class="form-field">
                 <label for="">First Name</label>
-                <input type="text" name="firstName" ngModel #fullName="ngModel" required minlength="5">
+                <input type="text" name="firstName" [(ngModel)]="defaultFirstName" #fullName="ngModel" required
+                    minlength="5">
             </div>
-            <span class="error-message" *ngIf="fullName.errors?.['minlength']">Min length 5</span>
+            <span class="error-message"
+                *ngIf="(fullName.touched || fullName.dirty) && !fullName.valid && fullName.errors?.['required']">This
+                field is required.</span>
+            <span class="error-message"
+                *ngIf="(fullName.touched || fullName.dirty) && !fullName.valid && fullName.errors?.['minlength']">Min
+                length 5.</span>
             <div class="form-field">
                 <label for="">Last Name</label>
-                <input type="text" name="lastName" ngModel #lastName="ngModel" required minlength="5">
+                <input type="text" name="lastName" [ngModel]="defaultLastName()" #lastName="ngModel" required
+                    minlength="5">
             </div>
-            <span class="error-message" *ngIf="lastName.errors?.['minlength']">Min length 5</span>
+            <span class="error-message"
+                *ngIf="(lastName.touched || lastName.dirty) && !lastName.valid && lastName.errors?.['required']">This
+                field is required.</span>
+            <span class="error-message"
+                *ngIf="(lastName.touched || lastName.dirty) && !lastName.valid && lastName.errors?.['minlength']">Min
+                length 5.</span>
         </div>
         <div class="form-group">
             <div class="form-field">
                 <label for="">Email</label>
                 <input type="email" name="email" ngModel #email="ngModel" email required>
             </div>
+            <span class="error-message"
+                *ngIf="(email.touched || email.dirty) && !email.valid && email.errors?.['required']">This field is
+                required.</span>
+            <span class="error-message"
+                *ngIf="(email.touched || email.dirty) && !email.valid && email.errors?.['email']">Enter a valid email
+                address.</span>
         </div>
         <div class="form-group">
             <div class="form-field">
                 <label for="">Phone number</label>
                 <input type="tel" name="phoneNumber" #phoneNumber="ngModel" ngModel required>
             </div>
-            
+            <span class="error-message"
+                *ngIf="(phoneNumber.touched || phoneNumber.dirty) && !phoneNumber.valid && phoneNumber.errors?.['required']">This
+                field is required.</span>
         </div>
         <div class="form-group">
             <div class="form-field">
                 <label for="">Password</label>
                 <input type="password" name="password" #password="ngModel" ngModel required minlength="5">
             </div>
-            <span class="error-message" *ngIf="password.errors?.['minlength']">Min length 5</span>
+            <span class="error-message"
+                *ngIf="(password.touched || password.dirty) && !password.valid && password.errors?.['required']">This
+                field is required.</span>
+            <span class="error-message"
+                *ngIf="(password.touched || password.dirty) && !password.valid && password.errors?.['minlength']">Min
+                length 5.</span>
         </div>
         <div class="form-group">
             <div class="form-field">
                 <label for="">Gender</label>
-                <input type="radio" name="gender" [value]="'male'" ngModel required>Male
+                <input type="radio" name="gender" [value]="'male'" ngModel #gender="ngModel" required>Male
                 <input type="radio" name="gender" [value]="'female'" ngModel required>Female
             </div>
+            <span class="error-message"
+                *ngIf="(gender.touched || gender.dirty) && !gender.valid && gender.errors?.['required']">This field is
+                required.</span>
         </div>
         <div class="form-group">
             <div class="form-field">
                 <label for="">Address pincode</label>
-                <input type="number" name="pincode" ngModel required>
+                <input type="number" name="pincode" ngModel #pincode="ngModel" required>
             </div>
+            <span class="error-message"
+                *ngIf="(pincode.touched || pincode.dirty) && !pincode.valid && pincode.errors?.['required']">This field
+                is required.</span>
         </div>
         <div class="form-group">
             <div class="form-field">
                 <label for="">City</label>
-                <select name="city" ngModel required>
+                <select name="city" ngModel #cityCtrl="ngModel" required>
                     <option value="" selected disabled hidden>Select city</option>
                     <option value="surat" selected>Surat</option>
                     <option value="ahmedabad">Ahmedabad</option>
                     <option value="rajkot">Rajkot</option>
                 </select>
             </div>
+            <span class="error-message"
+                *ngIf="(cityCtrl.touched || cityCtrl.dirty) && !cityCtrl.valid && cityCtrl.errors?.['required']">This
+                field is required.</span>
         </div>
         <div class="form-grup">
             <div class="form-field">
@@ -66,7 +103,37 @@
             <button type="submit" class="submit" [disabled]="tdForm.invalid">
                 Submit
             </button>
-            <Button type="reset" class="reset">Reset</Button>
+            <button type="reset" (click)="onReset()" class="reset">Reset</button>
         </div>
     </form>
+
+
+    @if (isSubmitted && submittedDetails != null) {
+    <div class="submitted-details">
+        <h3>Submitted details</h3>
+        <dl>
+            <dt>First name</dt>
+            <dd>{{ $any(submittedDetails!['nameGroup'])?.firstName }}</dd>
+            <dt>Last name</dt>
+            <dd>{{ $any(submittedDetails!['nameGroup'])?.lastName }}</dd>
+            <dt>Email</dt>
+            <dd>{{ submittedDetails!['email'] }}</dd>
+            <dt>Phone</dt>
+            <dd>{{ submittedDetails!['phoneNumber'] }}</dd>
+            <dt>Password</dt>
+            <dd>{{ submittedDetails!['password'] }}</dd>
+            <dt>Gender</dt>
+            <dd>{{ submittedDetails!['gender'] }}</dd>
+            <dt>Pincode</dt>
+            <dd>{{ submittedDetails!['pincode'] }}</dd>
+            <dt>City</dt>
+            <dd>{{ submittedDetails!['city'] }}</dd>
+            <dt>Remember me</dt>
+            <dd>{{ submittedDetails!['rememberMe'] }}</dd>
+        </dl>
+    </div>
+    }
+    @else {
+    <p>No details Yet</p>
+    }
 </div>
