@@ -20,6 +20,7 @@
             <button type="button" (click)="nextQuestion()"
                 [disabled]="queNumber() === quiestions.length -1">Next</button>
         </ul>
+        <button (click)="resetQuiz()">Reset</button>
         @if(queNumber() === quiestions().length -1){
         <button type="button" (click)="calculateScore()">Submit</button>
         }
@@ -39,7 +40,7 @@
 
         }
     </form>
-    <button (click)="resetQuiz()">Reset</button>
+
     }
     @else{
     <button (click)="isStarted.set(true)">Start Quiz</button>
