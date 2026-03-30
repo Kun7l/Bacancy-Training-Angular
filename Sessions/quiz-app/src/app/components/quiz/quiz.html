@@ -17,9 +17,12 @@
             </div>
             }
             <button type="button" (click)="prevQuestion()" [disabled]="queNumber() === 0">Previous</button>
-            <button type="button" (click)="nextQuestion()" [disabled]="queNumber() === quiestions.length -1">Next</button>
+            <button type="button" (click)="nextQuestion()"
+                [disabled]="queNumber() === quiestions.length -1">Next</button>
         </ul>
+        @if(queNumber() === quiestions().length -1){
         <button type="button" (click)="calculateScore()">Submit</button>
+        }
         @if (isSubmitted()) {
         <p>Your score is: {{score()}}/{{quiestions().length}}</p>
         <div class="star-rating">

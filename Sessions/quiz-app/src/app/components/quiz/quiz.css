@@ -1,26 +1,110 @@
-.hidden{
-    display: none;
+:host {
+  display: block;
+}
+
+.quiz {
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e5eb);
+  border-radius: var(--radius, 8px);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow, 0 1px 3px rgba(0, 0, 0, 0.08));
+}
+
+.quiz > button {
+  margin-top: 1rem;
+}
+
+#quiz-form {
+  display: block;
+}
+
+#quiz-form > ul > h1 {
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border, #e2e5eb);
+  color: var(--color-text-muted, #5c6370);
+}
+
+.question {
+  margin-bottom: 1.25rem;
+}
+
+.question li h2 {
+  margin-bottom: 1rem;
+  color: var(--color-text, #1a1d26);
+}
+
+/* Option label lines: text then radio */
+.question li p {
+  margin: 0.65rem 0 0.2rem;
+  font-size: 0.9375rem;
+  color: var(--color-text, #1a1d26);
+}
+
+.question li p:first-of-type {
+  margin-top: 0;
+}
+
+.question li input[type="radio"] {
+  margin-bottom: 0.35rem;
+  vertical-align: middle;
+}
+
+#quiz-form button {
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+#quiz-form > ul > button:last-of-type {
+  margin-right: 0.5rem;
+}
+
+/* Submit (outside the list) */
+#quiz-form > button {
+  margin-top: 0.75rem;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Score */
+#quiz-form > p {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border, #e2e5eb);
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .star-rating {
-    margin-top: 20px;
-    font-size: 24px;
+  margin-top: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.star-rating p {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
 }
 
 .filled-star {
-    margin-right: 5px;
+  margin-right: 0.25rem;
 }
 
 .empty-star {
-    color: lightgray;
-    margin-right: 5px;
+  color: #c8ccd4;
+  margin-right: 0.25rem;
 }
+
 .red {
-    color : red !important;
+  color: var(--color-danger, #dc2626) !important;
 }
+
 .blue {
-    color : blue !important;
+  color: var(--color-accent, #2563eb) !important;
 }
+
 .green {
-    color : green !important;
+  color: #16a34a !important;
 }

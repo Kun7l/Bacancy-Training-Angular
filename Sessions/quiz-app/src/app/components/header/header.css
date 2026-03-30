@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+
+header {
+  background: var(--color-surface, #ffffff);
+  border-bottom: 1px solid var(--color-border, #e2e5eb);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow, 0 1px 3px rgba(0, 0, 0, 0.08));
+}
+
+header h3 {
+  margin: 0;
+  color: var(--color-text, #1a1d26);
+  font-size: 1rem;
+  font-weight: 600;
+}

@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  flex: 1;
+}
+
+.body {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2rem;
+}
+
+.body > p:first-child {
+  color: var(--color-text-muted, #5c6370);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
