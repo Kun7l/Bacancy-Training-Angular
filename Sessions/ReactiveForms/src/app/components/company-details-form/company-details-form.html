@@ -1,44 +1,146 @@
-<form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+<div class="page-grid">
+  <div class="form-col">
+    <form class="form-shell" [formGroup]="companyForm" (ngSubmit)="onSubmit()">
 
-  <div>
-    <label>Company Name</label>
-    <input type="text" formControlName="name" />
-  </div>
-
-  <div>
-    <label>Email</label>
-    <input type="email" formControlName="email" />
-  </div>
-
-  <div>
-    <label>Website</label>
-    <input type="text" formControlName="website" />
-  </div>
-
-  <div>
-    <label>Phone</label>
-    <input type="tel" formControlName="phone" />
-  </div>
-
-  <div formArrayName="projects">
-    <h3>Projects</h3>
-    <button (click)="addProject()">Add</button>
-    <div>
-      @for (project of projects.controls; track $index) {
-      <div [formGroupName]="$index">
-        <input formControlName="name" placeholder="Project Name">
-        <input formControlName="description" placeholder="Description">
-        <input formControlName="startDate" type="date">
-        <input formControlName="endDate" type="date">
-
-        <button type="button" (click)="removeProject($index)">Remove</button>
-      </div>
+  <div class="field">
+    <label class="label">Company Name</label>
+    <input class="input" type="text" formControlName="name" />
+    <div class="error">
+      @if (hasError(companyForm.get('name'), 'required')) {
+      <div>Company name is required.</div>
+      }
+      @if (hasError(companyForm.get('name'), 'minlength')) {
+      <div>Company name must be at least 5 characters.</div>
       }
     </div>
   </div>
 
-  <button type="submit">
+  <div class="field">
+    <label class="label">Email</label>
+    <input class="input" type="email" formControlName="email" />
+    <div class="error">
+      @if (hasError(companyForm.get('email'), 'required')) {
+      <div>Email is required.</div>
+      }
+      @if (hasError(companyForm.get('email'), 'email')) {
+      <div>Please enter a valid email address.</div>
+      }
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Website</label>
+    <input class="input" type="text" formControlName="website" />
+    <div class="error">
+      @if (hasError(companyForm.get('website'), 'required')) {
+      <div>Website is required.</div>
+      }
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Phone</label>
+    <input class="input" type="tel" formControlName="phone" />
+    <div class="error">
+      @if (hasError(companyForm.get('phone'), 'required')) {
+      <div>Phone is required.</div>
+      }
+      @if (hasError(companyForm.get('phone'),'invalidPhoneNumber')) {
+      <div>Please enter a valid phone number.</div>
+      }
+    </div>
+  </div>
+
+  <div class="projects" formArrayName="projects">
+    <div class="projects-header">
+      <h3 class="section-title">Projects</h3>
+      <button class="btn btn-primary" type="button" (click)="addProject()">Add</button>
+    </div>
+    <div class="projects-list">
+      @for (project of projects.controls; track project) {
+      <div class="project-card">
+        <div class="error">
+          @if (hasError(companyForm,'duplicateProjectName')) {
+          <div>Duplicate project name found.</div>
+          }
+        </div>
+        <div class="project-grid" [formGroupName]="$index">
+        <div class="control span-2">
+          <label class="label">Project Name</label>
+          <input class="input" formControlName="name" placeholder="Enter project name">
+          <div class="error">
+            @if (hasProjectError($index, 'name', 'required')) {
+            <div>Project name is required.</div>
+            }
+            @if (hasProjectError($index, 'name', 'minlength')) {
+            <div>Project name must be at least 5 characters.</div>
+            }
+          </div>
+        </div>
+
+        <div class="control span-2">
+          <label class="label">Description</label>
+          <textarea class="input textarea" formControlName="description" placeholder="Describe the project" rows="3"></textarea>
+          <div class="error">
+            @if (hasProjectError($index, 'description', 'required')) {
+            <div>Description is required.</div>
+            }
+            @if (hasProjectError($index, 'description', 'minlength')) {
+            <div>Description must be at least 10 characters.</div>
+            }
+          </div>
+        </div>
+
+        <div class="control">
+          <label class="label">Start Date</label>
+          <input class="input" formControlName="startDate" type="date">
+          <div class="error">
+            @if (hasProjectError($index, 'startDate', 'required')) {
+            <div>Start date is required.</div>
+            }
+          </div>
+        </div>
+
+        <div class="control">
+          <label class="label">End Date</label>
+          <input class="input" formControlName="endDate" type="date">
+          <div class="error">
+            @if (hasProjectError($index, 'endDate', 'required')) {
+            <div>End date is required.</div>
+            }
+          </div>
+        </div>
+
+        <div class="project-actions">
+          <button class="btn btn-ghost-danger" type="button" (click)="removeProject($index)">Remove</button>
+        </div>
+        </div>
+      </div>
+
+      }
+    </div>
+
+  </div>
+
+  <div class="form-actions">
+  <button class="btn btn-primary" type="submit" [disabled]="companyForm.invalid">
     Submit
   </button>
 
+  <button class="btn btn-ghost" type="button" (click)="onReset()">
+    Reset
+  </button>
+  </div>
+
 </form>
+  </div>
+
+  @if (submittedValue) {
+  <div class="result-col">
+    <div class="result-card">
+      <h3 class="result-title">Submission Result</h3>
+      <pre class="result-pre">{{ submittedValue | json }}</pre>
+    </div>
+  </div>
+  }
+</div>
