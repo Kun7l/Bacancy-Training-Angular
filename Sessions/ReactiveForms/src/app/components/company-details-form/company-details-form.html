@@ -1,1 +1,44 @@
-<p>company-details-form works!</p>
+<form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+
+  <div>
+    <label>Company Name</label>
+    <input type="text" formControlName="name" />
+  </div>
+
+  <div>
+    <label>Email</label>
+    <input type="email" formControlName="email" />
+  </div>
+
+  <div>
+    <label>Website</label>
+    <input type="text" formControlName="website" />
+  </div>
+
+  <div>
+    <label>Phone</label>
+    <input type="tel" formControlName="phone" />
+  </div>
+
+  <div formArrayName="projects">
+    <h3>Projects</h3>
+    <button (click)="addProject()">Add</button>
+    <div>
+      @for (project of projects.controls; track $index) {
+      <div [formGroupName]="$index">
+        <input formControlName="name" placeholder="Project Name">
+        <input formControlName="description" placeholder="Description">
+        <input formControlName="startDate" type="date">
+        <input formControlName="endDate" type="date">
+
+        <button type="button" (click)="removeProject($index)">Remove</button>
+      </div>
+      }
+    </div>
+  </div>
+
+  <button type="submit">
+    Submit
+  </button>
+
+</form>
