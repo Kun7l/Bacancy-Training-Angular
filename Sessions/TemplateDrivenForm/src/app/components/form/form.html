@@ -42,7 +42,7 @@
         <div class="form-group">
             <div class="form-field">
                 <label for="">Phone number</label>
-                <input type="tel" name="phoneNumber" #phoneNumber="ngModel" ngModel required>
+                <input type="number" name="phoneNumber" #phoneNumber="ngModel" ngModel required>
             </div>
             <span class="error-message"
                 *ngIf="(phoneNumber.touched || phoneNumber.dirty) && !phoneNumber.valid && phoneNumber.errors?.['required']">This
@@ -70,16 +70,16 @@
                 *ngIf="(gender.touched || gender.dirty) && !gender.valid && gender.errors?.['required']">This field is
                 required.</span>
         </div>
-        <div class="form-group">
+        <div class="form-group" ngModelGroup="address">
             <div class="form-field">
-                <label for="">Address pincode</label>
-                <input type="number" name="pincode" ngModel #pincode="ngModel" required>
+                <label for="">Street address</label>
+                <input type="text" name="streetAddress" ngModel #streetAddress="ngModel" required>
             </div>
             <span class="error-message"
-                *ngIf="(pincode.touched || pincode.dirty) && !pincode.valid && pincode.errors?.['required']">This field
-                is required.</span>
+                *ngIf="(streetAddress.touched || streetAddress.dirty) && !streetAddress.valid && streetAddress.errors?.['required']">This
+                field is required.</span>
         </div>
-        <div class="form-group">
+        <div class="form-group" ngModelGroup="address">
             <div class="form-field">
                 <label for="">City</label>
                 <select name="city" ngModel #cityCtrl="ngModel" required>
@@ -92,6 +92,15 @@
             <span class="error-message"
                 *ngIf="(cityCtrl.touched || cityCtrl.dirty) && !cityCtrl.valid && cityCtrl.errors?.['required']">This
                 field is required.</span>
+        </div>
+        <div class="form-group" ngModelGroup="address">
+            <div class="form-field">
+                <label for="">Pincode</label>
+                <input type="number" name="pincode" ngModel #pincode="ngModel" required>
+            </div>
+            <span class="error-message"
+                *ngIf="(pincode.touched || pincode.dirty) && !pincode.valid && pincode.errors?.['required']">This field
+                is required.</span>
         </div>
         <div class="form-grup">
             <div class="form-field">
@@ -124,10 +133,12 @@
             <dd>{{ submittedDetails!['password'] }}</dd>
             <dt>Gender</dt>
             <dd>{{ submittedDetails!['gender'] }}</dd>
-            <dt>Pincode</dt>
-            <dd>{{ submittedDetails!['pincode'] }}</dd>
+            <dt>Street address</dt>
+            <dd>{{ $any(submittedDetails!['address'])?.streetAddress }}</dd>
             <dt>City</dt>
-            <dd>{{ submittedDetails!['city'] }}</dd>
+            <dd>{{ $any(submittedDetails!['address'])?.city }}</dd>
+            <dt>Pincode</dt>
+            <dd>{{ $any(submittedDetails!['address'])?.pincode }}</dd>
             <dt>Remember me</dt>
             <dd>{{ submittedDetails!['rememberMe'] }}</dd>
         </dl>

@@ -43,8 +43,11 @@ export class Form {
       phoneNumber: 1234567890,
       password: '123456',
       gender: 'male',
-      pincode: 12345,
-      city: 'surat',
+      address: {
+        streetAddress: '123 Maple Street',
+        city: 'ahmedabad',
+        pincode: 12345,
+      },
       rememberMe: true,
     });
   }
