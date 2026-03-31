@@ -1,0 +1,9 @@
+<div>
+    <p>Name : {{employeeDetails.name | titlecase}}</p>
+    <p>Email : {{employeeDetails.email | lowercase}}</p>
+    <p>Salary : {{employeeDetails.salary | currency:'INR'}}</p>
+    <p>Joining Date : {{employeeDetails.dateOfJoining | date:'mediumDate' | uppercase}}</p>
+    <p>Address : {{employeeDetails.address | uppercase | slice:0:10}}</p>
+    <p>Adhar Number : {{employeeDetails.adharNumber | adharNumberMask}}</p>
+    <p>Time : {{time | async}}</p>
+</div>
