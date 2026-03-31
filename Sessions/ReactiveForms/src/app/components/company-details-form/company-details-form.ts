@@ -10,6 +10,7 @@ import {
 import { phoneNumberValidator } from '../../validators/phoneNumberValidator';
 import { duplicateProjectNameValidator } from '../../validators/duplicateProjectNameValidator';
 import { JsonPipe } from '@angular/common';
+import { duplicateProjectNameValidatorAsync } from '../../validators/duplicateProjectNameValidatorAsync';
 
 @Component({
   selector: 'app-company-details-form',
@@ -54,7 +55,7 @@ export class CompanyDetailsForm {
       ]),
       projects: new FormArray([this.createProjectFrom()]),
     },
-    { validators: [duplicateProjectNameValidator] },
+    { asyncValidators: [duplicateProjectNameValidatorAsync] },
   );
 
   createProjectFrom() {
