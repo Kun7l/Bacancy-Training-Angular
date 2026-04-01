@@ -13,6 +13,4 @@ export class AdharNumberMaskPipe implements PipeTransform {
     }
     return null;
   }
-
- 
 }

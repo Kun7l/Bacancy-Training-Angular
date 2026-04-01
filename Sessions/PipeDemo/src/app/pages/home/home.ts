@@ -2,15 +2,18 @@ import {
   AsyncPipe,
   CurrencyPipe,
   DatePipe,
+  JsonPipe,
   LowerCasePipe,
   SlicePipe,
   TitleCasePipe,
   UpperCasePipe,
 } from '@angular/common';
 import { Component } from '@angular/core';
-import { email } from '@angular/forms/signals';
 import { AdharNumberMaskPipe } from '../../pipes/adhar-number-mask-pipe';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Employee } from '../../employee.type';
+import { UserService } from '../../service/user-service';
+import { AddressPipe } from '../../pipes/address-pipe';
 
 @Component({
   selector: 'app-home',
@@ -18,29 +21,30 @@ import { Observable } from 'rxjs';
     UpperCasePipe,
     DatePipe,
     TitleCasePipe,
-    SlicePipe,
     LowerCasePipe,
     AdharNumberMaskPipe,
     CurrencyPipe,
-    AsyncPipe
+    AsyncPipe,
+    AddressPipe,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
-  employeeDetails = {
-    name: 'john doe',
-    dateOfJoining: new Date(1990, 5, 15),
-    salary: 50000,
-    email: 'johndoe@gmail.com',
-    department: 'software development',
-    description: 'john is a software developer with 5 years of experience in angular development.',
-    adharNumber: 123456789012,
-    address: '123 main street, city, country',
-  };
-  time = new Observable((observer) => {
-    setInterval(() => {
-      observer.next(new Date().toLocaleTimeString());
-    }, 1000);
-  });
+  constructor(private userService: UserService) {}
+
+  employeeDetails: Employee[] = [];
+  subscription: Subscription | undefined = undefined;
+  timeObservable: Observable<string> | undefined = undefined;
+
+  ngOnInit() {
+    this.subscription = this.userService.getUsers().subscribe((data) => {
+      this.employeeDetails = data;
+    });
+    this.timeObservable = this.userService.getTime();
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 }

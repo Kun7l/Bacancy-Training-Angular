@@ -1,9 +1,13 @@
-<div>
-    <p>Name : {{employeeDetails.name | titlecase}}</p>
-    <p>Email : {{employeeDetails.email | lowercase}}</p>
-    <p>Salary : {{employeeDetails.salary | currency:'INR'}}</p>
-    <p>Joining Date : {{employeeDetails.dateOfJoining | date:'mediumDate' | uppercase}}</p>
-    <p>Address : {{employeeDetails.address | uppercase | slice:0:10}}</p>
-    <p>Adhar Number : {{employeeDetails.adharNumber | adharNumberMask}}</p>
-    <p>Time : {{time | async}}</p>
+<div class="home-container">
+    @for (employee of employeeDetails; track $index) {
+    <div class="details-card">
+        <p>Name : {{employee.name | titlecase}}</p>
+        <p>Email : {{employee.email | lowercase}}</p>
+        <p>Salary : {{employee.salary | currency:'INR'}}</p>
+        <p>Joining Date : {{employee.dateOfJoining | date:'mediumDate' | uppercase}}</p>
+        <p>Address : {{employee.address | address}}</p>
+        <p>Adhar Number : {{employee.adharNumber | adharNumberMask}}</p>
+        <p>Time : {{timeObservable | async}}</p>
+    </div>
+    }
 </div>
