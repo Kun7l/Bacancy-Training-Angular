@@ -13,6 +13,7 @@ import { JsonPipe } from '@angular/common';
 import { duplicateProjectNameValidatorAsync } from '../../validators/duplicateProjectNameValidatorAsync';
 import { Error } from '../error/error';
 import { ErrorService } from '../../services/error-service';
+import { dateValidator } from '../../validators/dateValidator';
 
 @Component({
   selector: 'app-company-details-form',
@@ -72,7 +73,7 @@ export class CompanyDetailsForm {
       ]),
       startDate: new FormControl('', [Validators.required]),
       endDate: new FormControl('', [Validators.required]),
-    });
+    },{validators: [dateValidator]});
   }
 
   get projects() {
@@ -112,6 +113,6 @@ export class CompanyDetailsForm {
   }
 
   getErrorMessage(control: AbstractControl, errorCode: string): string | null {
-    return this.errorService.hasError(control, errorCode);
+    return this.errorService.hasError(control, this.submitted, errorCode);
   }
 }

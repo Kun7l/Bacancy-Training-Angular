@@ -83,11 +83,15 @@
                   <app-error [errorMessage]="getErrorMessage(project.get('endDate')!,'required')" />
                 </div>
               </div>
+              <div class="error">
+                <app-error [errorMessage]="getErrorMessage(project,'invalidDateRange')" />
+              </div>
 
               <div class="project-actions">
                 <button class="btn btn-ghost-danger" type="button" (click)="removeProject($index)">Remove</button>
               </div>
             </div>
+
           </div>
 
           }
