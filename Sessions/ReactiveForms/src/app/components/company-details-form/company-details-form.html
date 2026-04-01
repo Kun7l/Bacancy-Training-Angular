@@ -2,137 +2,110 @@
   <div class="form-col">
     <form class="form-shell" [formGroup]="companyForm" (ngSubmit)="onSubmit()">
 
-  <div class="field">
-    <label class="label">Company Name</label>
-    <input class="input" type="text" formControlName="name" />
-    <div class="error">
-      @if (hasError(companyForm.get('name'), 'required')) {
-      <div>Company name is required.</div>
-      }
-      @if (hasError(companyForm.get('name'), 'minlength')) {
-      <div>Company name must be at least 5 characters.</div>
-      }
-    </div>
-  </div>
-
-  <div class="field">
-    <label class="label">Email</label>
-    <input class="input" type="email" formControlName="email" />
-    <div class="error">
-      @if (hasError(companyForm.get('email'), 'required')) {
-      <div>Email is required.</div>
-      }
-      @if (hasError(companyForm.get('email'), 'email')) {
-      <div>Please enter a valid email address.</div>
-      }
-    </div>
-  </div>
-
-  <div class="field">
-    <label class="label">Website</label>
-    <input class="input" type="text" formControlName="website" />
-    <div class="error">
-      @if (hasError(companyForm.get('website'), 'required')) {
-      <div>Website is required.</div>
-      }
-    </div>
-  </div>
-
-  <div class="field">
-    <label class="label">Phone</label>
-    <input class="input" type="tel" formControlName="phone" />
-    <div class="error">
-      @if (hasError(companyForm.get('phone'), 'required')) {
-      <div>Phone is required.</div>
-      }
-      @if (hasError(companyForm.get('phone'),'invalidPhoneNumber')) {
-      <div>Please enter a valid phone number.</div>
-      }
-    </div>
-  </div>
-
-  <div class="projects" formArrayName="projects">
-    <div class="projects-header">
-      <h3 class="section-title">Projects</h3>
-      <button class="btn btn-primary" type="button" (click)="addProject()">Add</button>
-    </div>
-    <div class="projects-list">
-      @for (project of projects.controls; track project) {
-      <div class="project-card">
+      <div class="field">
+        <label class="label">Company Name</label>
+        <input class="input" type="text" formControlName="name" />
         <div class="error">
-          @if (hasError(companyForm,'duplicateProjectName')) {
-          <div>Duplicate project name found.</div>
-          }
-        </div>
-        <div class="project-grid" [formGroupName]="$index">
-        <div class="control span-2">
-          <label class="label">Project Name</label>
-          <input class="input" formControlName="name" placeholder="Enter project name">
-          <div class="error">
-            @if (hasProjectError($index, 'name', 'required')) {
-            <div>Project name is required.</div>
-            }
-            @if (hasProjectError($index, 'name', 'minlength')) {
-            <div>Project name must be at least 5 characters.</div>
-            }
-          </div>
-        </div>
-
-        <div class="control span-2">
-          <label class="label">Description</label>
-          <textarea class="input textarea" formControlName="description" placeholder="Describe the project" rows="3"></textarea>
-          <div class="error">
-            @if (hasProjectError($index, 'description', 'required')) {
-            <div>Description is required.</div>
-            }
-            @if (hasProjectError($index, 'description', 'minlength')) {
-            <div>Description must be at least 10 characters.</div>
-            }
-          </div>
-        </div>
-
-        <div class="control">
-          <label class="label">Start Date</label>
-          <input class="input" formControlName="startDate" type="date">
-          <div class="error">
-            @if (hasProjectError($index, 'startDate', 'required')) {
-            <div>Start date is required.</div>
-            }
-          </div>
-        </div>
-
-        <div class="control">
-          <label class="label">End Date</label>
-          <input class="input" formControlName="endDate" type="date">
-          <div class="error">
-            @if (hasProjectError($index, 'endDate', 'required')) {
-            <div>End date is required.</div>
-            }
-          </div>
-        </div>
-
-        <div class="project-actions">
-          <button class="btn btn-ghost-danger" type="button" (click)="removeProject($index)">Remove</button>
-        </div>
+          <app-error [errorMessage]="getErrorMessage(companyForm.get('name')!,'required')" />
+          <app-error [errorMessage]="getErrorMessage(companyForm.get('name')!,'minlength')" />
         </div>
       </div>
 
-      }
-    </div>
+      <div class="field">
+        <label class="label">Email</label>
+        <input class="input" type="email" formControlName="email" />
+        <div class="error">
+          <app-error [errorMessage]="getErrorMessage(companyForm.get('email')!,'required')" />
+          <app-error [errorMessage]="getErrorMessage(companyForm.get('email')!,'email')" />
+        </div>
+      </div>
 
-  </div>
+      <div class="field">
+        <label class="label">Website</label>
+        <input class="input" type="text" formControlName="website" />
+        <div class="error">
+          <app-error [errorMessage]="getErrorMessage(companyForm.get('website')!,'required')" />
+        </div>
+      </div>
 
-  <div class="form-actions">
-  <button class="btn btn-primary" type="submit" [disabled]="companyForm.invalid">
-    Submit
-  </button>
+      <div class="field">
+        <label class="label">Phone</label>
+        <input class="input" type="tel" formControlName="phone" />
+        <div class="error">
+          <app-error [errorMessage]="getErrorMessage(companyForm.get('phone')!,'required')" />
+          <app-error [errorMessage]="getErrorMessage(companyForm.get('phone')!,'invalidPhoneNumber')" />
+        </div>
+      </div>
 
-  <button class="btn btn-ghost" type="button" (click)="onReset()">
-    Reset
-  </button>
-  </div>
+      <div class="projects" formArrayName="projects">
+        <div class="projects-header">
+          <h3 class="section-title">Projects</h3>
+          <button class="btn btn-primary" type="button" (click)="addProject()">Add</button>
+        </div>
+        <div class="projects-list">
+          @for (project of projects.controls; track project) {
+          <div class="project-card">
+            <div class="error">
+              <app-error [errorMessage]="getErrorMessage(projects,'duplicateProjectName')" />
+            </div>
+            <div class="project-grid" [formGroupName]="$index">
+              <div class="control span-2">
+                <label class="label">Project Name</label>
+                <input class="input" formControlName="name" placeholder="Enter project name">
+                <div class="error">
+                  <app-error [errorMessage]="getErrorMessage(project.get('name')!,'required')" />
+                  <app-error [errorMessage]="getErrorMessage(project.get('name')!,'minlength')" />
+                </div>
+              </div>
 
-</form>
+              <div class="control span-2">
+                <label class="label">Description</label>
+                <textarea class="input textarea" formControlName="description" placeholder="Describe the project"
+                  rows="3"></textarea>
+                <div class="error">
+                  <app-error [errorMessage]="getErrorMessage(project.get('description')!,'required')" />
+                  <app-error [errorMessage]="getErrorMessage(project.get('description')!,'minlength')" />
+                </div>
+              </div>
+
+              <div class="control">
+                <label class="label">Start Date</label>
+                <input class="input" formControlName="startDate" type="date">
+                <div class="error">
+                  <app-error [errorMessage]="getErrorMessage(project.get('startDate')!,'required')" />
+                </div>
+              </div>
+
+              <div class="control">
+                <label class="label">End Date</label>
+                <input class="input" formControlName="endDate" type="date">
+                <div class="error">
+                  <app-error [errorMessage]="getErrorMessage(project.get('endDate')!,'required')" />
+                </div>
+              </div>
+
+              <div class="project-actions">
+                <button class="btn btn-ghost-danger" type="button" (click)="removeProject($index)">Remove</button>
+              </div>
+            </div>
+          </div>
+
+          }
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-primary" type="submit" [disabled]="companyForm.invalid">
+          Submit
+        </button>
+
+        <button class="btn btn-ghost" type="button" (click)="onReset()">
+          Reset
+        </button>
+      </div>
+
+    </form>
   </div>
 
   @if (submittedValue) {

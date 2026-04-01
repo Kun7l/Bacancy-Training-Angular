@@ -11,14 +11,18 @@ import { phoneNumberValidator } from '../../validators/phoneNumberValidator';
 import { duplicateProjectNameValidator } from '../../validators/duplicateProjectNameValidator';
 import { JsonPipe } from '@angular/common';
 import { duplicateProjectNameValidatorAsync } from '../../validators/duplicateProjectNameValidatorAsync';
+import { Error } from '../error/error';
+import { ErrorService } from '../../services/error-service';
 
 @Component({
   selector: 'app-company-details-form',
-  imports: [ReactiveFormsModule, JsonPipe],
+  imports: [ReactiveFormsModule, JsonPipe, Error],
   templateUrl: './company-details-form.html',
   styleUrl: './company-details-form.css',
 })
 export class CompanyDetailsForm {
+  constructor(private errorService: ErrorService) {}
+
   submitted = false;
   submittedValue: unknown | null = null;
 
@@ -36,6 +40,7 @@ export class CompanyDetailsForm {
       },
     ],
   };
+
   companyForm = new FormGroup(
     {
       name: new FormControl(this.defaultValue.name, [
@@ -55,7 +60,7 @@ export class CompanyDetailsForm {
       ]),
       projects: new FormArray([this.createProjectFrom()]),
     },
-    { asyncValidators: [duplicateProjectNameValidatorAsync] },
+    { validators: [duplicateProjectNameValidator] },
   );
 
   createProjectFrom() {
@@ -68,6 +73,16 @@ export class CompanyDetailsForm {
       startDate: new FormControl('', [Validators.required]),
       endDate: new FormControl('', [Validators.required]),
     });
+  }
+
+  get projects() {
+    return this.companyForm.get('projects') as FormArray;
+  }
+  addProject() {
+    this.projects.push(this.createProjectFrom());
+  }
+  removeProject(index: number) {
+    this.projects.removeAt(index);
   }
 
   onSubmit() {
@@ -96,32 +111,7 @@ export class CompanyDetailsForm {
     this.companyForm.markAsUntouched();
   }
 
-  get projects() {
-    return this.companyForm.get('projects') as FormArray;
-  }
-
-  addProject() {
-    this.projects.push(this.createProjectFrom());
-  }
-  removeProject(index: number) {
-    this.projects.removeAt(index);
-  }
-
-  hasError(control: AbstractControl | null, errorCode: string): boolean {
-    if (!control) return false;
-    return (control.touched || this.submitted) && control.hasError(errorCode);
-  }
-
-  hasProjectError(
-    projectIndex: number,
-    controlName: string,
-    errorCode: string,
-  ): boolean {
-    const project = this.projects.at(projectIndex) as FormGroup | null;
-    const control = project?.get(controlName) ?? null;
-
-    if (!control) return false;
-
-    return (control.touched || control.dirty) && control.hasError(errorCode);
+  getErrorMessage(control: AbstractControl, errorCode: string): string | null {
+    return this.errorService.hasError(control, errorCode);
   }
 }
