@@ -1,11 +1,12 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { Post } from '../../types/post.type';
 import { PostService } from '../../services/post-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-post-form',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './post-form.html',
   styleUrl: './post-form.css',
 })
@@ -16,10 +17,12 @@ export class PostForm {
     private route: ActivatedRoute,
   ) {}
 
-  private isSaved = signal<boolean>(false);
+  public isSaved = signal<boolean>(false);
+  @ViewChild('postForm') postForm!: NgForm;
 
   isSavedFn() {
-    return this.isSaved();
+    if (!this.postForm) return true;
+    return !this.postForm.dirty || this.isSaved();
   }
 
   addPost(title: string, content: string) {
