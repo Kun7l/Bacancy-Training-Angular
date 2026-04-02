@@ -1,0 +1,29 @@
+@if(post){
+<article class="post">
+    <header class="post__header">
+        <div class="post__head">
+            <h3 class="post__title">{{post.title}}</h3>
+            <div class="post__date">Posted On : {{post.dateOfPosting | date}}</div>
+        </div>
+    </header>
+
+    <p class="post__content">{{post.content}}</p>
+
+    <footer class="post__footer">
+        <div class="like-row">
+            <span class="likes-count">{{ post.likes }} Likes</span>
+
+            <button
+                class="likeBtn"
+                type="button"
+                (click)="likeButton()"
+                aria-label="Like this post"
+            >
+                Like
+            </button>
+        </div>
+
+        <button class="deleteBtn" type="button" (click)="deletePost()">Delete</button>
+    </footer>
+</article>
+}

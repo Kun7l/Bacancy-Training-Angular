@@ -4,7 +4,6 @@ import { PostService } from '../services/post-service';
 import { PostForm } from '../components/post-form/post-form';
 
 export const canDeactivateGuard: CanDeactivateFn<PostForm> = (component) => {
-  const postService = inject(PostService);
   if (!component.isSavedFn()) {
     return confirm('You have unsaved changes. Do you really want to leave?');
   }

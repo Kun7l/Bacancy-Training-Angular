@@ -3,7 +3,7 @@ import { PageNotFound } from './components/page-not-found/page-not-found';
 import { Home } from './pages/home/home';
 import { MainLayout } from './layout/main-layout/main-layout';
 import { User } from './pages/user/user';
-import { Posts } from './pages/posts/posts';
+import { Posts } from './pages/social-media-feed/social-media-feed';
 import { Login } from './pages/login/login';
 import { AuthGuard } from './guards/auth-guard';
 import { PostForm } from './components/post-form/post-form';
@@ -25,7 +25,7 @@ export const routes: Routes = [
           {
             path: 'posts',
             component: Posts,
-            resolve: { postData: postsResolver },
+            resolve: { posts: postsResolver },
           },
           {
             path: 'posts/create',

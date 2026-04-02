@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-user',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,RouterLink],
   templateUrl: './user.html',
   styleUrl: './user.css',
 })

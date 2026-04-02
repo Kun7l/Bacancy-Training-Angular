@@ -1,29 +1,37 @@
 import { Injectable, signal } from '@angular/core';
 import { Post } from '../types/post.type';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { PostDTO } from '../types/postDto.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
-  postList = signal<Post[]>([
-    {
-      id: 0,
-      title: 'How is the weather?',
-      content: 'The weather at ahmedabad is !good',
-      likes: 100,
-      dateOfPosting: new Date('01-01-2026'),
-    },
-  ]);
+  constructor(private http: HttpClient) {}
 
-  getAllPosts() {
-    return this.postList();
+  baseUrl =
+    'https://test-firebase-2dc38-default-rtdb.asia-southeast1.firebasedatabase.app/posts';
+
+  getAllPosts(): Observable<PostDTO[]> {
+    return this.http.get<PostDTO[]>(this.baseUrl + '.json');
   }
-  addPost(newPost: Post) {
-    this.postList.update((posts) => [...posts, newPost]);
+  getPostById(postId: string) {
+    return this.http.get(this.baseUrl + postId + '.json');
   }
-  increaseLike(postId: number) {
-    this.postList.update((posts) =>
-      posts.map((p) => (p.id === postId ? { ...p, likes: p.likes + 1 } : p)),
-    );
+  addPost(newPost: PostDTO) {
+    console.log(newPost);
+    return this.http.post(this.baseUrl + '.json', newPost);
+  }
+  deleteAllPosts() {
+    return this.http.delete(this.baseUrl + '.json');
+  }
+  deletePostById(postId: string) {
+    return this.http.delete(this.baseUrl + '/' + postId + '.json');
+  }
+  increaseLike(postId: string, likes: number) {
+    return this.http.patch(this.baseUrl + '/' + postId + '.json', {
+      likes: likes,
+    });
   }
 }

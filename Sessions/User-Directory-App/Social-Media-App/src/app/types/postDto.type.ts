@@ -1,5 +1,4 @@
-export interface Post {
-  id:string,
+export interface PostDTO {
   title: string;
   content: string;
   likes: number;

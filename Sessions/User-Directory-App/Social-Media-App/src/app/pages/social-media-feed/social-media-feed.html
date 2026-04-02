@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="posts">
+        @if (postList.length != 0) {
+        @for (post of postList; track $index) {
+        <app-social-post-component [post]="post" (deletePostEvent)="deletePost(post)"
+            (likeButtonEvent)="likeButton(post)" />
+        }
+        }
+        @else {
+        <p>No Posts found.</p>
+        }
+    </div>
+</div>

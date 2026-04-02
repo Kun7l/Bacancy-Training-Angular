@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { Post } from '../../types/post.type';
 import { PostService } from '../../services/post-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PostDTO } from '../../types/postDto.type';
 
 @Component({
   selector: 'app-post-form',
@@ -17,21 +18,24 @@ export class PostForm {
   ) {}
 
   private isSaved = signal<boolean>(false);
-
   isSavedFn() {
     return this.isSaved();
   }
 
   addPost(title: string, content: string) {
-    const newPost: Post = {
-      id: this.postService.postList().length,
+    const newPost: PostDTO = {
       title: title,
       content: content,
       likes: 0,
       dateOfPosting: new Date(),
     };
-    this.postService.addPost(newPost);
-    this.isSaved.set(true);
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.postService.addPost(newPost).subscribe({
+      next: (response) => {
+        console.log('Post saved!', response);
+        this.isSaved.set(true);
+        this.router.navigate(['../'], { relativeTo: this.route });
+      },
+      error: (err) => console.error('Upload failed', err),
+    });
   }
 }

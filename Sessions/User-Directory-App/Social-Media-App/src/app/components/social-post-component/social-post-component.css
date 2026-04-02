@@ -1,0 +1,98 @@
+.post {
+  max-width: 420px;
+  margin: 12px auto;
+  padding: 16px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #eef0f3;
+  box-shadow: 0 10px 22px rgba(17, 24, 39, 0.06);
+}
+
+.post__header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.post__head {
+  flex: 1;
+}
+
+.post__title {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.post__date {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.post__content {
+  margin: 12px 0 16px;
+  color: #111827;
+  white-space: pre-wrap;
+}
+
+.post__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.like-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.likes-count {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Like button (keeps the same click handler) */
+.likeBtn {
+  appearance: none;
+  border: none;
+  background: #ef4444;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 12px;
+  color: #ffffff;
+  transition: transform 120ms ease, filter 120ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  position: relative;
+  font-weight: 300;
+}
+
+.likeBtn:focus-visible {
+  outline: 2px solid #ef4444;
+  outline-offset: 3px;
+}
+
+.likeBtn:active {
+  transform: scale(0.98);
+  filter: brightness(0.95);
+}
+
+.deleteBtn {
+  border: none;
+  background: #f3f4f6;
+  color: #111827;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.deleteBtn:hover {
+  background: #e5e7eb;
+}
