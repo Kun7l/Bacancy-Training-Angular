@@ -21,16 +21,25 @@ export class PostForm {
     private router: Router,
     private route: ActivatedRoute,
   ) {}
-
-  postForm = new FormGroup({
-    postTitle: new FormControl('', [Validators.required]),
-    postContent: new FormControl('', [Validators.required]),
-  });
-
+  
   private isSaved = signal<boolean>(false);
   isSavedFn() {
     return !this.postForm.dirty || this.isSaved();
   }
+
+  postForm = new FormGroup<{
+    postTitle: FormControl<string>;
+    postContent: FormControl<string>;
+  }>({
+    postTitle: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    postContent: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+  });
 
   addPost() {
     if (this.postForm.invalid) {
