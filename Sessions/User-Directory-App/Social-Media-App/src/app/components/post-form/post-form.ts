@@ -1,12 +1,17 @@
 import { Component, signal } from '@angular/core';
-import { Post } from '../../types/post.type';
 import { PostService } from '../../services/post-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostDTO } from '../../types/postDto.type';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-post-form',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './post-form.html',
   styleUrl: './post-form.css',
 })
@@ -17,15 +22,25 @@ export class PostForm {
     private route: ActivatedRoute,
   ) {}
 
+  postForm = new FormGroup({
+    postTitle: new FormControl('', [Validators.required]),
+    postContent: new FormControl('', [Validators.required]),
+  });
+
   private isSaved = signal<boolean>(false);
   isSavedFn() {
-    return this.isSaved();
+    return !this.postForm.dirty || this.isSaved();
   }
 
-  addPost(title: string, content: string) {
+  addPost() {
+    if (this.postForm.invalid) {
+      alert('Form is invalid');
+      return;
+    }
+    const submittedValue = this.postForm.getRawValue();
     const newPost: PostDTO = {
-      title: title,
-      content: content,
+      title: submittedValue.postTitle!,
+      content: submittedValue.postContent!,
       likes: 0,
       dateOfPosting: new Date(),
     };

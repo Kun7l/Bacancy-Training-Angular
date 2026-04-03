@@ -1,9 +1,9 @@
 <div class="container">
-    <form action="">
+    <form [formGroup]="postForm" (ngSubmit)="addPost()">
         <Label for="postTitle">Title</Label>
-        <input id="postTitle" type="text" #postTitle>
+        <input id="postTitle" type="text"  formControlName="postTitle" >
         <label for="postContent">Content</label>
-        <input type="text" id="postContent" #postContent>
-        <button type="button" (click)="addPost(postTitle.value,postContent.value)">Submit</button>
+        <input type="text" id="postContent"  formControlName="postContent" >
+        <button type="submit" class="post-submit-button" [disabled]="postForm.invalid">Submit</button>
     </form>
 </div>
