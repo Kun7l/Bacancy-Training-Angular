@@ -1,0 +1,56 @@
+<div class="book-list card border-0 shadow-sm">
+    <div class="card-body p-4 p-md-5">
+
+        <div class="search card border-0 bg-body-tertiary rounded-4 mb-4">
+            <div class="card-body">
+                <form [formGroup]="bookForm" (ngSubmit)="searchFn()" class="row g-3 align-items-end">
+                    <div class="col-12 col-lg-4">
+                        <label class="form-label fw-semibold" for="search">Search by title or author</label>
+                        <input id="search" class="form-control" formControlName="query" #search
+                            placeholder="Enter book title or author" />
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-2">
+                        <label class="form-label fw-semibold" for="category">Category</label>
+                        <select id="category" class="form-select" formArrayName="category" #category>
+                            <option value="" selected>All categories</option>
+                            <option value="sports">Sports</option>
+                            <option value="selfhelp">Self help</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <label class="form-label fw-semibold" for="startRange">Start range</label>
+                        <input id="startRange" type="number" formControlName="startRange" min="0" class="form-control"
+                            #startRange placeholder="Min" />
+                    </div>
+
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <label class="form-label fw-semibold" for="endRange">End range</label>
+                        <input id="endRange" type="number" min="1" formControlName="endRange" class="form-control"
+                            #endRange placeholder="Max" />
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @if (books != undefined && books()?.length != 0) {
+        <div class="row g-4">
+            @for (book of books(); track $index) {
+            <div class="col-12 col-md-6 col-xl-4">
+                <app-book-item [book]="book"></app-book-item>
+            </div>
+            }
+        </div>
+        }
+        @else {
+        <div class="alert alert-secondary mb-0">No book found</div>
+        }
+    </div>
+</div>

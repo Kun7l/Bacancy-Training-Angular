@@ -1,0 +1,5 @@
+/* App shell spacing is handled by Bootstrap classes and the global stylesheet. */
+a{
+    color: white !important;
+    text-decoration: none;
+}

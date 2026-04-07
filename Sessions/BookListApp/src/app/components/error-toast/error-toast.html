@@ -1,0 +1,6 @@
+@if (errorMessage$ | async; as errorMessage) {
+<div class="alert alert-danger alert-dismissible fade show error-toast shadow-sm" role="alert">
+	<strong>Error:</strong> {{ errorMessage }}
+	<button type="button" class="btn-close" aria-label="Close" (click)="clearError()"></button>
+</div>
+}

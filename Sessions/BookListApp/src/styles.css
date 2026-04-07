@@ -1,0 +1,20 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+	color-scheme: light;
+}
+
+html,
+body {
+	min-height: 100%;
+}
+
+body {
+	margin: 0;
+	background: #f8f9fa;
+	color: #212529;
+}
+
+* {
+	box-sizing: border-box;
+}

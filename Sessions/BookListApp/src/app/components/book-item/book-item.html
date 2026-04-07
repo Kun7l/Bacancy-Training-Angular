@@ -1,0 +1,18 @@
+<div class="book-item card h-100 border-0 shadow-sm">
+    @if (book) {
+        @if (book.imageUrl) {
+            <img [src]="book.imageUrl" [alt]="book.title + ' cover'" class="card-img-top" style="height: 220px; object-fit: cover;" />
+        }
+        <div class="card-body d-flex flex-column gap-2">
+            <div class="d-flex justify-content-between align-items-start gap-3">
+                <h2 class="h5 mb-0 text-truncate">{{ book.title }}</h2>
+                <span class="badge text-bg-success">{{ book.category }}</span>
+            </div>
+            <p class="text-muted mb-0">Author: {{ book.author }}</p>
+            <div class="mt-auto pt-2 border-top">
+                <span class="fw-semibold">Price:</span>
+                <span class="text-primary fw-bold">{{ book.price | number : '1.0-0' }}</span>
+            </div>
+        </div>
+    }
+</div>
