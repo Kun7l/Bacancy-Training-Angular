@@ -1,5 +1,16 @@
 <div class="book-list-container">
+    @if(bookList.length != 0 ){
     @for (bookItem of bookList; track $index) {
-    <app-book-item [book]="bookItem" (deleteBookEvent)="deleteBook($event)" (editBookEvent)="editBook($event)" />
+    <app-book-item
+        [book]="bookItem"
+        [isAddActive]="isAddActive"
+        [isEditActive]="isEditActive"
+        (deleteBookEvent)="deleteBook($event)"
+        (editBookEvent)="editBook($event)"
+    />
+    }
+    }
+    @else{
+    <p>No book found</p>
     }
 </div>

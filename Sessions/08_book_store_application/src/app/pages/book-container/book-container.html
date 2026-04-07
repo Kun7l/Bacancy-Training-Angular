@@ -9,6 +9,12 @@
     <app-book-action [book]="tempBook" (editBookEvent)="editBookFunction($event)" [isAddActive]="isAddActive"
         (closeButtonEvent)="isEditActive.set(false)" />
     }
-    <app-book-list [bookList]="bookList()" (deleteBookEvent)="deleteBook($event)" (editBookEvent)="editBook($event)" />
+    <app-book-list
+        [bookList]="bookList()"
+        [isAddActive]="isAddActive()"
+        [isEditActive]="isEditActive()"
+        (deleteBookEvent)="deleteBook($event)"
+        (editBookEvent)="editBook($event)"
+    />
     @if (isToastVisible()) {<app-toast (toastExpired)="isToastVisible.set(false)" [message]="toastMessage()" />}
 </div>

@@ -19,6 +19,9 @@ export class BookItem {
   @Output() deleteBookEvent = new EventEmitter<number>();
   @Output() editBookEvent = new EventEmitter<IBookDetails>();
 
+  @Input() isAddActive = false;
+  @Input() isEditActive = false;
+
   isViewMoreClicked = signal<boolean>(false);
 
   viewMoreToggle() {
@@ -27,7 +30,7 @@ export class BookItem {
   deleteBook(id: number) {
     this.deleteBookEvent.emit(id);
   }
-  editBook(book: IBookDetails){
+  editBook(book: IBookDetails) {
     this.editBookEvent.emit(book);
   }
 }

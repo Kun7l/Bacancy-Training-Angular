@@ -16,7 +16,7 @@
             @else {
             View More
             }</button>
-        <button (click)="editBook(book)">Edit</button>
-        <button (click)="deleteBook(book.id)">Delete</button>
+        <button [disabled]="isAddActive" (click)="editBook(book)">Edit</button>
+        <button [disabled]="isEditActive" (click)="deleteBook(book.id)">Delete</button>
     </div>
 </div>

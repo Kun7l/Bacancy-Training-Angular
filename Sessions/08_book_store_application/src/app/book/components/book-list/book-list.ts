@@ -20,6 +20,9 @@ export class BookList {
     },
   ];
 
+  @Input() isAddActive = false;
+  @Input() isEditActive = false;
+
   @Output() deleteBookEvent = new EventEmitter<number>();
   @Output() editBookEvent = new EventEmitter<IBookDetails>();
 
