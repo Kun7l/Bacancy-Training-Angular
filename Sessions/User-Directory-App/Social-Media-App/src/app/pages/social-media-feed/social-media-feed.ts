@@ -4,6 +4,7 @@ import { Post } from '../../types/post.type';
 import { PostService } from '../../services/post-service';
 import { PostDTO } from '../../types/postDto.type';
 import { SocialPostComponent } from '../../components/social-post-component/social-post-component';
+import { map, take } from 'rxjs';
 
 @Component({
   selector: 'app-posts',
@@ -19,18 +20,22 @@ export class Posts {
   postList: Post[] = [];
 
   ngOnInit() {
-    const data = this.route.snapshot.data['posts'];
-    const transformed = Object.entries(data as Record<string, PostDTO>).map(
-      ([key, value]) => {
-        const post: Post = {
-          id: key,
-          ...value,
-        };
-        return post;
-      },
-    );
-    this.postList = transformed;
-    console.log(this.postList);
+    this.route.data
+      .pipe(
+        map((data) =>
+          Object.entries(data['posts'] as Record<string, PostDTO>).map(
+            ([key, value]) => ({
+              id: key,
+              ...value,
+            }),
+          ),
+        ),
+        take(1),
+      )
+      .subscribe((posts) => {
+        this.postList = posts;
+        console.log(this.postList);
+      });
   }
 
   likeButton(post: Post) {
