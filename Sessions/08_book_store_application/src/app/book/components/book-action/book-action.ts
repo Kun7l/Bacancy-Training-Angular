@@ -38,6 +38,7 @@ export class BookAction implements OnChanges {
   }
   
   @Input() isAddActive = signal(false);
+  @Input() showCloseButton = true;
   @Output() closeButtonEvent = new EventEmitter<void>();
 
   @Input() book = signal<IBookDetails>({

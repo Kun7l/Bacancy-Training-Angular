@@ -2,12 +2,47 @@
     <button (click)="isAddActive.set(true)">Add Book</button>
 
     @if (isAddActive() == true && isEditActive() == false ) {
-    <app-book-action (addBookEvent)="addBook($event)" [isAddActive]="isAddActive"
-        (closeButtonEvent)="isAddActive.set(false)" />
+    <div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="addBookModalTitle">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addBookModalTitle">Add Book</h5>
+                    <button type="button" class="btn-close" aria-label="Close" (click)="isAddActive.set(false)"></button>
+                </div>
+                <div class="modal-body">
+                    <app-book-action
+                        [showCloseButton]="false"
+                        (addBookEvent)="addBook($event)"
+                        [isAddActive]="isAddActive"
+                        (closeButtonEvent)="isAddActive.set(false)"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
     }
     @else if( isEditActive() == true && isAddActive() == false){
-    <app-book-action [book]="tempBook" (editBookEvent)="editBookFunction($event)" [isAddActive]="isAddActive"
-        (closeButtonEvent)="isEditActive.set(false)" />
+    <div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="editBookModalTitle">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editBookModalTitle">Edit Book</h5>
+                    <button type="button" class="btn-close" aria-label="Close" (click)="isEditActive.set(false)"></button>
+                </div>
+                <div class="modal-body">
+                    <app-book-action
+                        [book]="tempBook"
+                        [showCloseButton]="false"
+                        (editBookEvent)="editBookFunction($event)"
+                        [isAddActive]="isAddActive"
+                        (closeButtonEvent)="isEditActive.set(false)"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
     }
     <app-book-list
         [bookList]="bookList()"

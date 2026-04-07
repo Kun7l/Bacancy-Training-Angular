@@ -1,25 +1,27 @@
 <div class="book-action-container">
     <form [formGroup]="bookForm" (ngSubmit)="onSubmit()" class="add-book-form" action="">
-        <div class="form-field">
-            <label for="book-title">Title</label>
-            <input type="text" id="book-title" formControlName="title">
+        <div class="mb-3">
+            <label for="book-title" class="form-label">Title</label>
+            <input type="text" id="book-title" class="form-control" formControlName="title">
         </div>
-        <div class="form-field">
-            <label for="book-author">Author</label>
-            <input type="text" id="book-author" formControlName="author" >
+        <div class="mb-3">
+            <label for="book-author" class="form-label">Author</label>
+            <input type="text" id="book-author" class="form-control" formControlName="author">
         </div>
-        <div class="form-field">
-            <label for="book-description">Description</label>
-            <input type="text" id="book-description" formControlName="description" >
+        <div class="mb-3">
+            <label for="book-description" class="form-label">Description</label>
+            <input type="text" id="book-description" class="form-control" formControlName="description">
         </div>
-        <div class="form-field">
-            <label for="book-price">Price</label>
-            <input type="number" name="bookPrice" id="book-price" formControlName="price" >
+        <div class="mb-3">
+            <label for="book-price" class="form-label">Price</label>
+            <input type="number" name="bookPrice" id="book-price" class="form-control" formControlName="price">
         </div>
 
-        <button type="submit">@if (isAddActive()) {Add Book} @else{Update Book}</button>
-
+        <div class="d-flex gap-2 justify-content-end">
+            @if (showCloseButton) {
+            <button type="button" class="btn btn-outline-secondary" (click)="closeButton()">Close</button>
+            }
+            <button type="submit" class="btn btn-primary">@if (isAddActive()) {Add Book} @else {Update Book}</button>
+        </div>
     </form>
-    <br>
-    <button (click)="closeButton()">Close</button>
 </div>
