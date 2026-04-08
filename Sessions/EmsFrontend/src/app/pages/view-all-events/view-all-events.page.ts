@@ -18,7 +18,7 @@ export class ViewAllEventsPage implements OnInit {
   protected readonly events = signal<EventItem[]>([]);
 
   ngOnInit(): void {
-    this.eventService.getAllEvents().pipe(takeUntilDestroyed()).subscribe({
+    this.eventService.getAllEvents().subscribe({
       next: (data) => {
         this.events.set(data ?? []);
         this.loading.set(false);

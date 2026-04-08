@@ -43,7 +43,7 @@ export class CreateEventPage {
         startDate: value.startDate,
         category: value.category,
         ticketPrice: Number(value.ticketPrice),
-      }).pipe(takeUntilDestroyed())
+      })
       .subscribe({
         next: () => {
           this.loading.set(false);
