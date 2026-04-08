@@ -37,6 +37,6 @@ export class EventService {
       ? new HttpHeaders({ Authorization: `Bearer ${token}` })
       : undefined;
 
-    return this.http.post<EventItem>(`${this.baseUrl}/Event/create`, payload, { headers });
+    return this.http.post<EventItem>(`${this.baseUrl}/Event/create`,payload);
   }
 }
