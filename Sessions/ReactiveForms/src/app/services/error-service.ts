@@ -12,6 +12,7 @@ export class ErrorService {
     invalidPhoneNumber: 'this field should be a valid phone number',
     duplicateProjectName: 'project name should be unique',
     invalidDateRange: 'start date should be before end date',
+    invalidWebsite:'Enter valid website'
   };
 
   hasError(

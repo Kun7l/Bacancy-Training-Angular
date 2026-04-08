@@ -25,6 +25,7 @@
         <input class="input" type="text" formControlName="website" />
         <div class="error">
           <app-error [errorMessage]="getErrorMessage(companyForm.get('website')!,'required')" />
+          <app-error [errorMessage]="getErrorMessage(companyForm.get('website')!,'invalidWebsite')" />
         </div>
       </div>
 
@@ -45,9 +46,6 @@
         <div class="projects-list">
           @for (project of projects.controls; track project) {
           <div class="project-card">
-            <div class="error">
-              <app-error [errorMessage]="getErrorMessage(projects,'duplicateProjectName')" />
-            </div>
             <div class="project-grid" [formGroupName]="$index">
               <div class="control span-2">
                 <label class="label">Project Name</label>
@@ -55,6 +53,7 @@
                 <div class="error">
                   <app-error [errorMessage]="getErrorMessage(project.get('name')!,'required')" />
                   <app-error [errorMessage]="getErrorMessage(project.get('name')!,'minlength')" />
+                  <app-error [errorMessage]="getErrorMessage(project.get('name')!,'duplicateProjectName')" />
                 </div>
               </div>
 

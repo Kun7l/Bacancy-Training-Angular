@@ -1,17 +1,20 @@
 import { AbstractControl, FormArray, ValidationErrors } from '@angular/forms';
 
-export function duplicateProjectNameValidator(
-  control: AbstractControl,
-): ValidationErrors | null {
-  const projects = control.get('projects') as FormArray;
-  if (!projects) return null;
+export function duplicateProjectNameValidator(formArray: FormArray) {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const currentValue = control.value?.toLowerCase().trim();
 
-  const projectNames = projects.controls.map((project) =>
-    project.get('name')?.value?.toLowerCase().trim(),
-  );
-  const uniqueProjectNames = new Set(projectNames);
+    if (!currentValue) return null;
 
-  return uniqueProjectNames.size !== projectNames.length
-    ? { duplicateProjectName: true }
-    : null;
+    const isDuplicate = formArray.controls.some((project) => {
+      const nameControl = project.get('name');
+
+      // skip itself
+      if (nameControl === control) return false;
+
+      return nameControl?.value?.toLowerCase().trim() === currentValue;
+    });
+
+    return isDuplicate ? { duplicateProjectName: true } : null;
+  };
 }
