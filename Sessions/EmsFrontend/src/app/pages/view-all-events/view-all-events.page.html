@@ -1,0 +1,26 @@
+<main class="events-page">
+  <section class="header">
+    <p class="eyebrow">Events</p>
+    <h1>View All Events</h1>
+    <a routerLink="/home">Back to home</a>
+  </section>
+
+  @if (loading()) {
+    <section class="card">Loading events...</section>
+  } @else if (error()) {
+    <section class="card error">{{ error() }}</section>
+  } @else if (events().length === 0) {
+    <section class="card">No events found.</section>
+  } @else {
+    <section class="grid">
+      @for (event of events(); track event.id) {
+        <article class="card">
+          <h2>{{ event.name }}</h2>
+          <p><strong>Category:</strong> {{ event.category }}</p>
+          <p><strong>Start Date:</strong> {{ event.startDate }}</p>
+          <p><strong>Price:</strong> Rs. {{ event.ticketPrice }}</p>
+        </article>
+      }
+    </section>
+  }
+</main>

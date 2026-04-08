@@ -1,0 +1,43 @@
+<main class="create-page">
+  <section class="header">
+    <p class="eyebrow">Events</p>
+    <h1>Create Event</h1>
+    <a routerLink="/home">Back to home</a>
+  </section>
+
+  <section class="card">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+      <label>
+        Event Name
+        <input type="text" formControlName="name" />
+      </label>
+
+      <label>
+        Start Date
+        <input type="date" formControlName="startDate" />
+      </label>
+
+      <label>
+        Category
+        <input type="text" formControlName="category" />
+      </label>
+
+      <label>
+        Ticket Price
+        <input type="number" formControlName="ticketPrice" min="0" />
+      </label>
+
+      <button type="submit" [disabled]="loading()">
+        {{ loading() ? 'Creating...' : 'Create Event' }}
+      </button>
+    </form>
+
+    @if (successMessage()) {
+      <p class="message success">{{ successMessage() }}</p>
+    }
+
+    @if (errorMessage()) {
+      <p class="message error">{{ errorMessage() }}</p>
+    }
+  </section>
+</main>

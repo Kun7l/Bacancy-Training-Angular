@@ -1,0 +1,29 @@
+<main class="auth-page">
+  <section class="hero">
+    <p class="eyebrow">Event management system</p>
+    <h1>Login</h1>
+    <p class="copy">Use your username and password to sign in and continue to the home page.</p>
+  </section>
+
+  <section class="panel">
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
+      <label>
+        Username
+        <input type="text" formControlName="userName" autocomplete="username" />
+      </label>
+
+      <label>
+        Password
+        <input type="password" formControlName="password" autocomplete="current-password" />
+      </label>
+
+      @if (errorMessage()) {
+        <p class="error">{{ errorMessage() }}</p>
+      }
+
+      <button type="submit" [disabled]="loading()">
+        {{ loading() ? 'Signing in...' : 'Login' }}
+      </button>
+    </form>
+  </section>
+</main>
