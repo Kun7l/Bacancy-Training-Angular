@@ -1,1 +1,21 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <div class="form-field">
+        <label for="email">
+            email
+        </label>
+        <input autocomplete="username" type="text" id="email" formControlName="email">
+    </div>
+    <div class="form-field">
+        <label for="password">
+            password
+        </label>
+        <input autocomplete="current-password" type="password" id="password" formControlName="password">
+    </div>
+    <div>
+        <button type="submit" [disabled]="loginForm.invalid"> Submit </button>
+        <button type="button" (click)="patchValueFn()">Patch value</button>
+    </div>
+    <div>
+        <p class="error">{{errorMessage()}}</p>
+    </div>
+</form>

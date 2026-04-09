@@ -23,7 +23,7 @@ export class AuthService {
       .pipe(
         tap((res: any) => {
           localStorage.setItem(this.keys.accessToken, res.access_token);
-          localStorage.setItem(this.keys.user, res.user);
+          localStorage.setItem(this.keys.user, JSON.stringify(res.user));
         }),
       );
   }
