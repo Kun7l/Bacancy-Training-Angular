@@ -2,22 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth-service';
-
-export interface EventItem {
-  id: number;
-  name: string;
-  startDate: string;
-  category: string;
-  ticketPrice: number;
-  createdBy: number;
-}
-
-export interface CreateEventRequest {
-  name: string;
-  startDate: string;
-  category: string;
-  ticketPrice: number;
-}
+import { EventItem } from '../types/event.type';
+import { CreateEventRequest } from '../types/create.event.type';
 
 @Injectable({
   providedIn: 'root',
@@ -32,11 +18,7 @@ export class EventService {
   }
 
   createEvent(payload: CreateEventRequest): Observable<EventItem> {
-    const token = this.authService.getToken();
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : undefined;
-
-    return this.http.post<EventItem>(`${this.baseUrl}/Event/create`,payload);
+    return this.http.post<EventItem>(`${this.baseUrl}/Event/create`, payload);
   }
 }
+

@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { EventItem, EventService } from '../../services/event-service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EventService } from '../../services/event-service';
+import { Subscription } from 'rxjs';
+import { EventItem } from '../../types/event.type';
 
 @Component({
   selector: 'app-view-all-events-page',
@@ -17,8 +18,10 @@ export class ViewAllEventsPage implements OnInit {
   protected readonly error = signal('');
   protected readonly events = signal<EventItem[]>([]);
 
+  subscription: Subscription | undefined = undefined;
+
   ngOnInit(): void {
-    this.eventService.getAllEvents().subscribe({
+    this.subscription = this.eventService.getAllEvents().subscribe({
       next: (data) => {
         this.events.set(data ?? []);
         this.loading.set(false);
@@ -28,5 +31,9 @@ export class ViewAllEventsPage implements OnInit {
         this.loading.set(false);
       },
     });
+  }
+
+  ngOnDestory() {
+    this.subscription?.unsubscribe();
   }
 }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { EventService } from '../../services/event-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-event-page',
@@ -22,8 +23,13 @@ export class CreateEventPage {
     name: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     startDate: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     category: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    ticketPrice: new FormControl(0, { nonNullable: true, validators: [Validators.required, Validators.min(0)] }),
+    ticketPrice: new FormControl(0, {
+      nonNullable: true,
+      validators: [Validators.required, Validators.min(0)],
+    }),
   });
+
+  subcription: Subscription | undefined = undefined;
 
   protected submit(): void {
     if (this.form.invalid) {
@@ -37,7 +43,7 @@ export class CreateEventPage {
 
     const value = this.form.getRawValue();
 
-    this.eventService
+    this.subcription = this.eventService
       .createEvent({
         name: value.name,
         startDate: value.startDate,
@@ -52,8 +58,13 @@ export class CreateEventPage {
         },
         error: () => {
           this.loading.set(false);
-          this.errorMessage.set('Failed to create event. Make sure you are logged in as admin/organizer.');
+          this.errorMessage.set(
+            'Failed to create event. Make sure you are logged in as admin/organizer.',
+          );
         },
       });
+  }
+  ngOnDestroy() {
+    this.subcription?.unsubscribe();
   }
 }
