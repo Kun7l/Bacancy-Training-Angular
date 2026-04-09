@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  inject,
+  signal,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { EventService } from '../../services/event-service';
 import { Subscription } from 'rxjs';
@@ -11,7 +18,7 @@ import { EventItem } from '../../types/event.type';
   styleUrl: './view-all-events.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewAllEventsPage implements OnInit {
+export class ViewAllEventsPage implements OnInit, OnDestroy {
   private readonly eventService = inject(EventService);
 
   protected readonly loading = signal(true);
@@ -32,8 +39,7 @@ export class ViewAllEventsPage implements OnInit {
       },
     });
   }
-
-  ngOnDestory() {
+  ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
 }

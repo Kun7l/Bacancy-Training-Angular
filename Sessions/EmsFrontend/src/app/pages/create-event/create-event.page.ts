@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { EventService } from '../../services/event-service';
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './create-event.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateEventPage {
+export class CreateEventPage implements OnDestroy {
   private readonly eventService = inject(EventService);
 
   protected readonly loading = signal(false);
