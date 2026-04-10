@@ -20,8 +20,11 @@ export class UploadResume {
   isUploading = false;
 
   form = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    file: new FormControl<File | null>(null, [Validators.required,FileValidator]),
+    name: new FormControl(''),
+    file: new FormControl<File | null>(null, [
+      Validators.required,
+      FileValidator,
+    ]),
   });
 
   // Handle file selection
@@ -43,13 +46,13 @@ export class UploadResume {
 
     const { name, file } = this.form.value;
 
-    if (!file || !name) return;
+    if (!file) return;
 
-    this.resumeService.uploadResume(file, name).subscribe({
+    this.resumeService.uploadResume(file, name ? name : file.name).subscribe({
       next: (data) => {
         console.log('Uploaded successfully', data);
 
-        this.resumeService.addResume(name, data).subscribe({
+        this.resumeService.addResume(data, file.name).subscribe({
           next: (data) => {
             console.log('Resume added to database successfully!');
             console.log(data);

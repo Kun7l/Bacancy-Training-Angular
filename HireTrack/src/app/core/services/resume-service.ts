@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Resume } from '../../features/add-job/types/resume.type';
 
 @Injectable({
   providedIn: 'root',
@@ -21,16 +22,14 @@ export class ResumeService {
         map(
           (response) =>
             `${environment.supabaseUrl}/storage/v1/object/public/${response.Key}`,
-        ),
-        tap((publicUrl) => {
-          console.log('✅ Resume uploaded successfully!');
-          console.log('🔗 Public URL:', publicUrl);
-          return publicUrl;
-        }),
+        )
       );
   }
 
-  addResume(name: string, url: string) {
+  addResume(url: string,name: string) {
     return this.http.post(this.addResumeUrl, { name, url });
+  }
+  getAllResume() : Observable<Resume[]> {
+    return this.http.get<Resume[]>(this.addResumeUrl);
   }
 }

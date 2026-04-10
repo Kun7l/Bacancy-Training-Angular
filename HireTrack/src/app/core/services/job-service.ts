@@ -16,8 +16,8 @@ export class JobService {
   addJob(jobData: CreateJobDto) {
     return this.http.post(this.baseUrl, jobData);
   }
-  getAllJobs() {
-    return this.http.get(`${this.baseUrl}?select=*`);
+  getAllJobs(): Observable<Job[]> {
+    return this.http.get<Job[]>(`${this.baseUrl}?select=*,resume:resume_id(name,url)`);
   }
   getJobById(id: number) {
     return this.http.get<Job>(`${this.baseUrl}?id=eq.${id}`);
@@ -27,5 +27,10 @@ export class JobService {
   }
   updateJob(id: number, jobData: Partial<CreateJobDto>) {
     return this.http.patch(`${this.baseUrl}?id=eq.${id}`, jobData);
+  }
+  searchJob(query: string): Observable<Job[]> {
+    return this.http.get<Job[]>(
+      `${this.baseUrl}?or=(company.ilike.*${query}*,role.ilike.*${query}*,status.ilike.*${query}*)`,
+    );
   }
 }
