@@ -1,1 +1,42 @@
-<p>add-job works!</p>
+<div class="add-job-form">
+    <form [formGroup]="addJobForm" (ngSubmit)="onSubmit()">
+        <div class="form-field">
+            <label for="company">Company</label>
+            <input type="text" id="company" formControlName="company">
+        </div>
+        <div class="form-field">
+            <label for="role">role</label>
+            <input type="text" id="role" formControlName="role">
+        </div>
+        <div class="form-field">
+            <label for="status">Status</label>
+            <select formControlName="status" for="" status>
+                <option value="wishlist">Wishlist</option>
+                <option value="applied">Applied</option>
+                <option value="interview">Interview</option>
+                <option value="offer">Offer</option>
+            </select>
+        </div>
+        <div class="form-field">
+            <label for="resume">Resume</label>
+            <select formControlName="resume_id" id="">
+                <option [value]="null">No resume</option>
+                @if (resumeList()) {
+                @for (resume of resumeList(); track $index) {
+                <option [value]="resume.id">{{resume.name}}</option>
+                }
+                }
+            </select>
+        </div>
+        <div class="form-field">
+            <label for="jobUrl">Job Url</label>
+            <input type="text" formControlName="job_url">
+        </div>
+        <div class="form-field">
+            <label for="notes">Note</label>
+            <textarea formControlName="note" id=""></textarea>
+        </div>
+        <button type="submit" [disabled]="addJobForm.invalid">Add Job</button>
+        <button type="button" (click)="patchValue()">Fill Form</button>
+    </form>
+</div>
