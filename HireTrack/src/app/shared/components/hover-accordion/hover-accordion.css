@@ -1,0 +1,48 @@
+.accordion-card {
+  width: 300px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #1e1e1e;
+  color: white;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  height: 80px;
+  margin: 10px 5px;
+}
+
+/* Expanded state */
+.accordion-card.expanded {
+  height: 220px;
+}
+
+.header h3 {
+  margin: 0;
+}
+
+.short {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.details {
+  margin-top: 10px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+/* Show on expand */
+.accordion-card.expanded .details {
+  opacity: 1;
+  transform: translateY(0);
+}
+.accordion-card {
+  max-height: 100px;
+}
+
+.accordion-card.expanded {
+  max-height: 300px;
+}

@@ -1,0 +1,19 @@
+@if (jobDetails()) {
+<div [routerLink]="['/jobs', jobDetails()?.id]" class="accordion-card" (mouseenter)="expand()" (mouseleave)="collapse()"
+    [class.expanded]="isExpanded">
+    <div class="header">
+        <h3>{{ jobDetails()?.role }}</h3>
+        <p class="short">{{ jobDetails()?.company }}</p>
+        <p class="short">{{ jobDetails()?.created_at | date: 'dd MMM yyyy' }}</p>
+    </div>
+
+    <div class="details">
+        <p>{{ jobDetails()?.created_at | date:'medium' }}</p>
+        <p>{{ jobDetails()?.job_url }}</p>
+        <a target="_blank" [href]="jobDetails()?.resume_url" (click)="$event.stopPropagation()">Resume </a>
+    </div>
+</div>
+}
+@else {
+<p>No data</p>
+}
