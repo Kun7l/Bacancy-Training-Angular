@@ -5,6 +5,7 @@ import { Login } from './features/login/login';
 import { JobDetail } from './features/job-detail/job-detail';
 import { AddJob } from './features/add-job/add-job';
 import { NotFound } from './shared/components/not-found/not-found';
+import { unsavedChanges } from './core/guards/unsaved-changes-guard';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,7 @@ export const routes: Routes = [
     path: 'add',
     component: AddJob,
     canActivate: [authGuard],
+    canDeactivate: [unsavedChanges],
   },
   {
     path: 'not-found',
