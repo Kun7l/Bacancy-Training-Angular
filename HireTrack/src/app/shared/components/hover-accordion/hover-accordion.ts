@@ -1,11 +1,11 @@
 import { Component, input, Input } from '@angular/core';
 import { Job } from '../../../core/models/job.model';
 import { Router, RouterLink } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-hover-accordion',
-  imports: [RouterLink,DatePipe],
+  imports: [RouterLink,DatePipe,TitleCasePipe],
   templateUrl: './hover-accordion.html',
   styleUrl: './hover-accordion.css',
 })

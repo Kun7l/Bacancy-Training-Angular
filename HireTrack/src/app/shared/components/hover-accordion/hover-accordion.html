@@ -2,15 +2,24 @@
 <div [routerLink]="['/jobs', jobDetails()?.id]" class="accordion-card" (mouseenter)="expand()" (mouseleave)="collapse()"
     [class.expanded]="isExpanded">
     <div class="header">
-        <h3>{{ jobDetails()?.role }}</h3>
-        <p class="short">{{ jobDetails()?.company }}</p>
-        <p class="short">{{ jobDetails()?.created_at | date: 'dd MMM yyyy' }}</p>
+        <h4>{{ jobDetails()?.role | titlecase}}</h4>
+        <p class="short">{{ jobDetails()?.company | titlecase}}</p>
+        <p class="short">Created - {{ jobDetails()?.created_at | date: 'dd MMM yyyy' }}</p>
     </div>
 
     <div class="details">
-        <p>{{ jobDetails()?.created_at | date:'medium' }}</p>
-        <p>{{ jobDetails()?.job_url }}</p>
-        <a target="_blank" [href]="jobDetails()?.resume_url" (click)="$event.stopPropagation()">Resume </a>
+
+        @if (jobDetails()?.resume) {
+        <p>Resume - <a target="_blank" [href]="jobDetails()?.resume?.url" (click)="$event.stopPropagation()">
+                {{jobDetails()?.resume?.name}}</a></p>
+        }
+        @if (jobDetails()?.job_url) {
+        <p>Job Url - <a target="_blank" [href]="jobDetails()?.job_url" (click)="$event.stopPropagation()">
+                {{jobDetails()?.job_url}}</a></p>
+        }
+        @if (jobDetails()?.note) {
+        <p>Note - {{ jobDetails()?.note }}</p>
+        }
     </div>
 </div>
 }
