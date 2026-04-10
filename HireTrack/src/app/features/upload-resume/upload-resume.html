@@ -1,0 +1,32 @@
+<div class="upload-features">
+    <form [formGroup]="form">
+
+        <!-- Name -->
+        <div class="form-field">
+            <label>Name</label>
+            <input type="text" formControlName="name" />
+
+            @if (form.controls.name.touched && form.controls.name.invalid) {
+            <small>Name is required</small>
+            }
+        </div>
+
+        <!-- File -->
+        <div class="form-field">
+            <input type="file" (change)="onFileChange($event)"  />
+
+            @if (form.controls.file.touched && form.controls.file.invalid) {
+            <small>Resume is required</small>
+            }
+            @if (form.controls.file.errors?.['invalidFileType']) {
+            <small>Please upload a PDF file</small>
+            }
+        </div>
+
+        <!-- Button -->
+        <button type="button" (click)="upload()" [disabled]="form.invalid || isUploading">
+            {{ isUploading ? 'Uploading...' : 'Upload' }}
+        </button>
+
+    </form>
+</div>
