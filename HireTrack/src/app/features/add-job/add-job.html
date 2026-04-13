@@ -1,42 +1,90 @@
-<div class="add-job-form">
-    <form [formGroup]="addJobForm" (ngSubmit)="onSubmit()">
-        <div class="form-field">
-            <label for="company">Company</label>
-            <input type="text" id="company" formControlName="company">
+<div class="aj-page">
+    <div class="aj-card">
+
+        <!-- Header -->
+        <div class="aj-header">
+            <app-back-button />
+            <span class="aj-title">Add New Job</span>
         </div>
-        <div class="form-field">
-            <label for="role">role</label>
-            <input type="text" id="role" formControlName="role">
-        </div>
-        <div class="form-field">
-            <label for="status">Status</label>
-            <select formControlName="status" for="" status>
-                <option value="wishlist">Wishlist</option>
-                <option value="applied">Applied</option>
-                <option value="interview">Interview</option>
-                <option value="offer">Offer</option>
-            </select>
-        </div>
-        <div class="form-field">
-            <label for="resume">Resume</label>
-            <select formControlName="resume_id" id="">
-                <option [value]="null">No resume</option>
-                @if (resumeList()) {
-                @for (resume of resumeList(); track $index) {
-                <option [value]="resume.id">{{resume.name}}</option>
-                }
-                }
-            </select>
-        </div>
-        <div class="form-field">
-            <label for="jobUrl">Job Url</label>
-            <input type="text" formControlName="job_url">
-        </div>
-        <div class="form-field">
-            <label for="notes">Note</label>
-            <textarea formControlName="note" id=""></textarea>
-        </div>
-        <button type="submit" [disabled]="addJobForm.invalid">Add Job</button>
-        <button type="button" (click)="patchValue()">Fill Form</button>
-    </form>
+
+        <div class="aj-divider"></div>
+
+        <!-- Form -->
+        <form class="aj-form" [formGroup]="addJobForm" (ngSubmit)="onSubmit()">
+
+            <!-- Company -->
+            <div class="aj-field">
+                <label class="aj-label" for="company">Company</label>
+                <input class="aj-input" type="text" id="company" formControlName="company" placeholder="e.g. Google">
+            </div>
+
+            <!-- Role -->
+            <div class="aj-field">
+                <label class="aj-label" for="role">Role</label>
+                <input class="aj-input" type="text" id="role" formControlName="role"
+                    placeholder="e.g. Frontend Developer">
+            </div>
+
+            <!-- Date Applied -->
+            <div class="aj-field">
+                <label class="aj-label" for="date_applied">Date Applied</label>
+                <input class="aj-input" type="date" id="date_applied" formControlName="date_applied">
+            </div>
+
+            <!-- Status -->
+            <div class="aj-field">
+                <label class="aj-label" for="status">Status</label>
+                <select class="aj-select" id="status" formControlName="status">
+                    <option value="wishlist">Wishlist</option>
+                    <option value="applied">Applied</option>
+                    <option value="interview">Interview</option>
+                    <option value="offer">Offer</option>
+                </select>
+            </div>
+
+            <!-- Resume -->
+            <div class="aj-field">
+                <label class="aj-label" for="resume_id">Resume</label>
+                <select class="aj-select" id="resume_id" formControlName="resume_id">
+                    <option [value]="null">No resume</option>
+                    @if (resumeList()) {
+                    @for (resume of resumeList(); track $index) {
+                    <option [value]="resume.id">{{ resume.name }}</option>
+                    }
+                    }
+                </select>
+            </div>
+
+            <!-- Job URL -->
+            <div class="aj-field">
+                <label class="aj-label" for="job_url">Job URL</label>
+                <input class="aj-input" type="text" id="job_url" formControlName="job_url"
+                    placeholder="https://example.com/job">
+            </div>
+
+            <!-- Notes -->
+            <div class="aj-field">
+                <label class="aj-label" for="note">Note</label>
+                <textarea class="aj-textarea" id="note" formControlName="note"
+                    placeholder="Any notes about this role…"></textarea>
+            </div>
+
+            <div class="aj-divider"></div>
+
+            <!-- Actions -->
+            <div class="aj-footer">
+                <button type="button" class="aj-btn aj-btn--secondary" (click)="patchValue()">
+                    Fill Form
+                </button>
+                <button type="submit" class="aj-btn aj-btn--primary" [disabled]="addJobForm.invalid">
+                    @if (isBeingAdded) {
+                    <app-loading-button />
+                    } @else {
+                    Add Job
+                    }
+                </button>
+            </div>
+
+        </form>
+    </div>
 </div>

@@ -1,0 +1,10 @@
+<nav>
+    <div class="left-side">
+        <h3 class="text-xl">HireTrack</h3>
+        <p>Welcome, {{ user }}!</p>
+    </div>
+    <div class="right-side">
+        <button [routerLink]="['/upload-resume']">Upload Resume</button>
+        <button (click)="logout()">Logout</button>
+    </div>
+</nav>

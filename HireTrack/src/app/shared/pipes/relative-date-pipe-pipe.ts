@@ -4,7 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'relativeDatePipe',
 })
 export class RelativeDatePipePipe implements PipeTransform {
-  transform(value: Date, ...args: unknown[]): string {
+  transform(value: Date | null | undefined, ...args: unknown[]): string {
+    if (value === null || value === undefined) return '';
     const now = new Date();
     const diff = now.getTime() - new Date(value).getTime();
     const diffInDays = Math.floor(diff / (1000 * 60 * 60 * 24));

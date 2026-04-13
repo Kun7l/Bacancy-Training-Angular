@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { ResumeService } from '../../core/services/resume-service';
 import { FileValidator } from '../../shared/validators/fileValidator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-upload-resume',
@@ -16,7 +17,7 @@ import { FileValidator } from '../../shared/validators/fileValidator';
   styleUrl: './upload-resume.css',
 })
 export class UploadResume {
-  constructor(private resumeService: ResumeService) {}
+  constructor(private resumeService: ResumeService,private router: Router) {}
   isUploading = false;
 
   form = new FormGroup({
@@ -62,8 +63,9 @@ export class UploadResume {
           },
         });
 
-        this.form.reset();
         this.isUploading = false;
+        this.form.reset();
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         console.log('Upload failed', err);

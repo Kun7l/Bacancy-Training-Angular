@@ -1,0 +1,47 @@
+/* ── Search Bar ───────────────────────────────────── */
+.sb-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 360px;
+}
+
+.sb-icon {
+  position: absolute;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  color: #8fa07a;
+  pointer-events: none;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.sb-input {
+  width: 100%;
+  padding: 8px 14px 8px 36px;
+  font-size: 0.88rem;
+  font-family: 'Poppins', sans-serif;
+  color: #3b4636;
+  background: #ecefe8;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  outline: none;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.sb-input::placeholder {
+  color: #b5c4a8;
+}
+
+.sb-input:focus {
+  background: #ffffff;
+  border-color: #8fa07a;
+  box-shadow: 0 0 0 3px rgba(143, 160, 122, 0.18);
+}
+
+.sb-wrapper:focus-within .sb-icon {
+  color: #55624d;
+}

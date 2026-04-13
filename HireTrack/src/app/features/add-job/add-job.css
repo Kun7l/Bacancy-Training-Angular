@@ -1,0 +1,175 @@
+/* ── Page wrapper ─────────────────────────────────── */
+.aj-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8faf3;
+  padding: 24px;
+}
+
+/* ── Card ─────────────────────────────────────────── */
+.aj-card {
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border: 1px solid #dde7d4;
+  border-radius: 18px;
+  padding: 28px 32px 24px;
+  box-shadow: 0 4px 24px rgba(85, 98, 77, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Card header ─────────────────────────────────── */
+.aj-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 4px;
+}
+
+.aj-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #3b4636;
+  letter-spacing: 0.01em;
+}
+
+/* ── Form ─────────────────────────────────────────── */
+.aj-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Field row ───────────────────────────────────── */
+.aj-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aj-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8fa07a;
+}
+
+/* ── Inputs, selects, textarea ───────────────────── */
+.aj-input,
+.aj-textarea {
+  width: 100%;
+  padding: 9px 14px;
+  font-size: 0.92rem;
+  font-family: 'Poppins', sans-serif;
+  color: #3b4636;
+  background: #f8faf3;
+  border: 1px solid #dde7d4;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+  appearance: none;
+}
+
+.aj-select {
+  width: 100%;
+  padding: 9px 36px 9px 14px;
+  font-size: 0.92rem;
+  font-family: 'Poppins', sans-serif;
+  color: #3b4636;
+  background-color: #f8faf3;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238fa07a' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  border: 1px solid #dde7d4;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+  appearance: none;
+  cursor: pointer;
+}
+
+.aj-input:focus,
+.aj-select:focus,
+.aj-textarea:focus {
+  border-color: #8fa07a;
+  box-shadow: 0 0 0 3px rgba(143, 160, 122, 0.18);
+  background: #ffffff;
+}
+
+.aj-input.ng-invalid.ng-touched,
+.aj-select.ng-invalid.ng-touched,
+.aj-textarea.ng-invalid.ng-touched {
+  border-color: #c0392b;
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1);
+}
+
+.aj-textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.aj-input::placeholder,
+.aj-textarea::placeholder {
+  color: #b5c4a8;
+  opacity: 1;
+}
+
+/* ── Divider ──────────────────────────────────────── */
+.aj-divider {
+  height: 1px;
+  background: #ecefe8;
+  margin: 4px 0;
+}
+
+/* ── Footer actions ──────────────────────────────── */
+.aj-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding-top: 4px;
+}
+
+.aj-btn {
+  font-size: 0.87rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 22px;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease;
+  line-height: 1;
+}
+.aj-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+/* Primary – Submit */
+.aj-btn--primary {
+  color: #ffffff;
+  background: #55624d;
+}
+.aj-btn--primary:hover:not(:disabled) {
+  background: #3b4636;
+}
+.aj-btn--primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Secondary – Fill Form */
+.aj-btn--secondary {
+  color: #55624d;
+  background: #ecefe8;
+}
+.aj-btn--secondary:hover {
+  background: #dde7d4;
+}

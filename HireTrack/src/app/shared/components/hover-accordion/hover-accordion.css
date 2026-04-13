@@ -1,25 +1,29 @@
 .accordion-card {
   width: 300px;
   padding: 16px;
-  
+
   border-radius: 12px;
-  background: #1e1e1e;
+  background: #ffffff;
   color: white;
   cursor: pointer;
 
   transition: all 0.3s ease;
   overflow: hidden;
-
-  height: 80px;
+  min-height: 100px;
   margin: 10px 0;
 }
-.details p{
+.left-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.details p {
   margin: 10px 0;
 }
 
 /* Expanded state */
 .accordion-card.expanded {
-  height: 220px;
+  min-height: 200px;
 }
 
 .header h3 {
@@ -44,10 +48,34 @@
   opacity: 1;
   transform: translateY(0);
 }
+
 .accordion-card {
   max-height: 70px;
 }
 
 .accordion-card.expanded {
   max-height: 300px;
+}
+
+/* ─── Expanded area background ───────────────────────────────────────── */
+/* Distinct surface-dim tone — clearly cooler/deeper than the #ecefe8 header */
+.expanded-zone {
+  background-color: #d6dbd0;
+  /* surface-dim — one step darker than surface-nest */
+}
+.btn-delete {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+.btn-delete:hover {
+  background-color: #991b1b;
+  color: white !important;
+}
+.jd-divider {
+  height: 1px;
+  background: #ecefe8;
+  margin-bottom: 5px;
+}
+.job-card-footer{
+  text-align: center;
 }

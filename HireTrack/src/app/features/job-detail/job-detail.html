@@ -1,1 +1,86 @@
-<p>job-detail works!</p>
+<div class="jd-page">
+    @if (jobDetail()) {
+    <div class="jd-card">
+
+        <!-- Top bar: Back + Status -->
+        <div class="jd-top-bar">
+            <button class="jd-back-btn" [routerLink]="['/dashboard']">
+                <span class="jd-back-arrow">&#8592;</span>
+                Back
+            </button>
+            <app-badge [variant]="jobDetail()!.status" [text]="jobDetail()!.status" />
+        </div>
+
+        <!-- Card Body -->
+        <div class="jd-body">
+            <div class="jd-field">
+                <span class="jd-label">Company</span>
+                <span class="jd-value">{{ jobDetail()?.company }}</span>
+            </div>
+            <div class="jd-divider"></div>
+
+            <div class="jd-field">
+                <span class="jd-label">Role</span>
+                <span class="jd-value">{{ jobDetail()?.role }}</span>
+            </div>
+            <div class="jd-divider"></div>
+
+            @if (jobDetail()?.date_applied) {
+            <div class="jd-field">
+                <span class="jd-label">Applied On</span>
+                <span class="jd-value">{{ jobDetail()?.date_applied | date: 'mediumDate' }}</span>
+            </div>
+            <div class="jd-divider"></div>
+            }
+
+            @if (jobDetail()?.job_url) {
+            <div class="jd-field">
+                <span class="jd-label">Job Link</span>
+                <a class="jd-value jd-link" [href]="jobDetail()?.job_url" target="_blank">
+                    {{ jobDetail()?.job_url }}
+                </a>
+            </div>
+            <div class="jd-divider"></div>
+            }
+
+            @if (jobDetail()?.resume?.name) {
+            <div class="jd-field">
+                <span class="jd-label">Resume</span>
+                <span class="jd-value"><a [href]="jobDetail()?.resume?.url" target="_blank">{{ jobDetail()?.resume?.name }}</a></span>
+            </div>
+            <div class="jd-divider"></div>
+            }
+
+            @if (jobDetail()?.note) {
+            <div class="jd-field jd-field--col">
+                <span class="jd-label">Notes</span>
+                <span class="jd-value jd-note">{{ jobDetail()?.note }}</span>
+            </div>
+            <div class="jd-divider"></div>
+            }
+        </div>
+
+        <!-- Last Updated -->
+        <p class="jd-last-updated">
+            Last updated &nbsp;·&nbsp; {{ jobDetail()?.last_edited | relativeDatePipe}}
+        </p>
+
+        <!-- Footer Actions -->
+        <div class="jd-footer">
+            <button class="jd-btn jd-btn--edit" (click)="isBeingEdited.set(!isBeingEdited())">
+                {{ isBeingEdited() ? 'Cancel' : 'Edit Job' }}
+            </button>
+            <button class="jd-btn jd-btn--delete">
+                Delete
+            </button>
+        </div>
+
+        <!-- Edit Form -->
+        @if (isBeingEdited()) {
+        <app-edit-job [jobData]="jobDetail()" (jobEdited)="onJobEdited($event)" />
+        }
+    </div>
+    } @else {
+    <app-spinner />
+    }
+</div>

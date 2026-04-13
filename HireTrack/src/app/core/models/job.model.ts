@@ -6,6 +6,8 @@ export interface Job {
   role: string;
   status: Status;
   created_at: Date;
+  last_edited: Date;
+  date_applied?: Date;
   resume_url?: string;
   job_url?: string;
   note?: string;

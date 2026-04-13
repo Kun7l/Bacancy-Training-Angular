@@ -1,26 +1,39 @@
 @if (jobDetails()) {
-<div [routerLink]="['/jobs', jobDetails()?.id]" class="accordion-card" (mouseenter)="expand()" (mouseleave)="collapse()"
-    [class.expanded]="isExpanded">
-    <div class="header">
-        <h4>{{ jobDetails()?.role | titlecase}}</h4>
+<div class="accordion-card" (mouseenter)="expand()" (mouseleave)="collapse()" [class.expanded]="isExpanded">
+    <div class="header" [routerLink]="['/jobs', jobDetails()?.id]">
+        <div class="left-section">
+            <h4 class="primary-accent">{{ jobDetails()?.role | titlecase}}</h4>
+            <app-badge [text]="jobDetails()!.status"></app-badge>
+        </div>
         <p class="short">{{ jobDetails()?.company | titlecase}}</p>
+        @if (jobDetails()?.date_applied) {
+        <p class="short">Applied - {{ jobDetails()?.date_applied | date: 'dd MMM yyyy' }}</p>
+        }
+        @else {
         <p class="short">Created - {{ jobDetails()?.created_at | date: 'dd MMM yyyy' }}</p>
+        }
     </div>
 
     <div class="details">
 
         @if (jobDetails()?.resume) {
-        <p>Resume - <a target="_blank" [href]="jobDetails()?.resume?.url" (click)="$event.stopPropagation()">
+        <p class="short">Resume - <a target="_blank" [href]="jobDetails()?.resume?.url"
+                (click)="$event.stopPropagation()">
                 {{jobDetails()?.resume?.name}}</a></p>
         }
-        @if (jobDetails()?.job_url) {
-        <p>Job Url - <a target="_blank" [href]="jobDetails()?.job_url" (click)="$event.stopPropagation()">
-                {{jobDetails()?.job_url}}</a></p>
-        }
+    
         @if (jobDetails()?.note) {
-        <p>Note - {{ jobDetails()?.note }}</p>
+        <p class="short">Note - {{ jobDetails()?.note }}</p>
+        }
+        <button class="btn-delete" type="button" (click)="deleteJob(jobDetails()!.id)">Delete</button>
+    </div>
+    <div class="job-card-footer">
+        <div class="jd-divider"></div>
+        @if (jobDetails()?.last_edited != null && jobDetails()?.last_edited != undefined) {
+        <p class="short">Last edited - {{ jobDetails()!.last_edited | relativeDatePipe }}</p>
         }
     </div>
+
 </div>
 }
 @else {

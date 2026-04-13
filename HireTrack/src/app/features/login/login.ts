@@ -36,8 +36,8 @@ export class Login implements OnDestroy {
   });
 
   private defaultValue = {
-    email: 'user@example.com',
-    password: 'secret',
+    email: 'krunal@gmail.com',
+    password: '123456',
   };
 
   patchValueFn() {
