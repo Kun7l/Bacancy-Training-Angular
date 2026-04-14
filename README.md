@@ -1,32 +1,22 @@
+# HireTrack
 
-# Bacancy Training Angular Repository
+**Creator:** Krunal Khairanar
 
-Hello, I'm Krunal Khairanar, an intern at Bacancy Technology. This repository contains learnings and assignments completed during the Angular training as part of an internship at Bacancy Technology. 
+## Project Details
+- **Angular Version:** v20.0.0
+- **Supabase Project URL:** https://rvegpevpxsmfjrceuqhr.supabase.co
+- **Vercel Live URL:** *[Insert Vercel Live URL Here]*
 
-Ps : To locate on branch click on the branch name
+## How to Run locally
 
-[advance javascript assignment](https://github.com/krunalkhairanar-bacancy/Angular-Training-2026/tree/session/01_advance_javascript_assignment)
+The app has been configured so that it runs out-of-the-box simply by checking out the branch and running the commands below:
 
---> Hoisting, Closures Spread operators, Object/Array destructuring, Call/Apply/Bind, Prototypes
-
-***
-
-[introduction to typescript](https://github.com/krunalkhairanar-bacancy/Angular-Training-2026/tree/session/02_introduction_of_typescript)
-
---> Typescript basics, Types, Interface, Generics, Decorators, Enums, Optional Readonly, Utility types, 
-
-***
-
-[Product silling system](https://github.com/krunalkhairanar-bacancy/Angular-Training-2026/tree/session/04_simple_product_billing_system_assignment)
-
-***
-
-[communication_between_html_and_component](https://github.com/krunalkhairanar-bacancy/Angular-Training-2026/tree/session/05_communication_between_html_and_component)
-
---> One way/Two way data binding, ngModel, Model signal
-
-***
-
-[Quiz application](https://github.com/krunalkhairanar-bacancy/Angular-Training-2026/tree/session/06_quiz_application_assignment)
-
-***
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+2. **Start the development server:**
+   ```bash
+   ng serve
+   ```
+   Navigate to `http://localhost:4200/` in your browser. The application will automatically reload if you change any of the source files.
