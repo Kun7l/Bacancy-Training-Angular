@@ -1,14 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { catchError, map, Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Resume } from '../../features/add-job/types/resume.type';
+import { ErrorService } from './error-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ResumeService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private errorService: ErrorService,
+  ) {}
   private url = `${environment.supabaseUrl}/storage/v1/object`;
   private addResumeUrl = `${environment.supabaseUrl}/rest/v1/resumes`;
   private bucketName = 'Resume';
@@ -19,17 +23,40 @@ export class ResumeService {
     return this.http
       .post<{ Key: string }>(`${this.url}/${filePath}`, file)
       .pipe(
+        catchError((err) => {
+          if (err.status == 400) {
+            this.errorService.setDangerMessage(
+              'A resume with the same name already exists.',
+            );
+          } else {
+            this.errorService.setErrorMessage(err);
+          }
+          console.error('Upload error:', err);
+          throw err;
+        }),
         map(
           (response) =>
             `${environment.supabaseUrl}/storage/v1/object/public/${response.Key}`,
-        )
+        ),
       );
   }
 
-  addResume(url: string,name: string) {
-    return this.http.post(this.addResumeUrl, { name, url });
+  addResume(url: string, name: string) {
+    return this.http.post(this.addResumeUrl, { name, url }).pipe(
+      catchError((err) => {
+        console.error('Add resume error:', err);
+        this.errorService.setErrorMessage(err);
+        throw err;
+      }),
+    );
   }
-  getAllResume() : Observable<Resume[]> {
-    return this.http.get<Resume[]>(this.addResumeUrl);
+  getAllResume(): Observable<Resume[]> {
+    return this.http.get<Resume[]>(this.addResumeUrl).pipe(
+      catchError((err) => {
+        console.error('Get all resumes error:', err);
+        this.errorService.setErrorMessage(err);
+        throw err;
+      }),
+    );
   }
 }

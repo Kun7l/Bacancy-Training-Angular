@@ -1,6 +1,17 @@
+.stats-bar{
+    background-color: #cfd5c7;
+    margin-bottom: 20px;
+    border-radius: 12px;
+}
 .stats-bar .stats{
     display: flex;
     justify-content: space-around;
     padding: 10px;
     gap: 20px;
+    
 }
+.stats-bar .stats p{
+    padding: 3px 12px;
+    border-radius: 8px;
+    background-color: #ecefe8;
+}   

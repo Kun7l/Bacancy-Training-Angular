@@ -24,8 +24,8 @@
         </div>
 
         <!-- Button -->
-        <button type="button" (click)="upload()" [disabled]="form.invalid || isUploading">
-            {{ isUploading ? 'Uploading...' : 'Upload' }}
+        <button type="button" (click)="upload()" [disabled]="form.invalid || isBeingUploaded()">
+            {{ isBeingUploaded() ? 'Uploading...' : 'Upload' }}
         </button>
 
     </form>

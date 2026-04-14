@@ -1,22 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, computed } from '@angular/core';
+import { StatusColorDirective } from "../../directives/status-color-directive";
 
 export type BadgeVariant = 'wishlist' | 'applied' | 'interview' | 'offer';
 
 @Component({
   selector: 'app-badge',
-  imports: [CommonModule],
+  imports: [CommonModule, StatusColorDirective],
   templateUrl: './badge.html',
   styleUrl: './badge.css',
 })
 export class BadgeComponent {
-  // ✅ signal input
+  
   variant = input<BadgeVariant>('wishlist');
   text = input<string>('');
 
-  // ✅ computed class based on variant
   badgeClass = computed(() => {
-    const v = this.text();
+    const v = this.variant();
     return v;
   });
 }

@@ -3,7 +3,7 @@
     <div class="header" [routerLink]="['/jobs', jobDetails()?.id]">
         <div class="left-section">
             <h4 class="primary-accent">{{ jobDetails()?.role | titlecase}}</h4>
-            <app-badge [text]="jobDetails()!.status"></app-badge>
+            <app-badge [text]="jobDetails()!.status" [variant]="jobDetails()!.status"></app-badge>
         </div>
         <p class="short">{{ jobDetails()?.company | titlecase}}</p>
         @if (jobDetails()?.date_applied) {
@@ -21,11 +21,18 @@
                 (click)="$event.stopPropagation()">
                 {{jobDetails()?.resume?.name}}</a></p>
         }
-    
+
         @if (jobDetails()?.note) {
         <p class="short">Note - {{ jobDetails()?.note }}</p>
         }
-        <button class="btn-delete" type="button" (click)="deleteJob(jobDetails()!.id)">Delete</button>
+        <button class="btn-delete" type="button" [disabled]="isBeingDeleted" (click)="deleteJob(jobDetails()!.id)">
+            @if(isBeingDeleted){
+            <app-loading-button />
+            }
+            @else {
+            Delete
+            }
+        </button>
     </div>
     <div class="job-card-footer">
         <div class="jd-divider"></div>

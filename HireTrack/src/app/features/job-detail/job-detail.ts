@@ -29,7 +29,6 @@ export class JobDetail implements OnInit {
       this.jobService.getJobById(Number(jobId)).subscribe({
         next: (job) => {
           this.jobDetail.set(job);
-          console.log(this.jobDetail());
         },
         error: (err) => {
           console.error('Error fetching job details:', err);

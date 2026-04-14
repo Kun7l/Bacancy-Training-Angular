@@ -1,13 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { tap } from 'rxjs';
+import { catchError, tap } from 'rxjs';
+import { ErrorService } from './error-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private errorService: ErrorService,
+  ) {}
 
   private keys = {
     accessToken: 'access_token',
@@ -21,6 +25,10 @@ export class AuthService {
         password,
       })
       .pipe(
+        catchError((err) => {
+          this.errorService.setErrorMessage(err);
+          throw err;
+        }),
         tap((res: any) => {
           localStorage.setItem(this.keys.accessToken, res.access_token);
           localStorage.setItem(this.keys.user, JSON.stringify(res.user));

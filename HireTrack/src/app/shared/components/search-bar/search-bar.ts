@@ -38,7 +38,6 @@ export class SearchBar implements OnDestroy {
         debounceTime(300),
         distinctUntilChanged(),
         switchMap((query) => {
-          console.log('Fetching for:', query);
           return this.jobService.searchJob(query);
         }),
       )

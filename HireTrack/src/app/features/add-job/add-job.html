@@ -76,7 +76,7 @@
                 <button type="button" class="aj-btn aj-btn--secondary" (click)="patchValue()">
                     Fill Form
                 </button>
-                <button type="submit" class="aj-btn aj-btn--primary" [disabled]="addJobForm.invalid">
+                <button type="submit" class="aj-btn aj-btn--primary" [disabled]="addJobForm.invalid || isBeingAdded">
                     @if (isBeingAdded) {
                     <app-loading-button />
                     } @else {

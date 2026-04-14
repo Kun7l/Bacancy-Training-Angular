@@ -9,6 +9,7 @@
   background-color: #ecefe8;
   padding: 12px;
   border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(85, 98, 77, 0.3); /* directive overrides this color */
 }
 .jobs {
   display: flex;
@@ -32,6 +33,10 @@
   display: flex;
   gap: 20px;
 }
-.create-job{
+.create-job {
   margin-left: 10px;
+}
+.create-job button {
+  font-size: 0.85rem;
+  border: 1px solid #55624d;
 }

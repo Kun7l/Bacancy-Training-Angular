@@ -12,7 +12,8 @@
         <input autocomplete="current-password" type="password" id="password" formControlName="password">
     </div>
     <div>
-        <button type="submit" [disabled]="loginForm.invalid"> Submit </button>
+        <button type="submit" [disabled]="loginForm.invalid || isBeginLoggedIn()"> @if (isBeginLoggedIn())
+            {<app-loading-button />}@else {Submit} </button>
         <button type="button" (click)="patchValueFn()">Patch value</button>
     </div>
     <div>

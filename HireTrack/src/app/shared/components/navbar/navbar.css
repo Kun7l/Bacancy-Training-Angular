@@ -4,5 +4,21 @@ nav{
     align-items: center;
     width: 100vw;
     padding: 1rem 2rem; 
-    background-color: #ecefe8; 
+    background-color: #55624d; 
+    color: #ecefe8 !important;
+}
+nav div h3,nav div p{
+    color: #ecefe8;
+}
+
+nav .right-side button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+}
+
+nav .right-side button .material-symbols-rounded {
+    font-size: 18px;
+    line-height: 1;
 }

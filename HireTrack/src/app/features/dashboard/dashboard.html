@@ -3,7 +3,7 @@
         <app-search-bar (searchResults)="onSearch($event)" />
 
         <div class="create-job">
-            <button [routerLink]="['/add']">Create Job</button>
+            <button  [routerLink]="['/add']">Create Job</button>
         </div>
     </div>
 
@@ -11,29 +11,45 @@
 
     @if (jobList()) {
     <div class="jobs">
-        <div class="wishlist category">
-            <p class="category-title">Wishlist</p>
+        <div class="wishlist category" cdkDropList id="wishlistList" [cdkDropListData]="jobCategory()?.wishlist || []"
+            [cdkDropListConnectedTo]="['appliedList','interviewList','offerList']"
+            (cdkDropListDropped)="drop($event, 'wishlist')">
+
+            <p   class="category-title">Wishlist</p>
             @if (jobCategory()?.wishlist?.length != 0) {
             @for (job of jobCategory()?.wishlist; track $index) {
-            <app-hover-accordion [jobDetails]="job" (deleteJobEvent)="deleteJobFromList($event)" />
+            <div>
+                <app-hover-accordion cdkDrag [cdkDragData]="job" [jobDetails]="job"
+                    (deleteJobEvent)="deleteJobFromList($event)" />
+            </div>
             }
-            }
-            @else {
+            } @else {
             <p>No data</p>
             }
         </div>
-        <div class="applied category">
+
+
+        <div  class="applied category" cdkDropList id="appliedList"
+            [cdkDropListData]="jobCategory()?.applied || []      "
+            [cdkDropListConnectedTo]="['wishlistList','interviewList','offerList']"
+            (cdkDropListDropped)="drop($event, 'applied')">
+
             <p class="category-title">Applied</p>
             @if (jobCategory()?.applied?.length != 0) {
             @for (job of jobCategory()?.applied; track $index) {
-            <app-hover-accordion [jobDetails]="job" (deleteJobEvent)="deleteJobFromList($event)" />
+            <div cdkDrag [cdkDragData]="job">
+                <app-hover-accordion [jobDetails]="job" (deleteJobEvent)="deleteJobFromList($event)" />
+            </div>
             }
-            }
-            @else {
+            } @else {
             <p>No data</p>
             }
         </div>
-        <div class="interview category">
+
+        <div class="interview category" cdkDropList id="interviewList"
+            [cdkDropListData]="jobCategory()?.interview || []"
+            [cdkDropListConnectedTo]="['wishlistList','appliedList','offerList']"
+            (cdkDropListDropped)="drop($event, 'interview')">
             <p class="category-title">Interview</p>
             @if (jobCategory()?.interview?.length != 0) {
             @for (job of jobCategory()?.interview; track $index) {
@@ -45,12 +61,13 @@
             }
 
         </div>
-        <div class="offer category">
+        <div class="offer category" cdkDropList id="offerList" [cdkDropListData]="jobCategory()?.offer || []"
+            [cdkDropListConnectedTo]="['wishlistList','appliedList','interviewList']"
+            (cdkDropListDropped)="drop($event, 'offer')">
             <p class="category-title">Offer</p>
             @if (jobCategory()?.offer?.length != 0) {
             @for (job of jobCategory()?.offer; track $index) {
             <app-hover-accordion [jobDetails]="job" (deleteJobEvent)="deleteJobFromList($event)" />
-
             }
             }
             @else {
@@ -62,7 +79,12 @@
     }
     @else {
     <div class="jobs">
-        <app-spinner/>
+        @if (isLoading()) {
+        <app-spinner />
+        }
+        @else {
+            <p>No Data</p>
+        }
     </div>
     }
 </div>

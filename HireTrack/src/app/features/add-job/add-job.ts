@@ -15,7 +15,8 @@ import { CreateJobDto } from '../../core/models/create.job.dto';
 import { Router, RouterLink } from '@angular/router';
 import { BackButton } from '../../shared/components/back-button/back-button';
 import { PastDateValidator } from '../../shared/validators/pastDateValidator';
-import { LoadingButton } from "../../shared/components/loaders/loading-button/loading-button";
+import { LoadingButton } from '../../shared/components/loaders/loading-button/loading-button';
+import { ErrorService } from '../../core/services/error-service';
 
 @Component({
   selector: 'app-add-job',
@@ -28,6 +29,7 @@ export class AddJob implements OnInit, OnDestroy {
     private resumeService: ResumeService,
     private jobService: JobService,
     private router: Router,
+    private errorService: ErrorService,
   ) {}
 
   protected resumeList = signal<Resume[] | null>(null);
@@ -53,11 +55,11 @@ export class AddJob implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.resumeService.getAllResume().subscribe({
       next: (data) => {
-        console.log(data);
         this.resumeList.set(data);
       },
       error: (err) => {
-        console.log(err);
+        console.error('Error fetching resumes:', err);
+        this.isBeingAdded = false;
       },
     });
   }
@@ -100,16 +102,21 @@ export class AddJob implements OnInit, OnDestroy {
       note: formValue.note ?? undefined,
       resume_id: formValue.resume_id ?? undefined,
       last_edited: new Date(),
-      date_applied: formValue.status === Status.wishlist ? undefined : formValue.date_applied ? new Date(formValue.date_applied) : new Date(),
+      date_applied:
+        formValue.status === Status.wishlist
+          ? undefined
+          : formValue.date_applied
+            ? new Date(formValue.date_applied)
+            : new Date(),
     };
     this.jobService.addJob(newJob).subscribe({
       next: (data) => {
-        console.log(data);
         this.isBeingAdded = false;
+        this.errorService.setSuccessMessage('Job added successfully!');
         this.router.navigate(['dashboard']);
       },
       error: (err) => {
-        console.log(err);
+        console.error('Error adding job:', err);
       },
     });
   }

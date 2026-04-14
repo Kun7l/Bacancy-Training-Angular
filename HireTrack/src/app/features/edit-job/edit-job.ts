@@ -5,6 +5,7 @@ import { Status } from '../../core/models/status';
 import { PastDateValidator } from '../../shared/validators/pastDateValidator';
 import { CreateJobDto } from '../../core/models/create.job.dto';
 import { JobService } from '../../core/services/job-service';
+import { ErrorService } from '../../core/services/error-service';
 
 @Component({
   selector: 'app-edit-job',
@@ -13,7 +14,7 @@ import { JobService } from '../../core/services/job-service';
   styleUrl: './edit-job.css',
 })
 export class EditJob {
-  constructor(private jobService: JobService) {
+  constructor(private jobService: JobService,private errorService: ErrorService) {
     effect(() => {
       const job = this.jobData();
       if (!job) return;
@@ -82,6 +83,7 @@ export class EditJob {
           ...payload,
           created_at: payload.date_applied ?? currentJob.created_at,
         });
+        this.errorService.setInfoMessage('Job updated successfully.');
       },
       error: (err) => {
         console.error('Error updating job:', err);

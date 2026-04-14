@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,6 +8,7 @@ import {
 import { ResumeService } from '../../core/services/resume-service';
 import { FileValidator } from '../../shared/validators/fileValidator';
 import { Router } from '@angular/router';
+import { ErrorService } from '../../core/services/error-service';
 
 @Component({
   selector: 'app-upload-resume',
@@ -17,8 +18,12 @@ import { Router } from '@angular/router';
   styleUrl: './upload-resume.css',
 })
 export class UploadResume {
-  constructor(private resumeService: ResumeService,private router: Router) {}
-  isUploading = false;
+  constructor(
+    private resumeService: ResumeService,
+    private router: Router,
+    private errorService: ErrorService,
+  ) {}
+  isBeingUploaded = signal<boolean>(false);
 
   form = new FormGroup({
     name: new FormControl(''),
@@ -40,6 +45,7 @@ export class UploadResume {
 
   // Submit form
   upload() {
+    this.isBeingUploaded.set(true);
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -51,25 +57,24 @@ export class UploadResume {
 
     this.resumeService.uploadResume(file, name ? name : file.name).subscribe({
       next: (data) => {
-        console.log('Uploaded successfully', data);
-
         this.resumeService.addResume(data, file.name).subscribe({
           next: (data) => {
-            console.log('Resume added to database successfully!');
-            console.log(data);
+            this.errorService.setSuccessMessage(
+              'Resume uploaded successfully.',
+            );
           },
           error: (err) => {
-            console.log(err);
+            console.error(err);
           },
         });
 
-        this.isUploading = false;
+        this.isBeingUploaded.set(false);
         this.form.reset();
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        console.log('Upload failed', err);
-        this.isUploading = false;
+        console.error('Upload failed', err);
+        this.isBeingUploaded.set(false);
       },
     });
   }

@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { supabaseKeyInterceptor } from './core/interceptor/supabase-key-interceptor';
+import { supabaseKeyInterceptor } from './core/interceptors/supabase-key-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

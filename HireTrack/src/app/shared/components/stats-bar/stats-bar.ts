@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { StatusColorDirective } from "../../directives/status-color-directive";
 
 @Component({
   selector: 'app-stats-bar',

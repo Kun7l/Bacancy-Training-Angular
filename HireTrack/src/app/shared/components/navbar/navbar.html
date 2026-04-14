@@ -4,7 +4,13 @@
         <p>Welcome, {{ user }}!</p>
     </div>
     <div class="right-side">
-        <button [routerLink]="['/upload-resume']">Upload Resume</button>
-        <button (click)="logout()">Logout</button>
+        <button class="m-4" [routerLink]="['/upload-resume']">
+            <span class="material-symbols-rounded">cloud_upload</span>
+            Upload Resume
+        </button>
+        <button (click)="logout()">
+            <span class="material-symbols-rounded">logout</span>
+            Logout
+        </button>
     </div>
 </nav>

@@ -7,10 +7,11 @@
   color: white;
   cursor: pointer;
 
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
   overflow: hidden;
   min-height: 100px;
   margin: 10px 0;
+  box-shadow: 0 2px 8px rgba(85, 98, 77, 0.1);
 }
 .left-section {
   width: 100%;
@@ -40,7 +41,7 @@
   border-radius: 12px;
   opacity: 0;
   transform: translateY(10px);
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
 }
 
 /* Show on expand */
@@ -76,6 +77,6 @@
   background: #ecefe8;
   margin-bottom: 5px;
 }
-.job-card-footer{
+.job-card-footer {
   text-align: center;
 }
