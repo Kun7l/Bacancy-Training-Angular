@@ -5,7 +5,7 @@
 ## Project Details
 - **Angular Version:** v20.0.0
 - **Supabase Project URL:** https://rvegpevpxsmfjrceuqhr.supabase.co
-- **Vercel Live URL:** *[Insert Vercel Live URL Here]*
+- **Vercel Live URL:** https://hire-track-chi.vercel.app/
 
 ## How to Run locally
 
