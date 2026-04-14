@@ -1,12 +1,13 @@
-import { Component, input, Input, output } from '@angular/core';
+import { Component, input, Input, output, signal, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Job } from '../../../core/models/job.model';
 import { Router, RouterLink } from '@angular/router';
 import { DatePipe, NgClass, TitleCasePipe } from '@angular/common';
 import { RelativeDatePipePipe } from '../../pipes/relative-date-pipe-pipe';
 import { JobService } from '../../../core/services/job-service';
 import { BadgeComponent } from '../badge/badge';
-import { ErrorService } from '../../../core/services/error-service';
 import { LoadingButton } from "../loaders/loading-button/loading-button";
+import { MessageService } from '../../../core/services/messageService';
 
 @Component({
   selector: 'app-hover-accordion',
@@ -25,37 +26,36 @@ export class HoverAccordion {
   constructor(
     private router: Router,
     private jobService: JobService,
-    private errorService: ErrorService,
+    private messageService: MessageService,
   ) {}
-  jobDetails = input<Job | null>(null);
-  deleteJobEvent = output<number>();
+  public jobDetails = input<Job | null>(null);
+  public deleteJobEvent = output<number>();
 
-  isExpanded = false;
-  isBeingDeleted = false;
+  protected isExpanded = signal(false);
+  protected isBeingDeleted = signal(false);
+  private destroyRef = inject(DestroyRef);
 
   expand() {
-    this.isExpanded = true;
+    this.isExpanded.set(true);
   }
 
   collapse() {
-    this.isExpanded = false;
-  }
-
-  move() {
-    this.router.navigate(['/job', this.jobDetails()?.id]);
+    this.isExpanded.set(false);
   }
 
   deleteJob(id: number) {
-    this.isBeingDeleted = true;
-    this.jobService.deleteJob(id).subscribe({
+    this.isBeingDeleted.set(true);
+    this.jobService.deleteJob(id).pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
       next: () => {
         this.deleteJobEvent.emit(id);
-        this.errorService.setInfoMessage('Job deleted successfully.');
-        this.isBeingDeleted = false;
+        this.messageService.setInfoMessage('Job deleted successfully.');
+        this.isBeingDeleted.set(false);
       },
       error: (err) => {
         console.error('Error deleting job:', err);
-        this.isBeingDeleted = false;
+        this.isBeingDeleted.set(false);
       },
     });
   }

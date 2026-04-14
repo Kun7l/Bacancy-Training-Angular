@@ -2,11 +2,13 @@ import {
   Component,
   EventEmitter,
   OnChanges,
-  OnDestroy,
   Output,
   signal,
   SimpleChanges,
+  DestroyRef,
+  inject
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { JobService } from '../../../core/services/job-service';
 import { FormsModule, ɵInternalFormsSharedModule } from '@angular/forms';
 import {
@@ -14,7 +16,6 @@ import {
   debounceTime,
   distinctUntilChanged,
   Subject,
-  Subscription,
   switchMap,
 } from 'rxjs';
 import { Job } from '../../../core/models/job.model';
@@ -25,21 +26,22 @@ import { Job } from '../../../core/models/job.model';
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.css',
 })
-export class SearchBar implements OnDestroy {
+export class SearchBar {
   @Output() searchResults = new EventEmitter<Job[]>();
 
   private searchSubject = new Subject<string>();
-  private searchSubscription: Subscription | undefined = undefined;
+  private destroyRef = inject(DestroyRef);
   protected searchQuery = '';
 
   constructor(private jobService: JobService) {
-    this.searchSubscription = this.searchSubject
+    this.searchSubject
       .pipe(
         debounceTime(300),
         distinctUntilChanged(),
         switchMap((query) => {
           return this.jobService.searchJob(query);
         }),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe({
         next: (results) => {
@@ -51,9 +53,5 @@ export class SearchBar implements OnDestroy {
 
   onSearchChange(query: string) {
     this.searchSubject.next(query);
-  }
-
-  ngOnDestroy() {
-    this.searchSubscription?.unsubscribe();
   }
 }

@@ -4,7 +4,7 @@ import { CreateJobDto } from '../models/create.job.dto';
 import { environment } from '../../environments/environment';
 import { catchError, map, Observable } from 'rxjs';
 import { Job } from '../models/job.model';
-import { ErrorService } from './error-service';
+import { MessageService } from './messageService';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ import { ErrorService } from './error-service';
 export class JobService {
   constructor(
     private http: HttpClient,
-    private errorService: ErrorService,
+    private messageService: MessageService,
   ) {}
 
   private baseUrl = `${environment.supabaseUrl}/rest/v1/jobs`;
@@ -20,7 +20,7 @@ export class JobService {
   addJob(jobData: CreateJobDto) {
     return this.http.post(this.baseUrl, jobData).pipe(
       catchError((err) => {
-        this.errorService.setErrorMessage(err);
+        this.messageService.setErrorMessage(err);
         throw err;
       }),
     );
@@ -30,7 +30,7 @@ export class JobService {
       .get<Job[]>(`${this.baseUrl}?select=*,resume:resume_id(name,url)`)
       .pipe(
         catchError((err) => {
-          this.errorService.setErrorMessage(err);
+          this.messageService.setErrorMessage(err);
           throw err;
         }),
       );
@@ -43,7 +43,7 @@ export class JobService {
       .pipe(
         map((jobs) => jobs[0] ?? null),
         catchError((err) => {
-          this.errorService.setErrorMessage(err);
+          this.messageService.setErrorMessage(err);
           throw err;
         }),
       );
@@ -51,7 +51,7 @@ export class JobService {
   deleteJob(id: number) {
     return this.http.delete(`${this.baseUrl}?id=eq.${id}`).pipe(
       catchError((err) => {
-        this.errorService.setErrorMessage(err);
+        this.messageService.setErrorMessage(err);
         throw err;
       }),
     );
@@ -59,11 +59,22 @@ export class JobService {
   updateJob(id: number, jobData: CreateJobDto) {
     return this.http.patch(`${this.baseUrl}?id=eq.${id}`, jobData).pipe(
       catchError((err) => {
-        this.errorService.setErrorMessage(err);
+        this.messageService.setErrorMessage(err);
         throw err;
       }),
     );
   }
+  updateJobStatus(id: number, status: string) {
+    return this.http
+      .patch(`${this.baseUrl}?id=eq.${id}`, { status, last_edited: new Date() })
+      .pipe(
+        catchError((err) => {
+          this.messageService.setErrorMessage(err);
+          throw err;
+        }),
+      );
+  }
+
   searchJob(query: string): Observable<Job[]> {
     return this.http
       .get<
@@ -71,7 +82,7 @@ export class JobService {
       >(`${this.baseUrl}?or=(company.ilike.*${query}*,role.ilike.*${query}*,status.ilike.*${query}*)`)
       .pipe(
         catchError((err) => {
-          this.errorService.setErrorMessage(err);
+          this.messageService.setErrorMessage(err);
           throw err;
         }),
       );

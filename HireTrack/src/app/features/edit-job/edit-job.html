@@ -1,44 +1,118 @@
-<div class="edit-job-form">
-  <h3>Edit Job</h3>
-  <form [formGroup]="editJobForm" (ngSubmit)="onSubmit()">
-    <div class="form-field">
-      <label for="edit-company">Company</label>
-      <input id="edit-company" type="text" formControlName="company" />
+<div class="edit-job-page flex-grow flex items-start justify-center p-4 bg-[var(--color-surface-base)]">
+  <div class="w-full max-w-lg mt-8 bg-[var(--color-interactive-card)] shadow-sm border border-[var(--color-surface-nest)] flex flex-col gap-5 p-6" style="border-radius: var(--radius-large);">
+    
+    <!-- Header -->
+    <div class="header-section border-b border-[var(--color-surface-nest)] pb-3">
+      <h2 class="text-xl font-bold text-[var(--color-primary-accent)] tracking-tight">Edit Job</h2>
+      <p class="text-[var(--color-soft-callout)] mt-1 text-xs font-medium">Update the details of your job application.</p>
     </div>
 
-    <div class="form-field">
-      <label for="edit-role">Role</label>
-      <input id="edit-role" type="text" formControlName="role" />
-    </div>
+    <!-- Form -->
+    <form [formGroup]="editJobForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+      
+      <!-- Company -->
+      <div class="form-field flex flex-col gap-1.5">
+        <label for="edit-company" class="text-xs font-bold uppercase tracking-wider text-[var(--color-primary-accent)]">Company</label>
+        <input 
+          id="edit-company" 
+          type="text" 
+          formControlName="company"
+          class="w-full px-3 py-2 text-sm bg-[var(--color-surface-base)] text-[var(--color-primary-accent)] border border-[var(--color-surface-nest)] outline-none transition-all focus:border-[var(--color-primary-accent)] focus:ring-2 focus:ring-[var(--color-surface-nest)]"
+          style="border-radius: 0.5rem;"
+        />
+        @if (editJobForm.controls.company.touched && editJobForm.controls.company.errors?.['required']) {
+          <span class="text-xs text-red-500 font-medium">Company is required.</span>
+        }
+      </div>
 
-    <div class="form-field">
-      <label for="edit-date-applied">Date Applied</label>
-      <input id="edit-date-applied" type="date" formControlName="date_applied" />
-      @if (editJobForm.controls.date_applied.touched && editJobForm.controls.date_applied.errors?.['futureDate']) {
-        <small>Date cannot be in the future.</small>
-      }
-    </div>
+      <!-- Role -->
+      <div class="form-field flex flex-col gap-1.5">
+        <label for="edit-role" class="text-xs font-bold uppercase tracking-wider text-[var(--color-primary-accent)]">Role</label>
+        <input 
+          id="edit-role" 
+          type="text" 
+          formControlName="role" 
+          class="w-full px-3 py-2 text-sm bg-[var(--color-surface-base)] text-[var(--color-primary-accent)] border border-[var(--color-surface-nest)] outline-none transition-all focus:border-[var(--color-primary-accent)] focus:ring-2 focus:ring-[var(--color-surface-nest)]"
+          style="border-radius: 0.5rem;"
+        />
+        @if (editJobForm.controls.role.touched && editJobForm.controls.role.errors?.['required']) {
+          <span class="text-xs text-red-500 font-medium">Role is required.</span>
+        }
+      </div>
 
-    <div class="form-field">
-      <label for="edit-status">Status</label>
-      <select id="edit-status" formControlName="status">
-        <option value="wishlist">Wishlist</option>
-        <option value="applied">Applied</option>
-        <option value="interview">Interview</option>
-        <option value="offer">Offer</option>
-      </select>
-    </div>
+      <!-- Date Applied -->
+      <div class="form-field flex flex-col gap-1.5">
+        <label for="edit-date-applied" class="text-xs font-bold uppercase tracking-wider text-[var(--color-primary-accent)]">Date Applied</label>
+        <input 
+          id="edit-date-applied" 
+          type="date" 
+          formControlName="date_applied" 
+          class="w-full px-3 py-2 text-sm bg-[var(--color-surface-base)] text-[var(--color-primary-accent)] border border-[var(--color-surface-nest)] outline-none transition-all focus:border-[var(--color-primary-accent)] focus:ring-2 focus:ring-[var(--color-surface-nest)]"
+          style="border-radius: 0.5rem;"
+        />
+        @if (editJobForm.controls.date_applied.touched && editJobForm.controls.date_applied.errors?.['required']) {
+          <span class="text-xs text-red-500 font-medium">Date applied is required.</span>
+        }
+        @if (editJobForm.controls.date_applied.touched && editJobForm.controls.date_applied.errors?.['futureDate']) {
+          <span class="text-xs text-red-500 font-medium">Date cannot be in the future.</span>
+        }
+      </div>
 
-    <div class="form-field">
-      <label for="edit-job-url">Job Url</label>
-      <input id="edit-job-url" type="text" formControlName="job_url" />
-    </div>
+      <!-- Status -->
+      <div class="form-field flex flex-col gap-1.5">
+        <label for="edit-status" class="text-xs font-bold uppercase tracking-wider text-[var(--color-primary-accent)]">Status</label>
+        <select 
+          id="edit-status" 
+          formControlName="status"
+          class="w-full px-3 py-2 text-sm bg-[var(--color-surface-base)] text-[var(--color-primary-accent)] border border-[var(--color-surface-nest)] outline-none transition-all focus:border-[var(--color-primary-accent)] focus:ring-2 focus:ring-[var(--color-surface-nest)]"
+          style="border-radius: 0.5rem;"
+        >
+          <option value="wishlist">Wishlist</option>
+          <option value="applied">Applied</option>
+          <option value="interview">Interview</option>
+          <option value="offer">Offer</option>
+        </select>
+        @if (editJobForm.controls.status.touched && editJobForm.controls.status.errors?.['required']) {
+          <span class="text-xs text-red-500 font-medium">Status is required.</span>
+        }
+      </div>
 
-    <div class="form-field">
-      <label for="edit-note">Note</label>
-      <textarea id="edit-note" formControlName="note"></textarea>
-    </div>
+      <!-- Job URL -->
+      <div class="form-field flex flex-col gap-1.5">
+        <label for="edit-job-url" class="text-xs font-bold uppercase tracking-wider text-[var(--color-primary-accent)]">Job Url</label>
+        <input 
+          id="edit-job-url" 
+          type="text" 
+          formControlName="job_url" 
+          class="w-full px-3 py-2 text-sm bg-[var(--color-surface-base)] text-[var(--color-primary-accent)] border border-[var(--color-surface-nest)] outline-none transition-all focus:border-[var(--color-primary-accent)] focus:ring-2 focus:ring-[var(--color-surface-nest)]"
+          style="border-radius: 0.5rem;"
+        />
+      </div>
 
-    <button type="submit" [disabled]="editJobForm.invalid">Save Changes</button>
-  </form>
+      <!-- Note -->
+      <div class="form-field flex flex-col gap-1.5">
+        <label for="edit-note" class="text-xs font-bold uppercase tracking-wider text-[var(--color-primary-accent)]">Note</label>
+        <textarea 
+          id="edit-note" 
+          formControlName="note"
+          rows="3"
+          class="w-full px-3 py-2 text-sm bg-[var(--color-surface-base)] text-[var(--color-primary-accent)] border border-[var(--color-surface-nest)] outline-none transition-all focus:border-[var(--color-primary-accent)] focus:ring-2 focus:ring-[var(--color-surface-nest)] resize-y"
+          style="border-radius: 0.5rem;"
+        ></textarea>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions mt-2 flex justify-end">
+        <button 
+          type="submit" 
+          [disabled]="editJobForm.invalid"
+          class="px-5 py-2 text-sm bg-[var(--color-primary-accent)] text-white font-medium shadow-sm transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-0.5 active:translate-y-0"
+          style="border-radius: var(--radius-large);"
+        >
+          Save Changes
+        </button>
+      </div>
+
+    </form>
+  </div>
 </div>

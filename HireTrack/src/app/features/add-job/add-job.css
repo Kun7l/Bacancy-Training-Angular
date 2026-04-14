@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f8faf3;
+  background-color: var(--color-surface-base);
   padding: 24px;
 }
 
@@ -13,10 +13,10 @@
   width: 100%;
   max-width: 520px;
   background: #ffffff;
-  border: 1px solid #dde7d4;
+  border: 1px solid #cbd5e1;
   border-radius: 18px;
   padding: 28px 32px 24px;
-  box-shadow: 0 4px 24px rgba(85, 98, 77, 0.08);
+  box-shadow: 0 4px 24px rgba(30, 41, 59, 0.08);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -33,7 +33,7 @@
 .aj-title {
   font-size: 1.15rem;
   font-weight: 600;
-  color: #3b4636;
+  color: var(--color-primary-accent);
   letter-spacing: 0.01em;
 }
 
@@ -56,7 +56,12 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #8fa07a;
+  color: #64748b;
+}
+
+.aj-error {
+  color: #c62828;
+  font-size: 0.78rem;
 }
 
 /* ── Inputs, selects, textarea ───────────────────── */
@@ -66,9 +71,9 @@
   padding: 9px 14px;
   font-size: 0.92rem;
   font-family: 'Poppins', sans-serif;
-  color: #3b4636;
-  background: #f8faf3;
-  border: 1px solid #dde7d4;
+  color: var(--color-primary-accent);
+  background: var(--color-surface-base);
+  border: 1px solid #cbd5e1;
   border-radius: 10px;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -81,12 +86,12 @@
   padding: 9px 36px 9px 14px;
   font-size: 0.92rem;
   font-family: 'Poppins', sans-serif;
-  color: #3b4636;
-  background-color: #f8faf3;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238fa07a' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  color: var(--color-primary-accent);
+  background-color: var(--color-surface-base);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 14px center;
-  border: 1px solid #dde7d4;
+  border: 1px solid #cbd5e1;
   border-radius: 10px;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -98,8 +103,8 @@
 .aj-input:focus,
 .aj-select:focus,
 .aj-textarea:focus {
-  border-color: #8fa07a;
-  box-shadow: 0 0 0 3px rgba(143, 160, 122, 0.18);
+  border-color: #64748b;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.18);
   background: #ffffff;
 }
 
@@ -117,14 +122,14 @@
 
 .aj-input::placeholder,
 .aj-textarea::placeholder {
-  color: #b5c4a8;
+  color: #94a3b8;
   opacity: 1;
 }
 
 /* ── Divider ──────────────────────────────────────── */
 .aj-divider {
   height: 1px;
-  background: #ecefe8;
+  background: var(--color-surface-nest);
   margin: 4px 0;
 }
 
@@ -154,10 +159,10 @@
 /* Primary – Submit */
 .aj-btn--primary {
   color: #ffffff;
-  background: #55624d;
+  background: var(--color-primary-accent);
 }
 .aj-btn--primary:hover:not(:disabled) {
-  background: #3b4636;
+  background: var(--color-primary-accent);
 }
 .aj-btn--primary:disabled {
   opacity: 0.45;
@@ -167,9 +172,9 @@
 
 /* Secondary – Fill Form */
 .aj-btn--secondary {
-  color: #55624d;
-  background: #ecefe8;
+  color: var(--color-primary-accent);
+  background: var(--color-surface-nest);
 }
 .aj-btn--secondary:hover {
-  background: #dde7d4;
+  background: #cbd5e1;
 }

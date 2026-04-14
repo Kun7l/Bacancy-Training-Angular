@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { catchError, tap } from 'rxjs';
-import { ErrorService } from './error-service';
+import { MessageService } from './messageService';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { ErrorService } from './error-service';
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private errorService: ErrorService,
+    private messageService: MessageService,
   ) {}
 
   private keys = {
@@ -26,7 +26,7 @@ export class AuthService {
       })
       .pipe(
         catchError((err) => {
-          this.errorService.setErrorMessage(err);
+          this.messageService.setErrorMessage(err);
           throw err;
         }),
         tap((res: any) => {

@@ -11,7 +11,7 @@
   overflow: hidden;
   min-height: 100px;
   margin: 10px 0;
-  box-shadow: 0 2px 8px rgba(85, 98, 77, 0.1);
+  box-shadow: 0 2px 8px rgba(30, 41, 59, 0.1);
 }
 .left-section {
   width: 100%;
@@ -59,9 +59,9 @@
 }
 
 /* ─── Expanded area background ───────────────────────────────────────── */
-/* Distinct surface-dim tone — clearly cooler/deeper than the #ecefe8 header */
+/* Distinct surface-dim tone — clearly cooler/deeper than the var(--color-surface-nest) header */
 .expanded-zone {
-  background-color: #d6dbd0;
+  background-color: var(--color-surface-nest);
   /* surface-dim — one step darker than surface-nest */
 }
 .btn-delete {
@@ -74,7 +74,7 @@
 }
 .jd-divider {
   height: 1px;
-  background: #ecefe8;
+  background: var(--color-surface-nest);
   margin-bottom: 5px;
 }
 .job-card-footer {

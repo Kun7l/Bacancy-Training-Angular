@@ -1,7 +1,7 @@
-<div class="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-full max-w-sm px-4">
+<div class="toast-div fixed top-5 left-1/2 -translate-x-1/2 z-50 w-full max-w-sm px-4 ">
   @if (message()) {
     <div [id]="'toast-' + toastType"
-        class="flex items-center w-full h-12 p-4 rounded-base shadow-lg border"
+        class="flex items-center w-full h-12 p-4 rounded-base shadow-lg border rounded-sm "
         [ngClass]="{
             'text-green-800 bg-green-50 border-green-200': toastType === 'success',
             'text-red-800 bg-red-50 border-red-200': toastType === 'error',
@@ -12,7 +12,7 @@
         <div class="ms-3 text-sm font-medium">{{message()}}</div>
         
         <button type="button" (click)="toastCancel()"
-            class="ms-auto flex items-center justify-center bg-transparent hover:bg-black/5 rounded text-sm h-8 w-8 focus:outline-none transition-colors"
+            class="ms-auto mr-3 flex items-center justify-center bg-transparent hover:bg-black/5 rounded text-sm h-8 w-8 focus:outline-none transition-colors"
             aria-label="Close">
             <span class="sr-only">Close</span>
             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

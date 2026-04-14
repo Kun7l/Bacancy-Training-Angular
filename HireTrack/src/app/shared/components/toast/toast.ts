@@ -1,5 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { ErrorService } from '../../../core/services/error-service';
+import { Component, OnInit, signal, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MessageService } from '../../../core/services/messageService';
 import { CdkDropList } from '@angular/cdk/drag-drop';
 import { ToastType } from '../../types/toast.type';
 import { CommonModule } from '@angular/common';
@@ -10,13 +11,16 @@ import { CommonModule } from '@angular/common';
   templateUrl: './toast.html',
   styleUrl: './toast.css',
 })
-export class Toast {
-  constructor(private errorService: ErrorService) {}
+export class Toast implements OnInit {
+  constructor(private messageService: MessageService) {}
   protected toastType: ToastType = ToastType.Success;
   protected message = signal<string | null>(null);
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit() {
-    this.errorService.getErrorMessage().subscribe((data) => {
+    this.messageService.getErrorMessage().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((data) => {
       if (data) {
         this.toastType = data.type;
         this.message.set(data.message);
@@ -27,6 +31,6 @@ export class Toast {
   }
 
   toastCancel() {
-    this.errorService.clearErrorMessage();
+    this.messageService.clearErrorMessage();
   }
 }

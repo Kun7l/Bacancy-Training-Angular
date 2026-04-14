@@ -1,14 +1,16 @@
-nav{
+nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100vw;
-    padding: 1rem 2rem; 
-    background-color: #55624d; 
-    color: #ecefe8 !important;
+    padding: 1rem 2rem;
+    background-color: var(--color-primary-accent);
+    color: var(--color-surface-nest) !important;
 }
-nav div h3,nav div p{
-    color: #ecefe8;
+
+nav div h3,
+nav div p {
+    color: var(--color-surface-nest);
 }
 
 nav .right-side button {
@@ -16,6 +18,13 @@ nav .right-side button {
     align-items: center;
     gap: 6px;
     font-size: 0.85rem;
+    background-color: var(--color-surface-nest);
+    color: var(--color-primary-accent);
+    border-radius: 12px;
+}
+
+nav .right-side button:hover {
+    background-color: var(--color-surface-base);
 }
 
 nav .right-side button .material-symbols-rounded {

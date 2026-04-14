@@ -1,32 +1,76 @@
-<div class="upload-features">
-    <form [formGroup]="form">
+<div class="upload-features h-full flex items-center justify-center p-6 bg-[var(--color-surface-base)]">
+  <div class="w-full max-w-xl bg-[var(--color-interactive-card)] shadow-md flex flex-col gap-8 p-8 md:p-10"
+    style="border-radius: var(--radius-xl);">
 
-        <!-- Name -->
-        <div class="form-field">
-            <label>Name</label>
-            <input type="text" formControlName="name" />
+    <!-- Header -->
+    <div class="header-section border-b border-[var(--color-surface-nest)] pb-5">
+      <h2 class="text-3xl font-bold text-[var(--color-primary-accent)] tracking-tight">Upload Your Resume</h2>
+      <p class="text-[var(--color-soft-callout)] mt-2 text-sm font-medium">Please provide your details and attach your
+        latest resume.</p>
+    </div>
 
-            @if (form.controls.name.touched && form.controls.name.invalid) {
-            <small>Name is required</small>
-            }
+    <!-- Form -->
+    <form [formGroup]="form" class="flex flex-col gap-6">
+
+      <!-- Name Field -->
+      <div class="form-field flex flex-col gap-2">
+        <label class="text-xs font-bold uppercase tracking-wider text-[var(--color-primary-accent)]">Full Name</label>
+        <input type="text" formControlName="name" placeholder="e.g. New resume"
+          class="w-full px-4 py-3 bg-[var(--color-surface-base)] text-[var(--color-primary-accent)] border border-[var(--color-surface-nest)] outline-none transition-all duration-300 focus:border-[var(--color-primary-accent)] focus:ring-4 focus:ring-[var(--color-surface-nest)]"
+          style="border-radius: var(--radius-large);" />
+        @if (form.controls.name.touched && form.controls.name.invalid) {
+        <span class="text-xs text-red-500 font-semibold mt-1">Name is required</span>
+        }
+      </div>
+
+      <!-- File Field -->
+      <div class="form-field flex flex-col gap-2">
+        <label class="text-xs font-bold uppercase tracking-wider text-[var(--color-primary-accent)]">Resume
+          Document</label>
+
+        <div
+          class="relative flex flex-col items-center justify-center w-full py-12 px-6 border-2 border-[var(--color-soft-callout)] bg-[var(--color-surface-base)] hover:bg-[var(--color-surface-nest)] transition-colors duration-300 cursor-pointer overflow-hidden group"
+          style="border-radius: var(--radius-large);">
+
+
+
+          <p class="mb-2 text-base text-[var(--color-primary-accent)] text-center">
+            <span class="font-bold">Click to browse</span> or drag and drop your file here
+          </p>
+          <p class="text-xs text-[var(--color-soft-callout)] font-medium">Supported format: PDF</p>
+
+          <input type="file" (change)="onFileChange($event)"
+            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept=".pdf" />
         </div>
 
-        <!-- File -->
-        <div class="form-field">
-            <input type="file" (change)="onFileChange($event)"  />
+        @if (form.controls.file.touched && form.controls.file.invalid) {
+        <span class="text-xs text-red-500 font-semibold mt-1">Resume document is required</span>
+        }
+        @if (form.controls.file.errors?.['invalidFileType']) {
+        <span class="text-xs text-red-500 font-semibold mt-1">Please upload a valid PDF format file</span>
+        }
+      </div>
 
-            @if (form.controls.file.touched && form.controls.file.invalid) {
-            <small>Resume is required</small>
-            }
-            @if (form.controls.file.errors?.['invalidFileType']) {
-            <small>Please upload a PDF file</small>
-            }
-        </div>
-
-        <!-- Button -->
-        <button type="button" (click)="upload()" [disabled]="form.invalid || isBeingUploaded()">
-            {{ isBeingUploaded() ? 'Uploading...' : 'Upload' }}
+      <!-- Action Footer -->
+      <div class="form-actions mt-4 flex justify-end">
+        <button type="button" (click)="upload()" [disabled]="form.invalid || isBeingUploaded()"
+          class="px-8 py-3.5 bg-[var(--color-primary-accent)] text-white font-medium shadow-md transition-all duration-300 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none hover:-translate-y-1 active:translate-y-0 flex items-center justify-center min-w-[160px]"
+          style="border-radius: var(--radius-large);">
+          @if (isBeingUploaded()) {
+          <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+            </path>
+          </svg>
+          Uploading...
+          } @else {
+          Upload Resume
+          }
         </button>
+      </div>
 
     </form>
+  </div>
 </div>

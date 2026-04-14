@@ -3,28 +3,26 @@ import {
   Component,
   computed,
   OnChanges,
-  OnDestroy,
   OnInit,
   signal,
   SimpleChanges,
+  DestroyRef,
+  inject
 } from '@angular/core';
 import { AuthService } from '../../core/services/auth-service';
 import { Router, RouterLink } from '@angular/router';
 import { JobService } from '../../core/services/job-service';
 import { Status } from '../../core/models/status';
 import { Job } from '../../core/models/job.model';
-import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HoverAccordion } from '../../shared/components/hover-accordion/hover-accordion';
 import { SearchBar } from '../../shared/components/search-bar/search-bar';
 import { StatsBar } from '../../shared/components/stats-bar/stats-bar';
-import { UploadResume } from '../upload-resume/upload-resume';
-import { LoadingButton } from '../../shared/components/loaders/loading-button/loading-button';
 import { Spinner } from '../../shared/components/loaders/spinner/spinner';
-import { Navbar } from '../../shared/components/navbar/navbar';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { ErrorService } from '../../core/services/error-service';
-import { StatusColorDirective } from "../../shared/directives/status-color-directive";
+import { MessageService } from '../../core/services/messageService';
+
 @Component({
   selector: 'app-dashboard',
   imports: [
@@ -34,39 +32,28 @@ import { StatusColorDirective } from "../../shared/directives/status-color-direc
     RouterLink,
     Spinner,
     DragDropModule,
-    
-],
+  ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard implements OnInit, OnDestroy {
+export class Dashboard implements OnInit {
   constructor(
     private authService: AuthService,
     private jobService: JobService,
     private router: Router,
-    private errorService: ErrorService,
-  ) {}
+    private messageService: MessageService,
+  ) { }
 
-  ngOnInit(): void {
-    this.isLoading.set(true);
-    this.subcription = this.jobService.getAllJobs().subscribe({
-      next: (data) => {
-        this.jobList.set(data);
-        this.isLoading.set(false);
-      },
-      error: (err) => {
-        this.isLoading.set(false);
-      }
-    });
-  }
-  ngOnDestroy(): void {
-    this.subcription?.unsubscribe();
-  }
-
-  private subcription: Subscription | undefined = undefined;
+  private destroyRef = inject(DestroyRef);
   protected user = JSON.parse(localStorage.getItem('user')!);
-  protected jobList = signal<Job[] | undefined>(undefined);
+  public jobList = signal<Job[] | undefined>(undefined);
   protected isLoading = signal(false);
+  public jobCategory = signal({
+    wishlist: [] as Job[],
+    applied: [] as Job[],
+    interview: [] as Job[],
+    offer: [] as Job[],
+  });
 
   protected statsBar = computed(() => {
     const jobs = this.jobList();
@@ -96,50 +83,91 @@ export class Dashboard implements OnInit, OnDestroy {
     return stats;
   });
 
-  protected jobCategory = computed(() => {
-    const jobs = this.jobList();
-    if (!jobs) return null;
-    return {
-      wishlist: jobs.filter((job) => job.status === Status.wishlist),
-      applied: jobs.filter((job) => job.status === Status.applied),
-      interview: jobs.filter((job) => job.status === Status.interview),
-      offer: jobs.filter((job) => job.status === Status.offer),
-    };
-  });
+  ngOnInit(): void {
+    this.isLoading.set(true);
+    this.jobService.getAllJobs().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      next: (data) => {
+        this.jobList.set(data);
+        this.categorizeJobs(data);
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        this.isLoading.set(false);
+      },
+    });
+  }
+
+  categorizeJobs(jobs: Job[]) {
+    this.jobCategory.set({
+      wishlist: jobs.filter((j) => j.status === Status.wishlist),
+      applied: jobs.filter((j) => j.status === Status.applied),
+      interview: jobs.filter((j) => j.status === Status.interview),
+      offer: jobs.filter((j) => j.status === Status.offer),
+    });
+  }
 
   onSearch(jobs: Job[]) {
     this.jobList.set(jobs);
+    this.categorizeJobs(jobs);
   }
 
   deleteJobFromList(id: number) {
     const currentList = this.jobList();
     if (!currentList) return;
     this.jobList.set(currentList.filter((job) => job.id !== id));
+    this.categorizeJobs(this.jobList()!);
   }
 
   drop(event: CdkDragDrop<any[]>, newStatus: string) {
     if (event.previousContainer === event.container) {
-      // reorder inside same list
       moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex,
       );
     } else {
-      // move between lists
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+      const prevContainer = event.previousContainer.data;
+      const currContainer = event.container.data;
 
-      const movedJob = event.container.data[event.currentIndex];
+      const prevIndex = event.previousIndex;
+      const currIndex = event.currentIndex;
 
-      // 🔥 update status
+      const movedJob = prevContainer[prevIndex];
+
+      const oldStatus = movedJob.status;
+
+      transferArrayItem(prevContainer, currContainer, prevIndex, currIndex);
+
       movedJob.status = newStatus;
+      this.jobList.set([...this.jobList()!]);
 
-      // this.updateJobStatus(movedJob);
+      this.jobService.updateJobStatus(movedJob.id, newStatus).pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe({
+        next: () => {
+          this.messageService.setSuccessMessage(
+            'Job status updated successfully!',
+          );
+        },
+        error: () => {
+          transferArrayItem(
+            currContainer,
+            prevContainer,
+            currIndex,
+            prevIndex,
+          );
+          this.jobList()?.forEach((job) => {
+            if (job.id === movedJob.id) {
+              job.status = oldStatus;
+            }
+          });
+          this.jobList.set([...this.jobList()!]);
+          this.categorizeJobs(this.jobList()!);
+          this.messageService.setDangerMessage('Failed to update job status');
+        },
+      });
     }
   }
 }

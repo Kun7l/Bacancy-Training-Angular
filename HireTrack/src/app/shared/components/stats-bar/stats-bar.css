@@ -1,5 +1,5 @@
 .stats-bar{
-    background-color: #cfd5c7;
+    background-color: var(--color-soft-callout);
     margin-bottom: 20px;
     border-radius: 12px;
 }
@@ -13,5 +13,10 @@
 .stats-bar .stats p{
     padding: 3px 12px;
     border-radius: 8px;
-    background-color: #ecefe8;
+    background-color: var(--color-surface-nest);
 }   
+.stats-inner-span{
+  
+    padding: 0 5px;
+    border-radius: 8px;
+}

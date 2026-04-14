@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormControl,
   FormGroup,
@@ -8,7 +9,7 @@ import {
 import { ResumeService } from '../../core/services/resume-service';
 import { FileValidator } from '../../shared/validators/fileValidator';
 import { Router } from '@angular/router';
-import { ErrorService } from '../../core/services/error-service';
+import {  MessageService } from '../../core/services/messageService';
 
 @Component({
   selector: 'app-upload-resume',
@@ -21,9 +22,10 @@ export class UploadResume {
   constructor(
     private resumeService: ResumeService,
     private router: Router,
-    private errorService: ErrorService,
+    private messageService: MessageService,
   ) {}
   isBeingUploaded = signal<boolean>(false);
+  private destroyRef = inject(DestroyRef);
 
   form = new FormGroup({
     name: new FormControl(''),
@@ -55,11 +57,13 @@ export class UploadResume {
 
     if (!file) return;
 
-    this.resumeService.uploadResume(file, name ? name : file.name).subscribe({
+    this.resumeService.uploadResume(file, name ? name : file.name).pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
       next: (data) => {
-        this.resumeService.addResume(data, file.name).subscribe({
+        this.resumeService.addResume(data, file.name).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
           next: (data) => {
-            this.errorService.setSuccessMessage(
+            this.messageService.setSuccessMessage(
               'Resume uploaded successfully.',
             );
           },

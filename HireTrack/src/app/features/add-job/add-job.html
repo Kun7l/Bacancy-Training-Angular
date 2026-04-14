@@ -16,6 +16,9 @@
             <div class="aj-field">
                 <label class="aj-label" for="company">Company</label>
                 <input class="aj-input" type="text" id="company" formControlName="company" placeholder="e.g. Google">
+                @if (addJobForm.controls.company.touched && addJobForm.controls.company.errors?.['required']) {
+                <small class="aj-error">Company is required.</small>
+                }
             </div>
 
             <!-- Role -->
@@ -23,12 +26,18 @@
                 <label class="aj-label" for="role">Role</label>
                 <input class="aj-input" type="text" id="role" formControlName="role"
                     placeholder="e.g. Frontend Developer">
+                @if (addJobForm.controls.role.touched && addJobForm.controls.role.errors?.['required']) {
+                <small class="aj-error">Role is required.</small>
+                }
             </div>
 
             <!-- Date Applied -->
             <div class="aj-field">
                 <label class="aj-label" for="date_applied">Date Applied</label>
                 <input class="aj-input" type="date" id="date_applied" formControlName="date_applied">
+                @if (addJobForm.controls.date_applied.touched && addJobForm.controls.date_applied.errors?.['futureDate']) {
+                <small class="aj-error">Date cannot be in the future.</small>
+                }
             </div>
 
             <!-- Status -->
@@ -76,8 +85,8 @@
                 <button type="button" class="aj-btn aj-btn--secondary" (click)="patchValue()">
                     Fill Form
                 </button>
-                <button type="submit" class="aj-btn aj-btn--primary" [disabled]="addJobForm.invalid || isBeingAdded">
-                    @if (isBeingAdded) {
+                <button type="submit" class="aj-btn aj-btn--primary" [disabled]="addJobForm.invalid || isBeingAdded()">
+                    @if (isBeingAdded()) {
                     <app-loading-button />
                     } @else {
                     Add Job

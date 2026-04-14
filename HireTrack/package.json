@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "node set-env.js && ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "setup:env": "node -e \"const fs = require('fs'); fs.copyFileSync('src/app/environments/environment.example.ts', 'src/app/environments/environment.ts'); console.log('Environment setup complete.')\""
   },
   "prettier": {
     "overrides": [
@@ -27,6 +28,7 @@
     "@angular/forms": "^20.0.0",
     "@angular/platform-browser": "^20.0.0",
     "@angular/router": "^20.0.0",
+    "dotenv": "^17.4.2",
     "flowbite": "^4.0.1",
     "rxjs": "~7.8.0",
     "tailwind": "^4.0.0",

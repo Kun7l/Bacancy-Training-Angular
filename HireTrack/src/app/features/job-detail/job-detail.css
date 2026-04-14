@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f8faf3;
+  background-color: var(--color-surface-base);
   padding: 24px;
 }
 
@@ -13,10 +13,10 @@
   width: 100%;
   max-width: 520px;
   background: #ffffff;
-  border: 1px solid #dde7d4;
+  border: 1px solid #cbd5e1;
   border-radius: 18px;
   padding: 28px 32px 24px;
-  box-shadow: 0 4px 24px rgba(85, 98, 77, 0.08);
+  box-shadow: 0 4px 24px rgba(30, 41, 59, 0.08);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -36,8 +36,8 @@
   gap: 4px;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #55624d;
-  background: #ecefe8;
+  color: var(--color-primary-accent);
+  background: var(--color-surface-nest);
   border: none;
   border-radius: 10px;
   padding: 6px 14px;
@@ -47,7 +47,7 @@
     gap 0.25s ease;
 }
 .jd-back-btn:hover {
-  background: #dde7d4;
+  background: #cbd5e1;
   gap: 8px;
 }
 
@@ -86,18 +86,18 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #8fa07a;
+  color: #64748b;
 }
 
 .jd-value {
   font-size: 0.95rem;
   font-weight: 500;
-  color: #3b4636;
+  color: var(--color-primary-accent);
   text-align: right;
 }
 
 .jd-link {
-  color: #55624d;
+  color: var(--color-primary-accent);
   text-decoration: underline;
   text-underline-offset: 3px;
   word-break: break-all;
@@ -110,7 +110,7 @@
 }
 
 .jd-note {
-  color: #55624d;
+  color: var(--color-primary-accent);
   font-size: 0.9rem;
   line-height: 1.55;
   text-align: left;
@@ -118,7 +118,7 @@
 
 .jd-divider {
   height: 1px;
-  background: #ecefe8;
+  background: var(--color-surface-nest);
 }
 
 /* ── Last updated ────────────────────────────────── */
@@ -152,11 +152,11 @@
 }
 
 .jd-btn--edit {
-  color: #55624d;
-  background: #ecefe8;
+  color: var(--color-primary-accent);
+  background: var(--color-surface-nest);
 }
 .jd-btn--edit:hover {
-  background: #dde7d4;
+  background: #cbd5e1;
 }
 
 .jd-btn--delete {

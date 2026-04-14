@@ -1,9 +1,8 @@
-
-const fs = require('fs');
-const path = require('path');
-
-const envFilePath = path.join(__dirname, 'src/app/environments/environment.ts');
-
+const fs = require("fs");
+const path = require("path");
+const dotenv = require('dotenv');
+const envFilePath = path.join(__dirname, "src/app/environments/environment.ts");
+dotenv.config();
 const content = `
 export const environment = {
   production: true,
@@ -13,4 +12,4 @@ export const environment = {
 `;
 
 fs.writeFileSync(envFilePath, content);
-console.log('environment.ts generated successfully');
+console.log("environment.ts generated successfully");

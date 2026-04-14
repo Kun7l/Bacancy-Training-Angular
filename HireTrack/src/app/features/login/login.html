@@ -1,22 +1,97 @@
-<form [formGroup]="loginForm" (ngSubmit)="submit()">
-    <div class="form-field">
-        <label for="email">
-            email
-        </label>
-        <input autocomplete="username" type="text" id="email" formControlName="email">
+<div class="min-h-screen flex items-center justify-center bg-[var(--color-surface-base)] px-4 py-10">
+    <div class="w-full max-w-sm flex flex-col gap-6">
+
+        <!-- Brand -->
+        <div class="flex flex-col items-center gap-1.5 text-center">
+            <span class="material-symbols-rounded text-[48px] text-[var(--color-primary-accent)]">work</span>
+            <h1 class="text-[1.75rem] font-semibold text-[var(--color-primary-accent)] tracking-tight m-0">HireTrack</h1>
+            <p class="text-sm text-[#64748b] m-0">Sign in to manage your job applications</p>
+        </div>
+
+        <!-- Card -->
+        <div class="bg-white border border-[#cbd5e1] rounded-[18px] px-8 py-8 shadow-[0_4px_24px_rgba(30,41,59,0.08)]">
+            <form [formGroup]="loginForm" (ngSubmit)="submit()" class="flex flex-col gap-5">
+
+                <!-- Email -->
+                <div class="flex flex-col gap-1.5">
+                    <label for="email" class="text-[0.74rem] font-semibold tracking-[0.06em] uppercase text-[#64748b]">
+                        Email
+                    </label>
+                    <div class="relative flex items-center">
+                        <span class="material-symbols-rounded absolute left-3 text-[20px] text-[#94a3b8] pointer-events-none">mail</span>
+                        <input
+                            autocomplete="username"
+                            type="text"
+                            id="email"
+                            formControlName="email"
+                            placeholder="you@example.com"
+                            class="w-full pl-10 pr-4 py-2.5 text-sm text-[var(--color-primary-accent)] bg-[var(--color-surface-base)] border border-[#cbd5e1] rounded-[10px] outline-none transition focus:border-[#64748b] focus:shadow-[0_0_0_3px_rgba(79,70,229,0.18)] focus:bg-white placeholder:text-[#94a3b8]"
+                        >
+                    </div>
+                    @if (loginForm.controls.email.touched && loginForm.controls.email.errors?.['required']) {
+                    <small class="text-xs text-red-600">Email is required.</small>
+                    }
+                    @if (loginForm.controls.email.touched && loginForm.controls.email.errors?.['email']) {
+                    <small class="text-xs text-red-600">Please enter a valid email address.</small>
+                    }
+                </div>
+
+                <!-- Password -->
+                <div class="flex flex-col gap-1.5">
+                    <label for="password" class="text-[0.74rem] font-semibold tracking-[0.06em] uppercase text-[#64748b]">
+                        Password
+                    </label>
+                    <div class="relative flex items-center">
+                        <span class="material-symbols-rounded absolute left-3 text-[20px] text-[#94a3b8] pointer-events-none">lock</span>
+                        <input
+                            autocomplete="current-password"
+                            type="password"
+                            id="password"
+                            formControlName="password"
+                            placeholder="••••••••"
+                            class="w-full pl-10 pr-4 py-2.5 text-sm text-[var(--color-primary-accent)] bg-[var(--color-surface-base)] border border-[#cbd5e1] rounded-[10px] outline-none transition focus:border-[#64748b] focus:shadow-[0_0_0_3px_rgba(79,70,229,0.18)] focus:bg-white placeholder:text-[#94a3b8]"
+                        >
+                    </div>
+                    @if (loginForm.controls.password.touched && loginForm.controls.password.errors?.['required']) {
+                    <small class="text-xs text-red-600">Password is required.</small>
+                    }
+                </div>
+
+                <!-- Error -->
+                @if (errorMessage()) {
+                <div class="flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 text-xs px-3 py-2.5 rounded-[10px]">
+                    <span class="material-symbols-rounded text-[17px] shrink-0">error</span>
+                    <span>{{ errorMessage() }}</span>
+                </div>
+                }
+
+                <!-- Submit -->
+                <button
+                    type="submit"
+                    [disabled]="loginForm.invalid || isBeginLoggedIn()"
+                    class="flex items-center justify-center gap-2 w-full py-2.5 px-5 text-sm font-medium text-[var(--color-surface-nest)] bg-[var(--color-primary-accent)] border-none rounded-[10px] cursor-pointer transition hover:bg-[var(--color-primary-accent)] hover:-translate-y-px disabled:opacity-45 disabled:cursor-not-allowed disabled:translate-y-0 mt-1"
+                >
+                    @if (isBeginLoggedIn()) {
+                        <app-loading-button />
+                    } @else {
+                        <span class="material-symbols-rounded text-[18px]">login</span>
+                        Sign In
+                    }
+                </button>
+
+            </form>
+        </div>
+
+        <!-- Dev helper -->
+        <div class="text-center">
+            <button
+                type="button"
+                (click)="patchValueFn()"
+                class="text-xs text-[#94a3b8] bg-transparent border-none p-0 rounded-none underline underline-offset-2 cursor-pointer transition hover:text-[var(--color-primary-accent)] hover:bg-transparent"
+            >
+                Fill demo credentials
+            </button>
+        </div>
+
     </div>
-    <div class="form-field">
-        <label for="password">
-            password
-        </label>
-        <input autocomplete="current-password" type="password" id="password" formControlName="password">
-    </div>
-    <div>
-        <button type="submit" [disabled]="loginForm.invalid || isBeginLoggedIn()"> @if (isBeginLoggedIn())
-            {<app-loading-button />}@else {Submit} </button>
-        <button type="button" (click)="patchValueFn()">Patch value</button>
-    </div>
-    <div>
-        <p class="error">{{errorMessage()}}</p>
-    </div>
-</form>
+</div>

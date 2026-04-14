@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './shared/components/navbar/navbar';
-import { ErrorService } from './core/services/error-service';
+import { MessageService } from './core/services/messageService';
 import { Toast } from "./shared/components/toast/toast";
+import { Footer } from "./shared/components/footer/footer";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Toast],
+  imports: [RouterOutlet, Toast, Footer],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
   protected title = 'HireTrack';
-  constructor(private errorService: ErrorService) {}
+  constructor(private messageService: MessageService) {}
   protected message: string | null = null;
   
 }

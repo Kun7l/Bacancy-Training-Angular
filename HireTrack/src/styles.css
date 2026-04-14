@@ -2,49 +2,69 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 
-* {
-  font-family: "Poppins", sans-serif;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+  --color-surface-base: #f8faf3;
+  --color-surface-nest: #ecefe8;
+  --color-interactive-card: #ffffff;
+  --color-primary-accent: #55624d;
+  --color-soft-callout: #755754;
+  --radius-large: 1rem;
+  --radius-xl: 1.5rem;
 }
-a {
-  text-decoration: none;
-  color: inherit;
-  transition: 0.3s ease;
+
+@layer base {
+  * {
+    font-family: "Poppins", sans-serif;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s ease;
+  }
+
+  a:hover {
+    color: var(--color-soft-callout);
+  }
+
+  button {
+    cursor: pointer;
+    color: var(--color-interactive-card);
+    background-color: var(--color-primary-accent);
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--radius-large);
+    transition: 0.3s ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    color: var(--color-primary-accent);
+  }
+
+  body {
+    background-color: var(--color-surface-base);
+    color: var(--color-primary-accent);
+  }
+
+  :disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 }
-a:hover {
-  color: #cfd5c7;
-}
+
 .error {
   color: red;
 }
-button {
-  cursor: pointer;
-  color: #55624d;
-  background-color: #ecefe8;
-  padding: 4px 12px;
-  border: none;
-  border-radius: 12px;
-  transition: 0.3s ease;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  color: #55624d;
-}
-body {
-  background-color: #f8faf3;
-  color: #55624d;
-}
+
 .primary-accent {
-  color: #55624d;
+  color: var(--color-primary-accent);
   font-weight: 500;
-}
-:disabled{
-  cursor: not-allowed;
-  opacity: 0.6;
 }

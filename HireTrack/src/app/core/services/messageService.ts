@@ -6,45 +6,12 @@ import { ToastType } from '../../shared/types/toast.type';
 @Injectable({
   providedIn: 'root',
 })
-export class ErrorService {
+export class MessageService {
   private errorMessage = new BehaviorSubject<{
     message: string;
     type: ToastType;
   } | null>(null);
   private timer: ReturnType<typeof setTimeout> | null = null;
-
-  getErrorMessage() {
-    return this.errorMessage.asObservable();
-  }
-
-  setErrorMessage(error: HttpErrorResponse) {
-    const message = this.getMessageFromError(error);
-    if (this.timer) clearTimeout(this.timer);
-    this.errorMessage.next({ message: message, type: ToastType.Error });
-    this.timer = setTimeout(() => this.errorMessage.next(null), 4000);
-  }
-
-  setSuccessMessage(message: string) {
-    if (this.timer) clearTimeout(this.timer);
-    this.errorMessage.next({ message: message, type: ToastType.Success });
-    this.timer = setTimeout(() => this.errorMessage.next(null), 4000);
-  }
-  setInfoMessage(message: string) {
-    if (this.timer) clearTimeout(this.timer);
-    this.errorMessage.next({ message: message, type: ToastType.Info });
-    this.timer = setTimeout(() => this.errorMessage.next(null), 4000);
-  }
-  setDangerMessage(message: string) {
-    if (this.timer) clearTimeout(this.timer);
-    this.errorMessage.next({ message: message, type: ToastType.Error  });
-    this.timer = setTimeout(() => this.errorMessage.next(null), 4000);
-  }
-
-  clearErrorMessage() {
-    if (this.timer) clearTimeout(this.timer);
-    this.errorMessage.next(null);
-  }
-
   private getMessageFromError(error: HttpErrorResponse): string {
     switch (true) {
       case error.status === 400:
@@ -64,5 +31,36 @@ export class ErrorService {
       default:
         return 'Something went wrong. Please try again.';
     }
+  }
+
+  getErrorMessage() {
+    return this.errorMessage.asObservable();
+  }
+
+  setErrorMessage(error: HttpErrorResponse) {
+    const message = this.getMessageFromError(error);
+    if (this.timer) clearTimeout(this.timer);
+    this.errorMessage.next({ message: message, type: ToastType.Error });
+    this.timer = setTimeout(() => this.errorMessage.next(null), 4000);
+  }
+  setSuccessMessage(message: string) {
+    if (this.timer) clearTimeout(this.timer);
+    this.errorMessage.next({ message: message, type: ToastType.Success });
+    this.timer = setTimeout(() => this.errorMessage.next(null), 4000);
+  }
+  setInfoMessage(message: string) {
+    if (this.timer) clearTimeout(this.timer);
+    this.errorMessage.next({ message: message, type: ToastType.Info });
+    this.timer = setTimeout(() => this.errorMessage.next(null), 4000);
+  }
+  setDangerMessage(message: string) {
+    if (this.timer) clearTimeout(this.timer);
+    this.errorMessage.next({ message: message, type: ToastType.Error });
+    this.timer = setTimeout(() => this.errorMessage.next(null), 4000);
+  }
+
+  clearErrorMessage() {
+    if (this.timer) clearTimeout(this.timer);
+    this.errorMessage.next(null);
   }
 }

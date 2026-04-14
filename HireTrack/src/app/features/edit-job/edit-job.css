@@ -1,16 +1,1 @@
-.edit-job-form {
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0.75rem;
-}
-
-small {
-  color: #c62828;
-}
+/* Handled via Tailwind CSS in HTML */

@@ -12,7 +12,7 @@
   left: 12px;
   width: 16px;
   height: 16px;
-  color: #8fa07a;
+  color: #64748b;
   pointer-events: none;
   flex-shrink: 0;
   transition: color 0.2s ease;
@@ -23,8 +23,8 @@
   padding: 8px 14px 8px 36px;
   font-size: 0.88rem;
   font-family: 'Poppins', sans-serif;
-  color: #3b4636;
-  background: #ecefe8;
+  color: var(--color-primary-accent);
+  background: var(--color-surface-nest);
   border: 1px solid transparent;
   border-radius: 12px;
   outline: none;
@@ -33,15 +33,15 @@
 }
 
 .sb-input::placeholder {
-  color: #b5c4a8;
+  color: #94a3b8;
 }
 
 .sb-input:focus {
   background: #ffffff;
-  border-color: #8fa07a;
-  box-shadow: 0 0 0 3px rgba(143, 160, 122, 0.18);
+  border-color: var(--color-surface-nest);
+  box-shadow: 0 0 0 3px rgb(85, 98, 77, 0.2);
 }
 
 .sb-wrapper:focus-within .sb-icon {
-  color: #55624d;
+  color: var(--color-primary-accent);
 }

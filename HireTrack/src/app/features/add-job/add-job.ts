@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormControl,
   FormGroup,
@@ -7,7 +8,6 @@ import {
 } from '@angular/forms';
 import { Status } from '../../core/models/status';
 import { ResumeService } from '../../core/services/resume-service';
-import { Subscription } from 'rxjs';
 import { Resume } from './types/resume.type';
 import { JobService } from '../../core/services/job-service';
 import { Job } from '../../core/models/job.model';
@@ -16,7 +16,7 @@ import { Router, RouterLink } from '@angular/router';
 import { BackButton } from '../../shared/components/back-button/back-button';
 import { PastDateValidator } from '../../shared/validators/pastDateValidator';
 import { LoadingButton } from '../../shared/components/loaders/loading-button/loading-button';
-import { ErrorService } from '../../core/services/error-service';
+import { MessageService } from '../../core/services/messageService';
 
 @Component({
   selector: 'app-add-job',
@@ -24,23 +24,19 @@ import { ErrorService } from '../../core/services/error-service';
   templateUrl: './add-job.html',
   styleUrl: './add-job.css',
 })
-export class AddJob implements OnInit, OnDestroy {
+export class AddJob implements OnInit {
   constructor(
     private resumeService: ResumeService,
     private jobService: JobService,
     private router: Router,
-    private errorService: ErrorService,
+    private messageService: MessageService,
   ) {}
 
+  protected isBeingAdded = signal(false);
   protected resumeList = signal<Resume[] | null>(null);
   private isSaved = false;
-  protected isBeingAdded = false;
-  subscription: Subscription | undefined = undefined;
-
-  isSavedFn(): boolean {
-    return this.isSaved;
-  }
-
+  private destroyRef = inject(DestroyRef);
+  
   defaultJob = {
     company: 'Example Company',
     role: 'Example Role',
@@ -48,23 +44,27 @@ export class AddJob implements OnInit, OnDestroy {
     job_url: 'https://example.com/job-posting',
     note: 'This is a note about the job.',
   };
-  patchValue() {
-    this.addJobForm.patchValue(this.defaultJob);
-  }
 
   ngOnInit(): void {
-    this.subscription = this.resumeService.getAllResume().subscribe({
+    this.resumeService.getAllResume().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
       next: (data) => {
         this.resumeList.set(data);
       },
       error: (err) => {
         console.error('Error fetching resumes:', err);
-        this.isBeingAdded = false;
+        this.isBeingAdded.set(false);
       },
     });
   }
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+
+  public isSavedFn(): boolean {
+    return this.isSaved;
+  }
+
+  protected patchValue() {
+    this.addJobForm.patchValue(this.defaultJob);
   }
 
   public addJobForm = new FormGroup({
@@ -88,12 +88,12 @@ export class AddJob implements OnInit, OnDestroy {
     resume_id: new FormControl(undefined),
   });
 
-  onSubmit() {
+  protected onSubmit() {
     if (this.addJobForm.invalid) {
       this.addJobForm.markAllAsTouched();
       return;
     }
-    this.isBeingAdded = true;
+    this.isBeingAdded.set(true);
     this.isSaved = true;
     const formValue = this.addJobForm.getRawValue();
     const newJob: CreateJobDto = {
@@ -109,10 +109,13 @@ export class AddJob implements OnInit, OnDestroy {
             ? new Date(formValue.date_applied)
             : new Date(),
     };
-    this.jobService.addJob(newJob).subscribe({
+    
+    this.jobService.addJob(newJob).pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
       next: (data) => {
-        this.isBeingAdded = false;
-        this.errorService.setSuccessMessage('Job added successfully!');
+        this.isBeingAdded.set(false);
+        this.messageService.setSuccessMessage('Job added successfully!');
         this.router.navigate(['dashboard']);
       },
       error: (err) => {

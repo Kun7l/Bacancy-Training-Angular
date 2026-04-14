@@ -1,6 +1,22 @@
-<div class="not-found">
-    <h1>404 - Not Found</h1>
-    <p>The page you are looking for does not exist.</p>
+<div class="min-h-screen flex items-center justify-center bg-[var(--color-surface-base)] px-4">
+    <div class="flex flex-col items-center gap-5 text-center">
 
-    <button (click)="goHome()">Go Home</button>
+        <!-- Icon -->
+        <span class="material-symbols-rounded text-[72px] text-[#d4dcca]">search_off</span>
+
+        <!-- Heading -->
+        <div class="flex flex-col gap-2">
+            <h1 class="text-6xl font-bold text-[#cbd5e1] m-0 leading-none">404</h1>
+            <p class="text-base font-medium text-[var(--color-primary-accent)] m-0">Page not found</p>
+            <p class="text-sm text-[#64748b] m-0">The page you are looking for does not exist.</p>
+        </div>
+
+        <!-- Action -->
+        <button (click)="goHome()"
+            class="flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-[var(--color-surface-nest)] bg-[var(--color-primary-accent)] border-none rounded-[10px] cursor-pointer transition hover:bg-[var(--color-primary-accent)] hover:-translate-y-px">
+            <span class="material-symbols-rounded text-[18px]">home</span>
+            Go Home
+        </button>
+
+    </div>
 </div>

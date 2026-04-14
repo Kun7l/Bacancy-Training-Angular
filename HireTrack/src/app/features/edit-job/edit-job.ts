@@ -1,11 +1,12 @@
-import { Component, effect, input, output } from '@angular/core';
+import { Component, effect, input, output, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Job } from '../../core/models/job.model';
 import { Status } from '../../core/models/status';
 import { PastDateValidator } from '../../shared/validators/pastDateValidator';
 import { CreateJobDto } from '../../core/models/create.job.dto';
 import { JobService } from '../../core/services/job-service';
-import { ErrorService } from '../../core/services/error-service';
+import { MessageService } from '../../core/services/messageService';
 
 @Component({
   selector: 'app-edit-job',
@@ -14,7 +15,7 @@ import { ErrorService } from '../../core/services/error-service';
   styleUrl: './edit-job.css',
 })
 export class EditJob {
-  constructor(private jobService: JobService,private errorService: ErrorService) {
+  constructor(private jobService: JobService,private messageService: MessageService) {
     effect(() => {
       const job = this.jobData();
       if (!job) return;
@@ -31,10 +32,11 @@ export class EditJob {
     });
   }
 
-  jobData = input<Job | null>(null);
-  jobEdited = output<Job>();
+  public jobData = input<Job | null>(null);
+  public jobEdited = output<Job>();
+  private destroyRef = inject(DestroyRef);
 
-  editJobForm = new FormGroup({
+  protected editJobForm = new FormGroup({
     company: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required],
@@ -76,14 +78,16 @@ export class EditJob {
       resume_id: formValue.resume_id ?? undefined,
     };
 
-    this.jobService.updateJob(currentJob.id, payload).subscribe({
+    this.jobService.updateJob(currentJob.id, payload).pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
       next: () => {
         this.jobEdited.emit({
           ...currentJob,
           ...payload,
           created_at: payload.date_applied ?? currentJob.created_at,
         });
-        this.errorService.setInfoMessage('Job updated successfully.');
+        this.messageService.setInfoMessage('Job updated successfully.');
       },
       error: (err) => {
         console.error('Error updating job:', err);
