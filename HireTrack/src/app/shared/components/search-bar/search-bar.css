@@ -5,6 +5,7 @@
   align-items: center;
   width: 100%;
   max-width: 360px;
+
 }
 
 .sb-icon {
@@ -19,6 +20,7 @@
 }
 
 .sb-input {
+  box-shadow: 0 2px 8px rgba(30, 41, 59, 0.2);
   width: 100%;
   padding: 8px 14px 8px 36px;
   font-size: 0.88rem;

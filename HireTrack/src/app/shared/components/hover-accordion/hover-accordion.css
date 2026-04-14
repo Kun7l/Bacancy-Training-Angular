@@ -13,11 +13,13 @@
   margin: 10px 0;
   box-shadow: 0 2px 8px rgba(30, 41, 59, 0.1);
 }
+
 .left-section {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
+
 .details p {
   margin: 10px 0;
 }
@@ -64,19 +66,27 @@
   background-color: var(--color-surface-nest);
   /* surface-dim — one step darker than surface-nest */
 }
+
 .btn-delete {
   font-size: 0.9rem;
   margin-bottom: 10px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
 }
+
 .btn-delete:hover {
   background-color: #991b1b;
   color: white !important;
+
 }
+
 .jd-divider {
   height: 1px;
   background: var(--color-surface-nest);
   margin-bottom: 5px;
 }
+
 .job-card-footer {
   text-align: center;
 }

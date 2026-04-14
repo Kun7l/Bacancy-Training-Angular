@@ -3,11 +3,14 @@
 @import "tailwindcss";
 
 :root {
-  --color-surface-base: #f8faf3;
-  --color-surface-nest: #ecefe8;
+  --color-surface-base: #f8fafc;
+  --color-surface-nest: #f1f5f9;
   --color-interactive-card: #ffffff;
-  --color-primary-accent: #55624d;
-  --color-soft-callout: #755754;
+  /* --color-primary-accent: #6E1A37;
+  --color-soft-callout: #fee2e2; */
+  --color-primary-accent: #021A54;
+  --color-secondary: #dbeafe;
+  --color-soft-callout: #1D4ED8;
   --radius-large: 1rem;
   --radius-xl: 1.5rem;
 }
@@ -46,12 +49,12 @@
   h5,
   h6,
   p {
-    color: var(--color-primary-accent);
+    color: #1e293b;
   }
 
   body {
     background-color: var(--color-surface-base);
-    color: var(--color-primary-accent);
+    color: #334155;
   }
 
   :disabled {
