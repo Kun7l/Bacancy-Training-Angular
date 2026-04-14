@@ -3,9 +3,20 @@
 **Creator:** Krunal Khairanar
 
 ## Project Details
-- **Angular Version:** v20.0.0
+- **Angular Version:** v20.0.5
 - **Supabase Project URL:** https://rvegpevpxsmfjrceuqhr.supabase.co
-- **Vercel Live URL:** https://hire-track-chi.vercel.app/
+- **Vercel Live URL:** https://hire-track-chi.vercel.app/dashboard
+
+## Setup Environment Variables
+
+Before running the application, you need to set up your environment variables. 
+You can use the built-in npm script to automatically create your environment file from the provided example:
+
+```bash
+npm run setup:env
+```
+
+This script will safely copy `environment.example.ts` to `environment.ts` in your `src/app/environments/` directory. Once created, open the `environment.ts` file and fill in your specific credentials and variables.
 
 ## How to Run locally
 
