@@ -10,7 +10,7 @@ export const supabaseKeyInterceptor: HttpInterceptorFn = (req, next) => {
   const newReq = req.clone({
     setHeaders: {
       apiKey: supabaseKey,
-      Authorization: `Bearer ${supabaseKey}`,
+      Authorization: `Bearer ${authService.getToken()}`,
     },
   });
 
